@@ -5,6 +5,10 @@ import { FilterBar } from '@/components/financiamento/FilterBar';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { Users, CalendarCheck, TestTube, Baby } from 'lucide-react';
+import { PerfilContent } from '@/components/gestantes/PerfilContent';
+import { AcompanhamentoContent } from '@/components/gestantes/AcompanhamentoContent';
+import { ExamesTestesContent } from '@/components/gestantes/ExamesTestesContent';
+import { PuerperioContent } from '@/components/gestantes/PuerperioContent';
 
 const indicadores = [
   { value: 'perfil', label: 'Perfil', shortLabel: 'P1', icon: Users },
@@ -106,9 +110,10 @@ const GestantesRelatorio: React.FC = () => {
                 </div>
               </div>
               <div className="p-6">
-                <p className="text-muted-foreground text-sm text-center">
-                  Conteúdo do indicador "{selectedData?.label}" em construção.
-                </p>
+                {selectedIndicador === 'perfil' && <PerfilContent />}
+                {selectedIndicador === 'acompanhamento' && <AcompanhamentoContent />}
+                {selectedIndicador === 'exame-testes' && <ExamesTestesContent />}
+                {selectedIndicador === 'puerperio' && <PuerperioContent />}
               </div>
             </div>
           </div>
