@@ -19,16 +19,20 @@ const DonutCard: React.FC<DonutCardProps> = ({ title, total, segments }) => (
     </CardHeader>
     <CardContent>
       <div className="flex flex-col items-center">
-        <ResponsiveContainer width="100%" height={160}>
-          <PieChart>
-            <Pie data={segments} cx="50%" cy="50%" innerRadius={45} outerRadius={65} dataKey="value" paddingAngle={2}>
-              {segments.map((s, i) => <Cell key={i} fill={s.color} />)}
-            </Pie>
-            <Tooltip formatter={(v: number) => `${v} (${((v / total) * 100).toFixed(1)}%)`} />
-          </PieChart>
-        </ResponsiveContainer>
-        <p className="text-xl font-bold -mt-4">{total}</p>
-        <p className="text-[10px] text-muted-foreground mb-2">total gestantes</p>
+        <div className="relative w-full" style={{ height: 160 }}>
+          <ResponsiveContainer width="100%" height={160}>
+            <PieChart>
+              <Pie data={segments} cx="50%" cy="50%" innerRadius={45} outerRadius={65} dataKey="value" paddingAngle={2}>
+                {segments.map((s, i) => <Cell key={i} fill={s.color} />)}
+              </Pie>
+              <Tooltip formatter={(v: number) => `${v} (${((v / total) * 100).toFixed(1)}%)`} />
+            </PieChart>
+          </ResponsiveContainer>
+          <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+            <p className="text-xl font-bold text-foreground">{total}</p>
+            <p className="text-[10px] text-muted-foreground">total gestantes</p>
+          </div>
+        </div>
         <div className="flex flex-wrap gap-3 text-[10px] text-muted-foreground">
           {segments.map((s, i) => (
             <span key={i} className="flex items-center gap-1">
