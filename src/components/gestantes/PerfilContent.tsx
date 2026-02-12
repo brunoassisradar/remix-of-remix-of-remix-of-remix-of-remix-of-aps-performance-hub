@@ -1,5 +1,5 @@
 import React from 'react';
-import { Baby } from 'lucide-react';
+import gestanteIcon from '@/assets/gestante-icon.svg';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
@@ -71,9 +71,7 @@ export const PerfilContent: React.FC = () => {
           </CardHeader>
           <CardContent>
             <div className="flex items-center gap-4">
-              <div className="flex items-center justify-center w-14 h-14 rounded-full bg-primary/10">
-                <Baby className="w-7 h-7 text-primary" />
-              </div>
+              <img src={gestanteIcon} alt="Gestante" className="w-12 h-12" />
               <div>
                 <p className="text-4xl font-bold text-foreground">{totalGestantes}</p>
                 <p className="text-sm text-muted-foreground">gestantes ativas identificadas na APS</p>
