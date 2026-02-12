@@ -11,7 +11,6 @@ import {
   HeartPulse, AlertTriangle, Baby, Users, Scale, Activity,
   Stethoscope, Syringe, ClipboardCheck, Home,
 } from 'lucide-react';
-import gestanteIcon from '@/assets/gestante-icon.svg';
 
 // Mock data
 const resumo = {
@@ -147,10 +146,10 @@ const GestantesVisaoGeral: React.FC = () => {
 
           {/* Classification cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <ClassificationCard classification="otimo" count={qualidade.otimo} countLabel="gestantes" icon={<img src={gestanteIcon} alt="" className="w-6 h-6" />} />
-            <ClassificationCard classification="bom" count={qualidade.bom} countLabel="gestantes" icon={<img src={gestanteIcon} alt="" className="w-6 h-6" />} />
-            <ClassificationCard classification="suficiente" count={qualidade.suficiente} countLabel="gestantes" icon={<img src={gestanteIcon} alt="" className="w-6 h-6" />} />
-            <ClassificationCard classification="regular" count={qualidade.regular} countLabel="gestantes" icon={<img src={gestanteIcon} alt="" className="w-6 h-6" />} />
+            <ClassificationCard classification="otimo" count={qualidade.otimo} countLabel="gestantes" icon={true} />
+            <ClassificationCard classification="bom" count={qualidade.bom} countLabel="gestantes" icon={true} />
+            <ClassificationCard classification="suficiente" count={qualidade.suficiente} countLabel="gestantes" icon={true} />
+            <ClassificationCard classification="regular" count={qualidade.regular} countLabel="gestantes" icon={true} />
           </div>
 
           {/* Gauge charts */}
