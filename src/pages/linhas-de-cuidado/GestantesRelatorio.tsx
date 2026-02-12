@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { PageHeader } from '@/components/layout/PageHeader';
 import { FilterBar } from '@/components/financiamento/FilterBar';
 import { Button } from '@/components/ui/button';
@@ -18,8 +18,10 @@ const indicadores = [
 ];
 
 const GestantesRelatorio: React.FC = () => {
+  const [searchParams] = useSearchParams();
+  const initialIndicador = searchParams.get('indicador') || 'perfil';
   const navigate = useNavigate();
-  const [selectedIndicador, setSelectedIndicador] = useState('perfil');
+  const [selectedIndicador, setSelectedIndicador] = useState(initialIndicador);
 
   const selectedData = indicadores.find(i => i.value === selectedIndicador);
 
