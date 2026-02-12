@@ -12,6 +12,9 @@ import { AppLayout } from "./components/layout/AppLayout";
 // import Login from "./pages/Login";
 import FinanciamentoAPS from "./pages/FinanciamentoAPS";
 import LinhasDeCuidado from "./pages/LinhasDeCuidado";
+import GestantesVisaoGeral from "./pages/linhas-de-cuidado/GestantesVisaoGeral";
+import GestantesRelatorio from "./pages/linhas-de-cuidado/GestantesRelatorio";
+import GestantesIndividualizado from "./pages/linhas-de-cuidado/GestantesIndividualizado";
 import QualidadeVisaoGeral from "./pages/QualidadeVisaoGeral";
 import QualidadeRelatorio from "./pages/QualidadeRelatorio";
 import QualidadeIndividualizado from "./pages/QualidadeIndividualizado";
@@ -46,6 +49,9 @@ const App = () => (
                 <Route path="/financiamento-aps/qualidade-esf-eap/relatorio" element={<QualidadeRelatorio />} />
                 <Route path="/financiamento-aps/qualidade-esf-eap/individualizado" element={<QualidadeIndividualizado />} />
                 <Route path="/linhas-de-cuidado" element={<LinhasDeCuidado />} />
+                <Route path="/linhas-de-cuidado/gestantes" element={<GestantesVisaoGeral />} />
+                <Route path="/linhas-de-cuidado/gestantes/relatorio" element={<GestantesRelatorio />} />
+                <Route path="/linhas-de-cuidado/gestantes/individualizado" element={<GestantesIndividualizado />} />
               </Route>
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
