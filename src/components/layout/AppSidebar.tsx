@@ -93,7 +93,16 @@ const menuItems: MenuItem[] = [
     children: [
       { label: 'Hipertensão', path: '#', hasActiveState: false },
       { label: 'Diabetes', path: '#', hasActiveState: false },
-      { label: 'Gestantes e Puérperas', path: '#', hasActiveState: false },
+      { 
+        label: 'Gestantes e Puérperas', 
+        path: '/linhas-de-cuidado/gestantes',
+        hasActiveState: true,
+        children: [
+          { label: 'Visão geral', path: '/linhas-de-cuidado/gestantes' },
+          { label: 'Relatório', path: '/linhas-de-cuidado/gestantes/relatorio' },
+          { label: 'Individualizado', path: '/linhas-de-cuidado/gestantes/individualizado' },
+        ]
+      },
       { label: 'Idosos', path: '#', hasActiveState: false },
       { label: 'Saúde mental', path: '#', hasActiveState: false },
     ],
@@ -140,6 +149,12 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
       return currentTab === item.tabKey;
     }
     
+    // For items without tabKey, check if the current path starts with the item's base path
+    if (!item.tabKey && item.path) {
+      const basePath = item.path.split('?')[0];
+      return location.pathname.startsWith(basePath);
+    }
+    
     return false;
   };
 
@@ -148,7 +163,7 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
     const pathParams = new URLSearchParams(queryString);
     const pathTab = pathParams.get('tab');
     
-    // Check if pathname matches AND if the tab parameter matches
+    // Check if pathname matches
     if (location.pathname !== basePath) return false;
     
     // If the path has a tab parameter, it must match the current tab
@@ -157,6 +172,7 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
     // If parent has a tabKey, current tab must match it
     if (parentTabKey && parentTabKey !== currentTab) return false;
     
+    // If no tab params involved, just pathname match is enough
     return true;
   };
 
