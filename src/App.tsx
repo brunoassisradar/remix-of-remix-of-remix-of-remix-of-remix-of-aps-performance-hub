@@ -11,6 +11,7 @@ import ptBR from "antd/locale/pt_BR";
 import { AppLayout } from "./components/layout/AppLayout";
 // import Login from "./pages/Login";
 import FinanciamentoAPS from "./pages/FinanciamentoAPS";
+import LinhasDeCuidado from "./pages/LinhasDeCuidado";
 import QualidadeVisaoGeral from "./pages/QualidadeVisaoGeral";
 import QualidadeRelatorio from "./pages/QualidadeRelatorio";
 import QualidadeIndividualizado from "./pages/QualidadeIndividualizado";
@@ -39,17 +40,12 @@ const App = () => (
               {/* TEMPORARIAMENTE DESABILITADO - Rota de login */}
               {/* <Route path="/login" element={<Login />} /> */}
               <Route path="/" element={<Navigate to="/financiamento-aps" replace />} />
-              {/* TEMPORARIAMENTE DESABILITADO - ProtectedRoute wrapper */}
-              {/* <Route element={
-                <ProtectedRoute>
-                  <AppLayout />
-                </ProtectedRoute>
-              }> */}
               <Route element={<AppLayout />}>
                 <Route path="/financiamento-aps" element={<FinanciamentoAPS />} />
                 <Route path="/financiamento-aps/qualidade-esf-eap" element={<QualidadeVisaoGeral />} />
                 <Route path="/financiamento-aps/qualidade-esf-eap/relatorio" element={<QualidadeRelatorio />} />
                 <Route path="/financiamento-aps/qualidade-esf-eap/individualizado" element={<QualidadeIndividualizado />} />
+                <Route path="/linhas-de-cuidado" element={<LinhasDeCuidado />} />
               </Route>
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
