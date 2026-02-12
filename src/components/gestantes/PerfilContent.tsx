@@ -165,26 +165,30 @@ export const PerfilContent: React.FC = () => {
           </CardHeader>
           <CardContent>
             <div className="flex flex-col items-center">
-              <ResponsiveContainer width="100%" height={220}>
-                <PieChart>
-                  <Pie
-                    data={planejamentoData}
-                    cx="50%"
-                    cy="50%"
-                    innerRadius={60}
-                    outerRadius={90}
-                    dataKey="value"
-                    paddingAngle={2}
-                  >
-                    {planejamentoData.map((entry, i) => (
-                      <Cell key={i} fill={entry.color} />
-                    ))}
-                  </Pie>
-                  <Tooltip formatter={(value: number) => `${value} (${((value / totalGestantes) * 100).toFixed(1)}%)`} />
-                </PieChart>
-              </ResponsiveContainer>
-              <p className="text-2xl font-bold text-foreground -mt-6 mb-2">{totalGestantes}</p>
-              <p className="text-xs text-muted-foreground mb-3">gestantes</p>
+              <div className="relative w-full" style={{ height: 220 }}>
+                <ResponsiveContainer width="100%" height={220}>
+                  <PieChart>
+                    <Pie
+                      data={planejamentoData}
+                      cx="50%"
+                      cy="50%"
+                      innerRadius={60}
+                      outerRadius={90}
+                      dataKey="value"
+                      paddingAngle={2}
+                    >
+                      {planejamentoData.map((entry, i) => (
+                        <Cell key={i} fill={entry.color} />
+                      ))}
+                    </Pie>
+                    <Tooltip formatter={(value: number) => `${value} (${((value / totalGestantes) * 100).toFixed(1)}%)`} />
+                  </PieChart>
+                </ResponsiveContainer>
+                <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                  <p className="text-2xl font-bold text-foreground">{totalGestantes}</p>
+                  <p className="text-xs text-muted-foreground">gestantes</p>
+                </div>
+              </div>
               <div className="flex flex-wrap gap-4 text-xs text-muted-foreground">
                 {planejamentoData.map((d, i) => (
                   <span key={i} className="flex items-center gap-1.5">
