@@ -56,9 +56,9 @@ const GestantesVisaoGeral: React.FC = () => {
       variant="outline"
       size="sm"
       className="border-primary text-primary hover:bg-primary/5"
-      onClick={() => navigate('/linhas-de-cuidado/gestantes/relatorio')}
+      onClick={() => navigate('/linhas-de-cuidado/gestantes/individualizado')}
     >
-      Relatório detalhado
+      Busca ativa
     </Button>
   );
 
@@ -78,10 +78,10 @@ const GestantesVisaoGeral: React.FC = () => {
         <FilterBar />
 
         {/* ── Seção 1: Resumo de gestações ── */}
-        <Card className="border-l-4 border-l-primary">
+        <Card>
           <CardContent className="p-6">
             <div className="flex items-start gap-4">
-              <div className="flex items-center justify-center w-14 h-14 rounded-xl bg-primary/10 shrink-0">
+              <div className="flex items-center justify-center w-14 h-14 rounded-xl bg-muted shrink-0">
                 <img src={gestanteIcon} alt="Gestante" className="w-8 h-8" />
               </div>
               <div className="flex-1 space-y-3">
@@ -102,14 +102,14 @@ const GestantesVisaoGeral: React.FC = () => {
 
                 <div className="flex flex-wrap gap-3 pt-1">
                   <div className="flex items-center gap-2 rounded-lg bg-muted px-3 py-2">
-                    <Users className="w-4 h-4 text-primary" />
+                    <Users className="w-4 h-4 text-muted-foreground" />
                     <div>
                       <p className="text-xs text-muted-foreground">Total gestantes</p>
                       <p className="text-base font-bold text-foreground">{resumo.totalGestantes}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2 rounded-lg bg-muted px-3 py-2">
-                    <Baby className="w-4 h-4 text-primary" />
+                    <Baby className="w-4 h-4 text-muted-foreground" />
                     <div>
                       <p className="text-xs text-muted-foreground">Parir em 30 dias</p>
                       <p className="text-base font-bold text-foreground">{resumo.parirProx30Dias}</p>
@@ -147,10 +147,10 @@ const GestantesVisaoGeral: React.FC = () => {
 
           {/* Classification cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <ClassificationCard classification="otimo" count={qualidade.otimo} description="Ótimo: > 50 e ≤ 70" />
-            <ClassificationCard classification="bom" count={qualidade.bom} description="Bom: > 30 e ≤ 50" />
-            <ClassificationCard classification="suficiente" count={qualidade.suficiente} description="Suficiente: > 10 e ≤ 30" />
-            <ClassificationCard classification="regular" count={qualidade.regular} description="Regular: ≤ 10 ou > 70" />
+            <ClassificationCard classification="otimo" count={qualidade.otimo} countLabel="gestantes" icon={<img src={gestanteIcon} alt="" className="w-6 h-6" />} />
+            <ClassificationCard classification="bom" count={qualidade.bom} countLabel="gestantes" icon={<img src={gestanteIcon} alt="" className="w-6 h-6" />} />
+            <ClassificationCard classification="suficiente" count={qualidade.suficiente} countLabel="gestantes" icon={<img src={gestanteIcon} alt="" className="w-6 h-6" />} />
+            <ClassificationCard classification="regular" count={qualidade.regular} countLabel="gestantes" icon={<img src={gestanteIcon} alt="" className="w-6 h-6" />} />
           </div>
 
           {/* Gauge charts */}
@@ -166,25 +166,21 @@ const GestantesVisaoGeral: React.FC = () => {
                   label="Consultas"
                   done={qualidade.consultas.feitas}
                   total={qualidade.consultas.total}
-                  color="hsl(var(--status-otimo))"
                 />
                 <GaugeChart
                   label="Procedimentos"
                   done={qualidade.procedimentos.feitas}
                   total={qualidade.procedimentos.total}
-                  color="hsl(var(--status-bom))"
                 />
                 <GaugeChart
                   label="Vacinas"
                   done={qualidade.vacinas.feitas}
                   total={qualidade.vacinas.total}
-                  color="hsl(var(--status-suficiente))"
                 />
                 <GaugeChart
                   label="Visitas"
                   done={qualidade.visitas.feitas}
                   total={qualidade.visitas.total}
-                  color="hsl(var(--primary))"
                 />
               </div>
             </CardContent>

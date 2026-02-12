@@ -1,5 +1,4 @@
 import React from 'react';
-import { Smile, Meh, Frown, AlertCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 type Classification = 'otimo' | 'bom' | 'suficiente' | 'regular';
@@ -7,33 +6,32 @@ type Classification = 'otimo' | 'bom' | 'suficiente' | 'regular';
 interface ClassificationCardProps {
   classification: Classification;
   count: number;
-  description: string;
+  description?: string;
+  label?: string;
+  countLabel?: string;
+  icon?: React.ReactNode;
 }
 
 const classificationConfig = {
   otimo: {
     label: 'Classificadas como Ótimo',
-    icon: Smile,
-    bgClass: 'bg-card border-l-4 border-l-[#3C8DBC]',
-    iconClass: 'text-[#3C8DBC]',
+    bgClass: 'bg-card border-l-4 border-l-[hsl(var(--status-otimo))]',
+    iconClass: 'text-[hsl(var(--status-otimo))]',
   },
   bom: {
     label: 'Classificadas como Bom',
-    icon: Meh,
-    bgClass: 'bg-card border-l-4 border-l-[#00A65A]',
-    iconClass: 'text-[#00A65A]',
+    bgClass: 'bg-card border-l-4 border-l-[hsl(var(--status-bom))]',
+    iconClass: 'text-[hsl(var(--status-bom))]',
   },
   suficiente: {
     label: 'Classificadas como Suficiente',
-    icon: Meh,
-    bgClass: 'bg-card border-l-4 border-l-[#F0AD4E]',
-    iconClass: 'text-[#F0AD4E]',
+    bgClass: 'bg-card border-l-4 border-l-[hsl(var(--status-suficiente))]',
+    iconClass: 'text-[hsl(var(--status-suficiente))]',
   },
   regular: {
     label: 'Classificadas como Regular',
-    icon: Frown,
-    bgClass: 'bg-card border-l-4 border-l-[#DD4B39]',
-    iconClass: 'text-[#DD4B39]',
+    bgClass: 'bg-card border-l-4 border-l-[hsl(var(--status-regular))]',
+    iconClass: 'text-[hsl(var(--status-regular))]',
   },
 };
 
@@ -41,20 +39,26 @@ export const ClassificationCard: React.FC<ClassificationCardProps> = ({
   classification,
   count,
   description,
+  label,
+  countLabel,
+  icon,
 }) => {
   const config = classificationConfig[classification];
-  const Icon = config.icon;
 
   return (
     <div className={cn('rounded-lg p-4 shadow-sm', config.bgClass)}>
       <div className="flex items-start gap-3">
-        <Icon className={cn('h-6 w-6 mt-0.5', config.iconClass)} />
+        {icon ? (
+          <div className={cn('mt-0.5', config.iconClass)}>{icon}</div>
+        ) : null}
         <div className="flex-1">
-          <p className="text-sm text-muted-foreground">{config.label}</p>
-          <p className="text-xl font-semibold text-foreground">{count} Equipes</p>
-          <div className="mt-2 pt-2 border-t border-border">
-            <p className="text-xs text-muted-foreground">{description}</p>
-          </div>
+          <p className="text-sm text-muted-foreground">{label || config.label}</p>
+          <p className="text-xl font-semibold text-foreground">{count} {countLabel || 'Equipes'}</p>
+          {description && (
+            <div className="mt-2 pt-2 border-t border-border">
+              <p className="text-xs text-muted-foreground">{description}</p>
+            </div>
+          )}
         </div>
       </div>
     </div>
