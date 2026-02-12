@@ -102,6 +102,14 @@ const GestantesVisaoGeral: React.FC = () => {
                       <span className="font-semibold text-primary">{resumo.parirProx30Dias}</span>{' '}
                       têm probabilidade de parir nos próximos 30 dias.
                     </p>
+                    <div className="flex items-center gap-3 mt-2">
+                      <span className="inline-flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full bg-muted/60 text-muted-foreground">
+                        <span className="font-semibold text-foreground">{resumo.percentMenores18}%</span> com menos de 18 anos
+                      </span>
+                      <span className="inline-flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full bg-muted/60 text-muted-foreground">
+                        <span className="font-semibold text-foreground">{resumo.percentMaiores40}%</span> com mais de 40 anos
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -138,12 +146,6 @@ const GestantesVisaoGeral: React.FC = () => {
                 </div>
               </div>
 
-              {/* Age detail footer */}
-              <div className="px-6 py-3 bg-muted/30 border-t border-border">
-                <p className="text-xs text-muted-foreground text-center">
-                  {resumo.percentMenores18}% com menos de 18 anos · {resumo.percentMaiores40}% com mais de 40 anos
-                </p>
-              </div>
             </CardContent>
           </Card>
         </section>
