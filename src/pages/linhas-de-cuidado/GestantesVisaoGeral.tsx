@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import gestanteIcon from '@/assets/gestante-icon.svg';
 import { PageHeader } from '@/components/layout/PageHeader';
 import { FilterBar } from '@/components/financiamento/FilterBar';
 import { ClassificationCard } from '@/components/financiamento/ClassificationCard';
