@@ -71,12 +71,6 @@ const GestantesRelatorio: React.FC = () => {
                           : "text-muted-foreground hover:text-foreground border-l-[3px] border-transparent"
                       )}
                     >
-                      <span className={cn(
-                        "flex items-center justify-center w-8 h-8 rounded-md text-sm font-semibold shrink-0 transition-colors",
-                        isSelected ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"
-                      )}>
-                        {ind.shortLabel}
-                      </span>
                       <div className="min-w-0 flex-1">
                         <p className={cn("text-sm font-medium truncate", isSelected ? "text-foreground" : "")}>
                           {ind.label}
