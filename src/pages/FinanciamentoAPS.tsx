@@ -33,7 +33,7 @@ const FinanciamentoAPS: React.FC = () => {
       <PageHeader
         title="Financiamento APS"
         breadcrumbs={[
-          { label: 'Financiamento APS' },
+          { label: 'Financiamento APS', path: '/financiamento-aps' },
         ]}
       />
 

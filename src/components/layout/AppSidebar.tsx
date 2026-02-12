@@ -47,8 +47,9 @@ const menuItems: MenuItem[] = [
   {
     label: 'Financiamento APS',
     icon: Wallet,
+    path: '/financiamento-aps',
     children: [
-      { label: 'Resumo', path: '/financiamento-aps', hasActiveState: false },
+      { label: 'Resumo', path: '#', hasActiveState: false },
       { 
         label: 'Vínculo e Acompanhamento', 
         path: '/financiamento-aps/qualidade-esf-eap?tab=vinculo',
@@ -85,7 +86,18 @@ const menuItems: MenuItem[] = [
       { label: 'Qualidade eMulti', path: '#', hasActiveState: true },
     ],
   },
-  { label: 'Linhas de cuidado', icon: Heart, path: '#' },
+  {
+    label: 'Linhas de cuidado',
+    icon: Heart,
+    path: '/linhas-de-cuidado',
+    children: [
+      { label: 'Hipertensão', path: '#', hasActiveState: false },
+      { label: 'Diabetes', path: '#', hasActiveState: false },
+      { label: 'Gestantes e Puérperas', path: '#', hasActiveState: false },
+      { label: 'Idosos', path: '#', hasActiveState: false },
+      { label: 'Saúde mental', path: '#', hasActiveState: false },
+    ],
+  },
   { label: 'Planejamento ass...', icon: ClipboardList, path: '#' },
   { label: 'Situação cadastral', icon: FileText, path: '#' },
   { label: 'Inconsistências', icon: AlertCircle, path: '#' },
@@ -149,11 +161,14 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
   };
 
   const isInFinanciamentoSection = location.pathname.startsWith('/financiamento-aps');
+  const isInLinhasDeCuidadoSection = location.pathname.startsWith('/linhas-de-cuidado');
 
   const isParentActive = (item: MenuItem) => {
     if (!item.children) return false;
-    // Check if we're in the Financiamento APS section (including the resume page)
     if (item.label === 'Financiamento APS' && isInFinanciamentoSection) {
+      return true;
+    }
+    if (item.label === 'Linhas de cuidado' && isInLinhasDeCuidadoSection) {
       return true;
     }
     return item.children.some((child) => isSecondaryActive(child));
@@ -173,8 +188,14 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
             <li key={item.label}>
               {item.children ? (
                 <div>
-                  <button
-                    onClick={() => toggleExpanded(item.label)}
+                  <NavLink
+                    to={item.path || '#'}
+                    onClick={(e) => {
+                      toggleExpanded(item.label);
+                      if (!item.path || item.path === '#') {
+                        e.preventDefault();
+                      }
+                    }}
                     className={cn(
                       'flex w-full items-center justify-between rounded-md px-3 py-2.5 text-sm font-medium transition-colors',
                       isParentActive(item)
@@ -193,7 +214,7 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
                         <ChevronRight className="h-4 w-4" />
                       )
                     )}
-                  </button>
+                  </NavLink>
                   {!collapsed && expandedItems.includes(item.label) && (
                     <ul className="ml-8 mt-1 space-y-1">
                       {item.children.map((child) => (
