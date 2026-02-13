@@ -33,7 +33,7 @@ const DonutCard: React.FC<DonutCardProps> = ({ title, total, segments }) => (
             <p className="text-[10px] text-muted-foreground">total gestantes</p>
           </div>
         </div>
-        <div className="flex flex-wrap gap-3 text-[10px] text-muted-foreground">
+        <div className="flex flex-wrap gap-3 text-[13px] text-muted-foreground">
           {segments.map((s, i) => (
             <span key={i} className="flex items-center gap-1">
               <span className="w-2.5 h-2.5 rounded-full" style={{ background: s.color }} />

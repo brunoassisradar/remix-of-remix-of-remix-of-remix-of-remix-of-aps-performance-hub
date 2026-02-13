@@ -23,7 +23,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({ title, icon, linkT
       {linkTo && (
         <button
           onClick={() => navigate(linkTo)}
-          className="flex items-center gap-1 text-xs font-medium text-primary hover:text-primary/80 transition-colors"
+          className="flex items-center gap-1 text-[13px] font-medium text-primary hover:text-primary/80 transition-colors"
         >
           {linkLabel}
           <ChevronRight className="w-3.5 h-3.5" />

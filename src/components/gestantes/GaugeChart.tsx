@@ -52,8 +52,8 @@ export const GaugeChart: React.FC<GaugeChartProps> = ({ label, done, total, colo
           {percentage}%
         </text>
       </svg>
-      <p className="text-xs font-medium text-foreground text-center">{label}</p>
-      <div className="flex items-center gap-3 text-[10px] text-muted-foreground">
+      <p className="text-[13px] font-medium text-foreground text-center">{label}</p>
+      <div className="flex items-center gap-3 text-[13px] text-muted-foreground">
         <span className="flex items-center gap-1">
           <span className="w-2 h-2 rounded-full" style={{ background: color }} />
           {done} realizadas

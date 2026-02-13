@@ -124,10 +124,10 @@ const GestantesVisaoGeral: React.FC = () => {
                       têm probabilidade de parir nos próximos 30 dias.
                     </p>
                     <div className="flex items-center gap-3 mt-2">
-                      <span className="inline-flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full bg-muted/60 text-muted-foreground">
+                       <span className="inline-flex items-center gap-1.5 text-[13px] px-2.5 py-1 rounded-full bg-muted/60 text-muted-foreground">
                         <span className="font-semibold text-foreground">{resumo.percentMenores18}%</span> com menos de 18 anos
                       </span>
-                      <span className="inline-flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full bg-muted/60 text-muted-foreground">
+                      <span className="inline-flex items-center gap-1.5 text-[13px] px-2.5 py-1 rounded-full bg-muted/60 text-muted-foreground">
                         <span className="font-semibold text-foreground">{resumo.percentMaiores40}%</span> com mais de 40 anos
                       </span>
                     </div>
@@ -140,28 +140,28 @@ const GestantesVisaoGeral: React.FC = () => {
                 <div className="px-5 py-4 text-center">
                   <div className="flex items-center justify-center gap-2 mb-1">
                     <Users className="w-4 h-4 text-muted-foreground" />
-                    <p className="text-xs text-muted-foreground">Total gestantes</p>
+                    <p className="text-[13px] text-muted-foreground">Total gestantes</p>
                   </div>
                   <p className="text-2xl font-bold text-foreground">{resumo.totalGestantes}</p>
                 </div>
                 <div className="px-5 py-4 text-center">
                   <div className="flex items-center justify-center gap-2 mb-1">
                     <Baby className="w-4 h-4 text-muted-foreground" />
-                    <p className="text-xs text-muted-foreground">Parir em 30 dias</p>
+                    <p className="text-[13px] text-muted-foreground">Parir em 30 dias</p>
                   </div>
                   <p className="text-2xl font-bold text-primary">{resumo.parirProx30Dias}</p>
                 </div>
                 <div className="px-5 py-4 text-center bg-[hsl(var(--status-regular-bg))]">
                   <div className="flex items-center justify-center gap-2 mb-1">
                     <AlertTriangle className="w-4 h-4 text-[hsl(var(--status-regular))]" />
-                    <p className="text-xs text-muted-foreground">Risco alto</p>
+                    <p className="text-[13px] text-muted-foreground">Risco alto</p>
                   </div>
                   <p className="text-2xl font-bold text-[hsl(var(--status-regular))]">{resumo.riscoAlto}</p>
                 </div>
                 <div className="px-5 py-4 text-center bg-[hsl(var(--status-suficiente-bg))]">
                   <div className="flex items-center justify-center gap-2 mb-1">
                     <HeartPulse className="w-4 h-4 text-[hsl(var(--status-suficiente))]" />
-                    <p className="text-xs text-muted-foreground">Risco intermediário</p>
+                    <p className="text-[13px] text-muted-foreground">Risco intermediário</p>
                   </div>
                   <p className="text-2xl font-bold text-[hsl(var(--status-suficiente))]">{resumo.riscoIntermediario}</p>
                 </div>
@@ -233,9 +233,9 @@ const GestantesVisaoGeral: React.FC = () => {
                     <Scale className="w-5 h-5 text-[hsl(var(--status-suficiente))]" />
                   </div>
                   <div className="flex-1">
-                    <p className="text-xs text-muted-foreground">Estado nutricional</p>
+                    <p className="text-[13px] text-muted-foreground">Estado nutricional</p>
                     <p className="text-2xl font-bold text-[hsl(var(--status-suficiente))]">{nutricional.sobrepesoObesidade}%</p>
-                    <p className="text-xs text-muted-foreground mt-1">
+                    <p className="text-[13px] text-muted-foreground mt-1">
                       com sobrepeso ou obesidade ({nutricional.sobrepesoObesidadeN} gestantes)
                     </p>
                   </div>
@@ -253,9 +253,9 @@ const GestantesVisaoGeral: React.FC = () => {
                     <AlertTriangle className="w-5 h-5 text-[hsl(var(--status-regular))]" />
                   </div>
                   <div className="flex-1">
-                    <p className="text-xs text-muted-foreground">Ganho ponderal excessivo</p>
+                    <p className="text-[13px] text-muted-foreground">Ganho ponderal excessivo</p>
                     <p className="text-2xl font-bold text-[hsl(var(--status-regular))]">{nutricional.ganhoPonderalExcessivo}</p>
-                    <p className="text-xs text-muted-foreground mt-1">
+                    <p className="text-[13px] text-muted-foreground mt-1">
                       gestantes com ganho ponderal {'>'} P90
                     </p>
                   </div>
@@ -283,13 +283,13 @@ const GestantesVisaoGeral: React.FC = () => {
                   <Stethoscope className="w-5 h-5 text-primary" />
                 </div>
                 <div className="flex-1">
-                  <p className="text-xs text-muted-foreground">Total de puérperas</p>
+                  <p className="text-[13px] text-muted-foreground">Total de puérperas</p>
                   <p className="text-2xl font-bold text-foreground">{puerperio.totalPuerperas}</p>
                   <div className="flex items-center gap-1.5 mt-1">
-                    <span className="text-xs font-semibold text-[hsl(var(--status-regular))]">
+                    <span className="text-[13px] font-semibold text-[hsl(var(--status-regular))]">
                       {puerperio.semConsultaPercent}%
                     </span>
-                    <span className="text-xs text-muted-foreground">
+                    <span className="text-[13px] text-muted-foreground">
                       sem consulta puerperal ({puerperio.semConsultaN})
                     </span>
                   </div>
