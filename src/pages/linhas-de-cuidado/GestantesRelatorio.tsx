@@ -32,7 +32,7 @@ const GestantesRelatorio: React.FC = () => {
       className="border-primary text-primary hover:bg-primary/5"
       onClick={() => navigate('/linhas-de-cuidado/gestantes/individualizado')}
     >
-      Individualizado
+      Busca ativa
     </Button>
   );
 
