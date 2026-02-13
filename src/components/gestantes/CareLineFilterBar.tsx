@@ -36,62 +36,47 @@ export const CareLineFilterBar: React.FC<CareLineFilterBarProps> = ({
   onClear,
 }) => {
   return (
-    <div className="rounded-lg bg-card p-4 shadow-sm space-y-4">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="flex flex-col gap-1.5">
-          <label className="text-sm font-medium text-foreground">Período</label>
-          <Select
-            defaultValue="30d"
-            style={{ width: '100%' }}
-            options={[
-              { value: '30d', label: 'Últimos 30 dias' },
-              { value: '2m', label: 'Últimos 2 meses' },
-              { value: '3m', label: 'Últimos 3 meses' },
-              { value: '4m', label: 'Últimos 4 meses' },
-              { value: '1a', label: 'Último ano' },
-            ]}
-          />
-        </div>
+     <div className="rounded-lg bg-card p-4 shadow-sm space-y-4">
+       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+         <div className="flex flex-col gap-1.5">
+           <label className="text-sm font-medium text-foreground">Regional de saúde</label>
+           <Select
+             placeholder="Selecione a regional"
+             style={{ width: '100%' }}
+             allowClear
+             showSearch
+             optionFilterProp="label"
+             options={regionais}
+           />
+         </div>
 
-        <div className="flex flex-col gap-1.5">
-          <label className="text-sm font-medium text-foreground">Regional de saúde</label>
-          <Select
-            placeholder="Selecione a regional"
-            style={{ width: '100%' }}
-            allowClear
-            showSearch
-            optionFilterProp="label"
-            options={regionais}
-          />
-        </div>
+         <div className="flex flex-col gap-1.5">
+           <label className="text-sm font-medium text-foreground">Tipo de equipe</label>
+           <Select
+             placeholder="Tipo de equipe"
+             style={{ width: '100%' }}
+             options={[
+               { value: 'esf', label: 'eSF' },
+               { value: 'eap', label: 'eAP' },
+             ]}
+           />
+         </div>
 
-        <div className="flex flex-col gap-1.5">
-          <label className="text-sm font-medium text-foreground">Tipo de equipe</label>
-          <Select
-            placeholder="Tipo de equipe"
-            style={{ width: '100%' }}
-            options={[
-              { value: 'esf', label: 'eSF' },
-              { value: 'eap', label: 'eAP' },
-            ]}
-          />
-        </div>
-
-        <div className="flex flex-col gap-1.5">
-          <label className="text-sm font-medium text-foreground">Unidade</label>
-          <Select
-            mode="multiple"
-            placeholder="Selecione uma ou mais unidade"
-            style={{ width: '100%' }}
-            maxTagCount={2}
-            options={[
-              { value: 'ubs1', label: 'UBS Centro' },
-              { value: 'ubs2', label: 'UBS Norte' },
-              { value: 'ubs3', label: 'UBS Sul' },
-            ]}
-          />
-        </div>
-      </div>
+         <div className="flex flex-col gap-1.5">
+           <label className="text-sm font-medium text-foreground">Unidade</label>
+           <Select
+             mode="multiple"
+             placeholder="Selecione uma ou mais unidade"
+             style={{ width: '100%' }}
+             maxTagCount={2}
+             options={[
+               { value: 'ubs1', label: 'UBS Centro' },
+               { value: 'ubs2', label: 'UBS Norte' },
+               { value: 'ubs3', label: 'UBS Sul' },
+             ]}
+           />
+         </div>
+       </div>
 
       <div className="flex items-center justify-end">
         <div className="flex items-center gap-2">
