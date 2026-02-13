@@ -19,6 +19,7 @@ import QualidadeVisaoGeral from "./pages/QualidadeVisaoGeral";
 import QualidadeRelatorio from "./pages/QualidadeRelatorio";
 import QualidadeIndividualizado from "./pages/QualidadeIndividualizado";
 import NotFound from "./pages/NotFound";
+import SalaDeSituacao from "./pages/SalaDeSituacao";
 
 const queryClient = new QueryClient();
 
@@ -42,8 +43,9 @@ const App = () => (
             <Routes>
               {/* TEMPORARIAMENTE DESABILITADO - Rota de login */}
               {/* <Route path="/login" element={<Login />} /> */}
-              <Route path="/" element={<Navigate to="/financiamento-aps" replace />} />
+              <Route path="/" element={<Navigate to="/sala-de-situacao" replace />} />
               <Route element={<AppLayout />}>
+                <Route path="/sala-de-situacao" element={<SalaDeSituacao />} />
                 <Route path="/financiamento-aps" element={<FinanciamentoAPS />} />
                 <Route path="/financiamento-aps/qualidade-esf-eap" element={<QualidadeVisaoGeral />} />
                 <Route path="/financiamento-aps/qualidade-esf-eap/relatorio" element={<QualidadeRelatorio />} />
