@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { PageHeader } from '@/components/layout/PageHeader';
-import { FilterBar } from '@/components/financiamento/FilterBar';
+import { CareLineFilterBar } from '@/components/gestantes/CareLineFilterBar';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { Users, CalendarCheck, TestTube, Baby } from 'lucide-react';
@@ -49,7 +49,7 @@ const GestantesRelatorio: React.FC = () => {
       />
 
       <div className="space-y-6">
-        <FilterBar />
+        <CareLineFilterBar />
 
         <div className="flex flex-col lg:flex-row gap-6">
           {/* Sidebar de Indicadores */}

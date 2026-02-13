@@ -1,9 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import gestanteIcon from '@/assets/gestante-icon.svg';
 import gestantePerfilIcon from '@/assets/gestante-perfil-icon.png';
 import { PageHeader } from '@/components/layout/PageHeader';
-import { FilterBar } from '@/components/financiamento/FilterBar';
+import { CareLineFilterBar } from '@/components/gestantes/CareLineFilterBar';
 import { ClassificationCard } from '@/components/financiamento/ClassificationCard';
 import { GaugeChart } from '@/components/gestantes/GaugeChart';
 import { SectionHeader } from '@/components/gestantes/SectionHeader';
@@ -49,6 +48,24 @@ const puerperio = {
   semConsultaN: 8,
 };
 
+/** Helper: clickable data value that navigates to the report */
+const ClickableValue: React.FC<{
+  children: React.ReactNode;
+  indicador: string;
+  className?: string;
+  navigate: ReturnType<typeof useNavigate>;
+}> = ({ children, indicador, className = '', navigate }) => (
+  <span
+    role="button"
+    tabIndex={0}
+    className={`cursor-pointer hover:underline decoration-1 underline-offset-2 transition-colors ${className}`}
+    onClick={() => navigate(`/linhas-de-cuidado/gestantes/relatorio?indicador=${indicador}`)}
+    onKeyDown={(e) => e.key === 'Enter' && navigate(`/linhas-de-cuidado/gestantes/relatorio?indicador=${indicador}`)}
+  >
+    {children}
+  </span>
+);
+
 const GestantesVisaoGeral: React.FC = () => {
   const navigate = useNavigate();
 
@@ -76,7 +93,7 @@ const GestantesVisaoGeral: React.FC = () => {
       />
 
       <div className="space-y-8">
-        <FilterBar />
+        <CareLineFilterBar />
 
         {/* ═══════════ PERFIL ═══════════ */}
         <section className="space-y-4">
@@ -86,7 +103,10 @@ const GestantesVisaoGeral: React.FC = () => {
             linkTo="/linhas-de-cuidado/gestantes/relatorio?indicador=perfil"
           />
 
-          <Card className="overflow-hidden">
+          <Card
+            className="overflow-hidden cursor-pointer hover:shadow-md transition-shadow"
+            onClick={() => navigate('/linhas-de-cuidado/gestantes/relatorio?indicador=perfil')}
+          >
             <CardContent className="p-0">
               {/* Hero strip */}
               <div className="px-6 py-5 bg-gradient-to-r from-primary/5 via-transparent to-transparent">
@@ -146,7 +166,6 @@ const GestantesVisaoGeral: React.FC = () => {
                   <p className="text-2xl font-bold text-[hsl(var(--status-suficiente))]">{resumo.riscoIntermediario}</p>
                 </div>
               </div>
-
             </CardContent>
           </Card>
         </section>
@@ -160,7 +179,10 @@ const GestantesVisaoGeral: React.FC = () => {
           />
 
           {/* Qualidade do pré-natal */}
-          <Card className="overflow-hidden">
+          <Card
+            className="overflow-hidden cursor-pointer hover:shadow-md transition-shadow"
+            onClick={() => navigate('/linhas-de-cuidado/gestantes/relatorio?indicador=acompanhamento')}
+          >
             <CardHeader className="pb-3">
               <CardTitle className="text-sm font-medium text-muted-foreground">Qualidade do pré-natal</CardTitle>
             </CardHeader>
@@ -182,7 +204,10 @@ const GestantesVisaoGeral: React.FC = () => {
                 </div>
               </div>
             </CardContent>
-            <div className="mt-4 px-5 py-3 bg-muted/40 border-t border-border flex items-center gap-2">
+            <div
+              className="mt-4 px-5 py-3 bg-muted/40 border-t border-border flex items-center gap-2"
+              onClick={(e) => e.stopPropagation()}
+            >
               <Info className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
               <p className="text-xs text-muted-foreground">
                 Dados calculados com base nos indicadores de qualidade do módulo de{' '}
@@ -198,7 +223,10 @@ const GestantesVisaoGeral: React.FC = () => {
 
           {/* Estado nutricional */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Card className="border-l-4 border-l-[hsl(var(--status-suficiente))]">
+            <Card
+              className="border-l-4 border-l-[hsl(var(--status-suficiente))] cursor-pointer hover:shadow-md transition-shadow"
+              onClick={() => navigate('/linhas-de-cuidado/gestantes/relatorio?indicador=acompanhamento')}
+            >
               <CardContent className="p-5">
                 <div className="flex items-start gap-3">
                   <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-[hsl(var(--status-suficiente-bg))]">
@@ -215,7 +243,10 @@ const GestantesVisaoGeral: React.FC = () => {
               </CardContent>
             </Card>
 
-            <Card className="border-l-4 border-l-[hsl(var(--status-regular))]">
+            <Card
+              className="border-l-4 border-l-[hsl(var(--status-regular))] cursor-pointer hover:shadow-md transition-shadow"
+              onClick={() => navigate('/linhas-de-cuidado/gestantes/relatorio?indicador=acompanhamento')}
+            >
               <CardContent className="p-5">
                 <div className="flex items-start gap-3">
                   <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-[hsl(var(--status-regular-bg))]">
@@ -242,7 +273,10 @@ const GestantesVisaoGeral: React.FC = () => {
             linkTo="/linhas-de-cuidado/gestantes/relatorio?indicador=puerperio"
           />
 
-          <Card className="border-l-4 border-l-primary">
+          <Card
+            className="border-l-4 border-l-primary cursor-pointer hover:shadow-md transition-shadow"
+            onClick={() => navigate('/linhas-de-cuidado/gestantes/relatorio?indicador=puerperio')}
+          >
             <CardContent className="p-5">
               <div className="flex items-start gap-3">
                 <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10">
