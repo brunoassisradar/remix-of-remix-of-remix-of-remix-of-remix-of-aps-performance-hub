@@ -116,7 +116,7 @@ const menuItems: MenuItem[] = [
 export const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [expandedItems, setExpandedItems] = useState<string[]>(['Financiamento APS']);
+  const [expandedItems, setExpandedItems] = useState<string[]>([]);
   const [expandedSecondary, setExpandedSecondary] = useState<string[]>([]);
 
   const toggleExpanded = (label: string) => {
