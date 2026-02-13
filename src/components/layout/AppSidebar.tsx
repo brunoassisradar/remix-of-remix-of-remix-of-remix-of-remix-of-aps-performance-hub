@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import {
   Home,
   LayoutDashboard,
@@ -41,7 +41,7 @@ interface MenuItem {
 }
 
 const menuItems: MenuItem[] = [
-  { label: 'Sala de situação', icon: Home, path: '#' },
+  { label: 'Sala de situação', icon: Home, path: '/sala-de-situacao' },
   { label: 'Dashboard', icon: LayoutDashboard, path: '#' },
   { label: 'Previne Brasil', icon: Users, path: '#' },
   {
@@ -115,6 +115,7 @@ const menuItems: MenuItem[] = [
 
 export const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [expandedItems, setExpandedItems] = useState<string[]>(['Financiamento APS']);
   const [expandedSecondary, setExpandedSecondary] = useState<string[]>([]);
 
@@ -126,12 +127,17 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
     );
   };
 
-  const toggleSecondaryExpanded = (label: string) => {
+  const toggleSecondaryExpanded = (label: string, child?: SecondaryMenuItem) => {
+    const isExpanding = !expandedSecondary.includes(label);
     setExpandedSecondary((prev) =>
       prev.includes(label)
         ? prev.filter((item) => item !== label)
         : [...prev, label]
     );
+    // When expanding a secondary item that has tertiary children, navigate to its first child (Visão geral)
+    if (isExpanding && child?.children && child.children.length > 0) {
+      navigate(child.children[0].path);
+    }
   };
 
   // Get current tab from URL
@@ -239,7 +245,7 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
                             // Secondary item with tertiary menu
                             <div>
                               <button
-                                onClick={() => toggleSecondaryExpanded(child.label)}
+                                onClick={() => toggleSecondaryExpanded(child.label, child)}
                                 className={cn(
                                   'flex w-full items-center justify-between rounded-md px-3 py-2 text-sm text-left transition-colors',
                                   isSecondaryActive(child)
