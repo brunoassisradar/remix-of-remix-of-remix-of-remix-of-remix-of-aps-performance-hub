@@ -100,7 +100,7 @@ export const PerfilContent: React.FC = () => {
                 <Bar dataKey="alto" name="Alto risco" stackId="a" fill={RISK_COLORS.alto} />
               </BarChart>
             </ResponsiveContainer>
-            <div className="flex items-center gap-4 mt-2 text-xs text-muted-foreground">
+            <div className="flex items-center gap-4 mt-2 text-[13px] text-muted-foreground">
               <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full" style={{ background: RISK_COLORS.habitual }} /> Risco habitual</span>
               <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full" style={{ background: RISK_COLORS.intermediario }} /> Risco intermediário</span>
               <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full" style={{ background: RISK_COLORS.alto }} /> Alto risco</span>
@@ -186,10 +186,10 @@ export const PerfilContent: React.FC = () => {
                 </ResponsiveContainer>
                 <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
                   <p className="text-2xl font-bold text-foreground">{totalGestantes}</p>
-                  <p className="text-xs text-muted-foreground">gestantes</p>
+                  <p className="text-[13px] text-muted-foreground">gestantes</p>
                 </div>
               </div>
-              <div className="flex flex-wrap gap-4 text-xs text-muted-foreground">
+              <div className="flex flex-wrap gap-4 text-[13px] text-muted-foreground">
                 {planejamentoData.map((d, i) => (
                   <span key={i} className="flex items-center gap-1.5">
                     <span className="w-3 h-3 rounded-full" style={{ background: d.color }} />
