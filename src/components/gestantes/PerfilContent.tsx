@@ -55,9 +55,17 @@ const RISK_COLORS = {
   alto: 'hsl(0, 84%, 60%)',
 };
 
+const comparativoGeo = [
+  { label: 'Município', value: 225 },
+  { label: 'Regional', value: 1435 },
+  { label: 'Estado', value: 55796 },
+];
+const maxGeo = Math.max(...comparativoGeo.map((g) => g.value));
+
 export const PerfilContent: React.FC = () => {
   const totalGestantes = 85;
   const partosPrevistos = 8;
+  const mulheresIdadeFertil = 9881;
 
   return (
     <div className="space-y-6">
@@ -65,20 +73,43 @@ export const PerfilContent: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         <Card className="lg:col-span-1">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">
+            <CardTitle className="text-[13px] font-medium text-muted-foreground">
               Total de gestantes ativas
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="flex items-center gap-4">
-              <img src={gestanteIcon} alt="Gestante" className="w-12 h-12" />
-              <div>
-                <p className="text-4xl font-bold text-foreground">{totalGestantes}</p>
-                <p className="text-sm text-muted-foreground">gestantes ativas identificadas na APS</p>
-              </div>
+            <div className="flex flex-col items-center text-center gap-1">
+              <img src={gestanteIcon} alt="Gestante" className="w-10 h-10" style={{ filter: 'hue-rotate(-30deg) saturate(1.5)' }} />
+              <p className="text-4xl font-bold text-foreground">{totalGestantes}</p>
+              <p className="text-[13px] text-muted-foreground">mulheres gestantes</p>
+              <span className="inline-block mt-1 mb-3 text-[13px] font-medium px-3 py-1.5 rounded-md bg-pink-50 text-pink-700 dark:bg-pink-950/30 dark:text-pink-300">
+                {mulheresIdadeFertil.toLocaleString('pt-BR')} pessoas do sexo feminino com idade entre 9 e 49 anos no município
+              </span>
             </div>
-            <p className="text-sm text-muted-foreground mt-3 font-medium">
+
+            {/* Comparativo geográfico */}
+            <div className="space-y-2 mt-1">
+              {comparativoGeo.map((item) => (
+                <div key={item.label} className="flex items-center gap-2">
+                  <span className="text-[13px] text-muted-foreground w-16 text-right shrink-0">{item.label}</span>
+                  <div className="flex-1 h-6 bg-muted/40 rounded overflow-hidden relative">
+                    <div
+                      className="h-full rounded bg-pink-300 dark:bg-pink-400/60"
+                      style={{ width: `${(item.value / maxGeo) * 100}%`, minWidth: '24px' }}
+                    />
+                    <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[13px] font-semibold text-foreground">
+                      {item.value.toLocaleString('pt-BR')}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <p className="text-[13px] text-muted-foreground mt-3 font-medium">
               <span className="text-foreground font-bold">{partosPrevistos}</span> partos previstos para os próximos 30 dias
+            </p>
+            <p className="text-[12px] text-muted-foreground/70 mt-2 text-center leading-tight">
+              Fonte: Atendimentos realizados por médicos e enfermeiros na APS com registro de gestação
             </p>
           </CardContent>
         </Card>
