@@ -71,47 +71,66 @@ export const PerfilContent: React.FC = () => {
     <div className="space-y-6">
       {/* Top row: Total + Risk stratification */}
       <div className="space-y-4">
-        <Card className="lg:col-span-1">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-[13px] font-medium text-muted-foreground">
-              Total de gestantes ativas
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex flex-col items-center text-center gap-1">
-              <img src={gestanteIcon} alt="Gestante" className="w-10 h-10" style={{ filter: 'hue-rotate(-30deg) saturate(1.5)' }} />
-              <p className="text-4xl font-bold text-foreground">{totalGestantes}</p>
-              <p className="text-[13px] text-muted-foreground">mulheres gestantes</p>
-              <span className="inline-block mt-1 mb-3 text-[13px] font-medium px-3 py-1.5 rounded-md bg-pink-50 text-pink-700 dark:bg-pink-950/30 dark:text-pink-300">
-                {mulheresIdadeFertil.toLocaleString('pt-BR')} pessoas do sexo feminino com idade entre 9 e 49 anos no município
+        <Card className="overflow-hidden">
+          <div className="bg-gradient-to-br from-pink-50 via-rose-50/50 to-background dark:from-pink-950/20 dark:via-rose-950/10 dark:to-background p-6 pb-5">
+            <p className="text-[13px] font-medium text-muted-foreground mb-4">Total de gestantes ativas</p>
+            <div className="flex items-center gap-5">
+              {/* Hero number */}
+              <div className="flex flex-col items-center">
+                <div className="w-14 h-14 rounded-full bg-pink-100 dark:bg-pink-900/30 flex items-center justify-center mb-1">
+                  <img src={gestanteIcon} alt="Gestante" className="w-8 h-8 opacity-80" style={{ filter: 'hue-rotate(-30deg) saturate(1.5)' }} />
+                </div>
+                <p className="text-5xl font-extrabold text-foreground tracking-tight">{totalGestantes}</p>
+                <p className="text-[13px] text-muted-foreground mt-0.5">mulheres gestantes</p>
+              </div>
+
+              {/* Divider */}
+              <div className="w-px h-24 bg-border/60 shrink-0" />
+
+              {/* Comparativo geográfico */}
+              <div className="flex-1 space-y-2.5">
+                <p className="text-[13px] font-medium text-muted-foreground mb-2">Comparativo geográfico</p>
+                {comparativoGeo.map((item, idx) => {
+                  const widthPct = (item.value / maxGeo) * 100;
+                  const opacity = [1, 0.65, 0.4][idx] || 0.4;
+                  return (
+                    <div key={item.label} className="flex items-center gap-2.5">
+                      <span className="text-[13px] text-muted-foreground w-[68px] text-right shrink-0 font-medium">{item.label}</span>
+                      <div className="flex-1 h-7 bg-muted/30 rounded-md overflow-hidden relative">
+                        <div
+                          className="h-full rounded-md transition-all duration-500"
+                          style={{
+                            width: `${widthPct}%`,
+                            minWidth: '32px',
+                            background: `hsl(340, 65%, 55%, ${opacity})`,
+                          }}
+                        />
+                        <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[13px] font-bold text-foreground tabular-nums">
+                          {item.value.toLocaleString('pt-BR')}
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+
+          {/* Footer info */}
+          <div className="px-6 py-3 border-t border-border/50 flex items-center justify-between gap-4 bg-muted/10">
+            <div className="flex items-center gap-2">
+              <span className="inline-flex items-center text-[13px] font-medium px-2.5 py-1 rounded-full bg-pink-50 text-pink-700 dark:bg-pink-950/30 dark:text-pink-300 border border-pink-200/50 dark:border-pink-800/30">
+                {mulheresIdadeFertil.toLocaleString('pt-BR')} mulheres de 9–49 anos no município
               </span>
             </div>
-
-            {/* Comparativo geográfico */}
-            <div className="space-y-2 mt-1">
-              {comparativoGeo.map((item) => (
-                <div key={item.label} className="flex items-center gap-2">
-                  <span className="text-[13px] text-muted-foreground w-16 text-right shrink-0">{item.label}</span>
-                  <div className="flex-1 h-6 bg-muted/40 rounded overflow-hidden relative">
-                    <div
-                      className="h-full rounded bg-pink-300 dark:bg-pink-400/60"
-                      style={{ width: `${(item.value / maxGeo) * 100}%`, minWidth: '24px' }}
-                    />
-                    <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[13px] font-semibold text-foreground">
-                      {item.value.toLocaleString('pt-BR')}
-                    </span>
-                  </div>
-                </div>
-              ))}
+            <div className="flex items-center gap-1.5 text-[13px] text-muted-foreground">
+              <span className="text-foreground font-bold">{partosPrevistos}</span> partos previstos em 30 dias
             </div>
+          </div>
 
-            <p className="text-[13px] text-muted-foreground mt-3 font-medium">
-              <span className="text-foreground font-bold">{partosPrevistos}</span> partos previstos para os próximos 30 dias
-            </p>
-            <p className="text-[12px] text-muted-foreground/70 mt-2 text-center leading-tight">
-              Fonte: Atendimentos realizados por médicos e enfermeiros na APS com registro de gestação
-            </p>
-          </CardContent>
+          <p className="text-[12px] text-muted-foreground/60 px-6 py-2 text-center border-t border-border/30">
+            Fonte: Atendimentos realizados por médicos e enfermeiros na APS com registro de gestação
+          </p>
         </Card>
 
         <Card>
