@@ -70,7 +70,7 @@ export const PerfilContent: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Top row: Total + Risk stratification */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-4">
         <Card className="lg:col-span-1">
           <CardHeader className="pb-2">
             <CardTitle className="text-[13px] font-medium text-muted-foreground">
@@ -114,7 +114,7 @@ export const PerfilContent: React.FC = () => {
           </CardContent>
         </Card>
 
-        <Card className="lg:col-span-2">
+        <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">
               Gestantes por estratificação de risco
