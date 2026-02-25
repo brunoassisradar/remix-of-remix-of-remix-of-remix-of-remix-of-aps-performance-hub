@@ -72,40 +72,42 @@ export const PerfilContent: React.FC = () => {
       {/* Top row: Total + Risk stratification */}
       <div className="space-y-4">
         <Card className="overflow-hidden">
-          <div className="bg-gradient-to-br from-pink-50 via-rose-50/50 to-background dark:from-pink-950/20 dark:via-rose-950/10 dark:to-background p-6 pb-5">
-            <p className="text-[13px] font-medium text-muted-foreground mb-4">Total de gestantes ativas</p>
-            <div className="flex items-center gap-5">
+          <div className="p-6 pb-5">
+            <p className="text-[13px] font-semibold text-muted-foreground uppercase tracking-wider mb-5">Total de gestantes ativas</p>
+            <div className="flex items-center gap-6">
               {/* Hero number */}
-              <div className="flex flex-col items-center">
-                <div className="w-14 h-14 rounded-full bg-pink-100 dark:bg-pink-900/30 flex items-center justify-center mb-1">
-                  <img src={gestanteIcon} alt="Gestante" className="w-8 h-8 opacity-80" style={{ filter: 'hue-rotate(-30deg) saturate(1.5)' }} />
+              <div className="flex items-center gap-3.5 shrink-0">
+                <div className="w-11 h-11 rounded-full bg-accent flex items-center justify-center">
+                  <img src={gestanteIcon} alt="Gestante" className="w-6 h-6 opacity-70" />
                 </div>
-                <p className="text-5xl font-extrabold text-foreground tracking-tight">{totalGestantes}</p>
-                <p className="text-[13px] text-muted-foreground mt-0.5">mulheres gestantes</p>
+                <div>
+                  <p className="text-3xl font-bold text-foreground tracking-tight leading-none">{totalGestantes}</p>
+                  <p className="text-[13px] text-muted-foreground mt-0.5">gestantes ativas</p>
+                </div>
               </div>
 
               {/* Divider */}
-              <div className="w-px h-24 bg-border/60 shrink-0" />
+              <div className="w-px h-16 bg-border/50 shrink-0" />
 
               {/* Comparativo geográfico */}
-              <div className="flex-1 space-y-2.5">
+              <div className="flex-1 space-y-2">
                 <p className="text-[13px] font-medium text-muted-foreground mb-2">Comparativo geográfico</p>
                 {comparativoGeo.map((item, idx) => {
                   const widthPct = (item.value / maxGeo) * 100;
-                  const opacity = [1, 0.65, 0.4][idx] || 0.4;
+                  const opacity = [1, 0.7, 0.45][idx] || 0.4;
                   return (
                     <div key={item.label} className="flex items-center gap-2.5">
                       <span className="text-[13px] text-muted-foreground w-[68px] text-right shrink-0 font-medium">{item.label}</span>
-                      <div className="flex-1 h-7 bg-muted/30 rounded-md overflow-hidden relative">
+                      <div className="flex-1 h-6 bg-muted/40 rounded overflow-hidden relative">
                         <div
-                          className="h-full rounded-md transition-all duration-500"
+                          className="h-full rounded transition-all duration-500"
                           style={{
                             width: `${widthPct}%`,
-                            minWidth: '32px',
-                            background: `hsl(340, 65%, 55%, ${opacity})`,
+                            minWidth: '28px',
+                            background: `hsl(var(--primary) / ${opacity})`,
                           }}
                         />
-                        <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[13px] font-bold text-foreground tabular-nums">
+                        <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[13px] font-semibold text-foreground tabular-nums">
                           {item.value.toLocaleString('pt-BR')}
                         </span>
                       </div>
@@ -117,18 +119,16 @@ export const PerfilContent: React.FC = () => {
           </div>
 
           {/* Footer info */}
-          <div className="px-6 py-3 border-t border-border/50 flex items-center justify-between gap-4 bg-muted/10">
-            <div className="flex items-center gap-2">
-              <span className="inline-flex items-center text-[13px] font-medium px-2.5 py-1 rounded-full bg-pink-50 text-pink-700 dark:bg-pink-950/30 dark:text-pink-300 border border-pink-200/50 dark:border-pink-800/30">
-                {mulheresIdadeFertil.toLocaleString('pt-BR')} mulheres de 9–49 anos no município
-              </span>
-            </div>
-            <div className="flex items-center gap-1.5 text-[13px] text-muted-foreground">
-              <span className="text-foreground font-bold">{partosPrevistos}</span> partos previstos em 30 dias
-            </div>
+          <div className="px-6 py-2.5 border-t border-border/40 flex items-center justify-between gap-4 bg-muted/5">
+            <span className="text-[13px] text-muted-foreground">
+              <span className="font-semibold text-foreground">{mulheresIdadeFertil.toLocaleString('pt-BR')}</span> mulheres de 9–49 anos no município
+            </span>
+            <span className="text-[13px] text-muted-foreground">
+              <span className="font-semibold text-foreground">{partosPrevistos}</span> partos previstos em 30 dias
+            </span>
           </div>
 
-          <p className="text-[12px] text-muted-foreground/60 px-6 py-2 text-center border-t border-border/30">
+          <p className="text-[12px] text-muted-foreground/50 px-6 py-2 text-center border-t border-border/20">
             Fonte: Atendimentos realizados por médicos e enfermeiros na APS com registro de gestação
           </p>
         </Card>
