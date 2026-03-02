@@ -18,6 +18,9 @@ import GestantesIndividualizado from "./pages/linhas-de-cuidado/GestantesIndivid
 import QualidadeVisaoGeral from "./pages/QualidadeVisaoGeral";
 import QualidadeRelatorio from "./pages/QualidadeRelatorio";
 import QualidadeIndividualizado from "./pages/QualidadeIndividualizado";
+import Financeiro from "./pages/Financeiro";
+import FinanceiroVisaoGeral from "./pages/financeiro/FinanceiroVisaoGeral";
+import FinanceiroRelatorio from "./pages/financeiro/FinanceiroRelatorio";
 import NotFound from "./pages/NotFound";
 import SalaDeSituacao from "./pages/SalaDeSituacao";
 
@@ -54,6 +57,9 @@ const App = () => (
                 <Route path="/linhas-de-cuidado/gestantes" element={<GestantesVisaoGeral />} />
                 <Route path="/linhas-de-cuidado/gestantes/relatorio" element={<GestantesRelatorio />} />
                 <Route path="/linhas-de-cuidado/gestantes/individualizado" element={<GestantesIndividualizado />} />
+                <Route path="/financeiro" element={<Financeiro />} />
+                <Route path="/financeiro/visao-geral" element={<FinanceiroVisaoGeral />} />
+                <Route path="/financeiro/relatorio" element={<FinanceiroRelatorio />} />
               </Route>
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />

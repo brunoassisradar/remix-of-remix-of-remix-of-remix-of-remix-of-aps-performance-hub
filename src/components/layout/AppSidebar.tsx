@@ -107,6 +107,33 @@ const menuItems: MenuItem[] = [
       { label: 'Saúde mental', path: '#', hasActiveState: false },
     ],
   },
+  {
+    label: 'Financeiro',
+    icon: Wallet,
+    path: '/financeiro',
+    children: [
+      { 
+        label: 'Consolidado', 
+        path: '/financeiro/visao-geral?tab=consolidado',
+        hasActiveState: true,
+        tabKey: 'consolidado',
+        children: [
+          { label: 'Visão geral', path: '/financeiro/visao-geral?tab=consolidado' },
+          { label: 'Relatório', path: '/financeiro/relatorio' },
+        ]
+      },
+      { 
+        label: 'Evolução', 
+        path: '/financeiro/visao-geral?tab=evolucao',
+        hasActiveState: true,
+        tabKey: 'evolucao',
+        children: [
+          { label: 'Visão geral', path: '/financeiro/visao-geral?tab=evolucao' },
+          { label: 'Relatório', path: '/financeiro/relatorio' },
+        ]
+      },
+    ],
+  },
   { label: 'Planejamento ass...', icon: ClipboardList, path: '#' },
   { label: 'Situação cadastral', icon: FileText, path: '#' },
   { label: 'Inconsistências', icon: AlertCircle, path: '#' },
@@ -145,6 +172,7 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
   const currentTab = searchParams.get('tab') || 'qualidade'; // default to qualidade if no tab
 
   const isInQualidadeSection = location.pathname.startsWith('/financiamento-aps/qualidade-esf-eap');
+  const isInFinanceiroVisaoGeral = location.pathname.startsWith('/financeiro/visao-geral');
 
   const isSecondaryActive = (item: SecondaryMenuItem) => {
     if (!item.hasActiveState) return false;
@@ -152,6 +180,11 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
     
     // If item has a tabKey, check if we're in the qualidade section AND the tab matches
     if (item.tabKey && isInQualidadeSection) {
+      return currentTab === item.tabKey;
+    }
+    
+    // Check financeiro tabs
+    if (item.tabKey && isInFinanceiroVisaoGeral) {
       return currentTab === item.tabKey;
     }
     
@@ -184,15 +217,13 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
 
   const isInFinanciamentoSection = location.pathname.startsWith('/financiamento-aps');
   const isInLinhasDeCuidadoSection = location.pathname.startsWith('/linhas-de-cuidado');
+  const isInFinanceiroSection = location.pathname.startsWith('/financeiro');
 
   const isParentActive = (item: MenuItem) => {
     if (!item.children) return false;
-    if (item.label === 'Financiamento APS' && isInFinanciamentoSection) {
-      return true;
-    }
-    if (item.label === 'Linhas de cuidado' && isInLinhasDeCuidadoSection) {
-      return true;
-    }
+    if (item.label === 'Financiamento APS' && isInFinanciamentoSection) return true;
+    if (item.label === 'Linhas de cuidado' && isInLinhasDeCuidadoSection) return true;
+    if (item.label === 'Financeiro' && isInFinanceiroSection) return true;
     return item.children.some((child) => isSecondaryActive(child));
   };
 
