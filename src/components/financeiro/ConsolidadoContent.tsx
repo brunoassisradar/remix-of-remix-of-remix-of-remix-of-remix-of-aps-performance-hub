@@ -43,15 +43,16 @@ const entradaCards = [
 ];
 
 const investimentoItems = [
-  { label: 'Infraestrutura', value: 'R$ 2.1M', pct: 100 },
-  { label: 'Equipamentos', value: 'R$ 1.2M', pct: 57 },
-  { label: 'Tecnologia', value: 'R$ 0.95M', pct: 45 },
+  { label: 'Incentivo Financeiro da APS – Equipes Multiprofissionais – EMULTI', value: 'R$ 2.1M', pct: 100 },
+  { label: 'Incentivo Financeiro da APS – Atenção à Saúde Bucal', value: 'R$ 1.2M', pct: 57 },
+  { label: 'Incentivo Financeiro da APS – Atenção à Saúde Bucal', value: 'R$ 0.95M', pct: 45 },
 ];
 
 const custeioItems = [
-  { label: 'Folha de Pagamento', value: 'R$ 1.1M', pct: 100 },
-  { label: 'Insumos', value: 'R$ 450k', pct: 41 },
-  { label: 'Serviços Terceiros', value: 'R$ 290k', pct: 26 },
+  { label: 'Incentivo Financeiro da APS – Atenção à Saúde Bucal', value: 'R$ 1.1M', pct: 100 },
+  { label: 'Incentivo Financeiro da APS – Atenção à Saúde Bucal', value: 'R$ 450k', pct: 41 },
+  { label: 'Incentivo Financeiro da APS – Demais Programas', value: 'R$ 290k', pct: 26 },
+  { label: 'Serviços e Equipes da Atenção Primária à Saúde', value: 'R$ 180k', pct: 16 },
 ];
 
 export const ConsolidadoContent: React.FC = () => {
