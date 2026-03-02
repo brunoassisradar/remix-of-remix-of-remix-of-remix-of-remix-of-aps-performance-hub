@@ -115,23 +115,6 @@ export const SimuladorContent: React.FC = () => {
         </CardContent>
       </Card>
 
-      {/* Tradução estratégica */}
-      <div className="rounded-xl bg-primary p-6 text-primary-foreground">
-        <div className="flex items-center gap-2 mb-3">
-          <Lightbulb className="w-5 h-5" />
-          <p className="text-xs font-semibold uppercase tracking-wider">Tradução Estratégica</p>
-        </div>
-        <p className="text-sm opacity-90 mb-4">Com este valor, o município poderia financiar:</p>
-        <div className="rounded-lg bg-primary-foreground/10 p-4 flex items-center gap-3">
-          <span className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary-foreground/20">
-            <Users className="w-5 h-5 text-primary-foreground" />
-          </span>
-          <div>
-            <p className="text-2xl font-bold">4 Novas</p>
-            <p className="text-sm opacity-80">Equipes de Saúde da Família (eSF)</p>
-          </div>
-        </div>
-      </div>
 
       {/* Avisos */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
