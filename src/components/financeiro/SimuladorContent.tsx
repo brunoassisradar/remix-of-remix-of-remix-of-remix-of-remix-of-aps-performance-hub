@@ -17,7 +17,7 @@ const defaultMetas: MetaSlider[] = [
   { id: 'acompanhamento', label: 'Ativação do Acompanhamento', description: 'Cadastros válidos e ativos', atual: 62, meta: 85, alvoIdeal: 100 },
   { id: 'consultas', label: 'Cobertura de Consultas', description: 'Gestantes com 6+ consultas', atual: 45, meta: 60, alvoIdeal: 100 },
   { id: 'procedimentos', label: 'Cobertura de Procedimentos', description: 'Exames de citopatológico e hemoglobina', atual: 58, meta: 72, alvoIdeal: 100 },
-  { id: 'vacinal', label: 'Cobertura Vacinal (Polio e Penta)', description: 'Crianças de até 1 ano', atual: 88, meta: 95, alvoIdeal: 95 },
+  { id: 'vacinal', label: 'Cobertura Vacinal', description: 'Crianças de até 1 ano', atual: 88, meta: 95, alvoIdeal: 95 },
   { id: 'visitas', label: 'Visitas Domiciliares', description: 'Cobertura por ACS', atual: 92, meta: 100, alvoIdeal: 100 },
 ];
 
