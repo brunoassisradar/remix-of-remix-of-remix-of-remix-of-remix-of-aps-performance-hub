@@ -114,7 +114,7 @@ const columns: ColumnsType<VinculoData> = [
     title: 'Equipe de Saúde',
     dataIndex: 'equipeSaude',
     key: 'equipeSaude',
-    width: '22%',
+    width: '25%',
     render: (text: string) => <span className="font-medium">{text}</span>,
     sorter: (a, b) => a.equipeSaude.localeCompare(b.equipeSaude),
   },
@@ -122,48 +122,33 @@ const columns: ColumnsType<VinculoData> = [
     title: 'Unidade',
     dataIndex: 'unidade',
     key: 'unidade',
-    width: '22%',
+    width: '30%',
     sorter: (a, b) => a.unidade.localeCompare(b.unidade),
   },
   {
     title: 'INE',
     dataIndex: 'ine',
     key: 'ine',
-    width: '12%',
+    width: '15%',
     sorter: (a, b) => a.ine.localeCompare(b.ine),
   },
   {
     title: 'CNES',
     dataIndex: 'cnes',
     key: 'cnes',
-    width: '10%',
+    width: '12%',
     sorter: (a, b) => a.cnes.localeCompare(b.cnes),
   },
   {
     title: 'Nota Final',
     dataIndex: 'notaFinal',
     key: 'notaFinal',
-    width: '16%',
+    width: '18%',
     filters: statusFilters,
     onFilter: (value, record) => record.classificacaoFinal === value,
     sorter: (a, b) => a.notaFinal - b.notaFinal,
     render: (nota: number, record: VinculoData) => (
       <ResultadoCell nota={nota} classification={record.classificacaoFinal} />
-    ),
-  },
-  {
-    title: 'Ação',
-    key: 'acao',
-    width: '18%',
-    render: (_: unknown, record: VinculoData) => (
-      <div className="flex gap-2">
-        <Link to={`/financiamento-aps/qualidade-esf-eap/relatorio?tab=vinculo&equipe=${record.key}`}>
-          <Button type="default" size="small">Relatório</Button>
-        </Link>
-        <Link to={`/financiamento-aps/qualidade-esf-eap/individualizado?tab=vinculo&equipe=${record.key}`}>
-          <Button type="default" size="small">Individualizado</Button>
-        </Link>
-      </div>
     ),
   },
 ];
@@ -364,17 +349,6 @@ export const VinculoAcompanhamentoTable: React.FC = () => {
       <Table
         columns={columns}
         dataSource={sampleData}
-        expandable={{
-          expandedRowRender: (record) => <ExpandedRow record={record} />,
-          expandIcon: ({ expanded, onExpand, record }) => (
-            <span 
-              className="inline-flex cursor-pointer text-muted-foreground hover:text-foreground transition-colors"
-              onClick={(e) => onExpand(record, e as React.MouseEvent<HTMLElement>)}
-            >
-              {expanded ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
-            </span>
-          ),
-        }}
         pagination={{
           showSizeChanger: true,
           showTotal: (total, range) => `${range[0]}-${range[1]} de ${total} equipes`,
