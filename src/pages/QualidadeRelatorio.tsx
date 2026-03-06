@@ -7,6 +7,7 @@ import { IndicatorChart } from '@/components/financiamento/IndicatorChart';
 import { ReportTable } from '@/components/financiamento/ReportTable';
 import { CadastroResumo } from '@/components/financiamento/CadastroResumo';
 import { AcompanhamentoResumo } from '@/components/financiamento/AcompanhamentoResumo';
+import ComparativoCadastroContent from '@/components/financiamento/ComparativoCadastroContent';
 import { cn } from '@/lib/utils';
 import { Users, Baby, Heart, Activity, Stethoscope, UserCheck, Flower2, ClipboardList, UserSearch, Smile, CheckCircle2, Scissors, Sparkles, HandHeart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -113,6 +114,11 @@ const dimensoes = [{
   label: 'Acompanhamento',
   shortLabel: 'D2',
   icon: UserSearch
+}, {
+  value: 'comparativo',
+  label: 'Comparativo',
+  shortLabel: 'D3',
+  icon: Users
 }];
 
 const allIndicadores = [...indicadores, ...indicadoresEsb];
@@ -374,8 +380,10 @@ const QualidadeRelatorio: React.FC = () => {
             <div className="p-6">
               {selectedDimensao === 'cadastro' ? (
                 <CadastroResumo />
-              ) : (
+              ) : selectedDimensao === 'acompanhamento' ? (
                 <AcompanhamentoResumo />
+              ) : (
+                <ComparativoCadastroContent />
               )}
             </div>
           </div>
