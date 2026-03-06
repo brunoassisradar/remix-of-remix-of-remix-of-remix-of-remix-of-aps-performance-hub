@@ -70,13 +70,6 @@ const columns: ColumnsType<VinculoData> = [
     sorter: (a, b) => a.equipeSaude.localeCompare(b.equipeSaude),
   },
   {
-    title: 'Unidade',
-    dataIndex: 'unidade',
-    key: 'unidade',
-    width: '15%',
-    sorter: (a, b) => a.unidade.localeCompare(b.unidade),
-  },
-  {
     title: 'INE',
     dataIndex: 'ine',
     key: 'ine',
