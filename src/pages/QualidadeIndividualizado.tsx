@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Button, Tabs } from 'antd';
+import { Table, Button, Tabs, Modal } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
-import { Download, ChevronDown, ChevronRight } from 'lucide-react';
+import { Download, ChevronDown, ChevronRight, HelpCircle } from 'lucide-react';
 import { useSearchParams } from 'react-router-dom';
 import { PageHeader } from '@/components/layout/PageHeader';
 import { FilterBar } from '@/components/financiamento/FilterBar';
@@ -260,7 +260,6 @@ const vinculoColumns: ColumnsType<PessoaVinculoData> = [
     dataIndex: 'nome',
     key: 'nome',
     width: '22%',
-    sorter: (a, b) => a.nome.localeCompare(b.nome),
   },
   {
     title: 'CPF/CNS',
@@ -273,35 +272,18 @@ const vinculoColumns: ColumnsType<PessoaVinculoData> = [
     dataIndex: 'equipe',
     key: 'equipe',
     width: '17%',
-    filters: [
-      { text: 'Equipe 001 - ESF', value: 'Equipe 001 - ESF' },
-      { text: 'Equipe 002 - ESF', value: 'Equipe 002 - ESF' },
-      { text: 'Equipe 003 - eAP', value: 'Equipe 003 - eAP' },
-    ],
-    onFilter: (value, record) => record.equipe === value,
   },
   {
     title: 'Unidade',
     dataIndex: 'unidade',
     key: 'unidade',
     width: '12%',
-    filters: [
-      { text: 'UBS Centro', value: 'UBS Centro' },
-      { text: 'UBS Norte', value: 'UBS Norte' },
-      { text: 'UBS Sul', value: 'UBS Sul' },
-    ],
-    onFilter: (value, record) => record.unidade === value,
   },
   {
     title: 'Critério',
     dataIndex: 'criterio',
     key: 'criterio',
     width: '12%',
-    filters: [
-      { text: 'Idoso', value: 'idoso' },
-      { text: 'Sem critério', value: 'sem_criterio' },
-    ],
-    onFilter: (value, record) => record.criterio === value,
     render: (criterio: 'idoso' | 'sem_criterio') => (
       <StatusDot 
         label={criterio === 'idoso' ? 'Idoso' : 'Sem critério'} 
@@ -321,15 +303,10 @@ const vinculoColumns: ColumnsType<PessoaVinculoData> = [
     ),
   },
   {
-    title: 'Acompanhamento',
+    title: 'ACOMPANHAMENTO_WITH_HELP',
     dataIndex: 'acompanhada',
     key: 'acompanhada',
     width: '10%',
-    filters: [
-      { text: 'Acompanhada', value: true },
-      { text: 'Não acompanhada', value: false },
-    ],
-    onFilter: (value, record) => record.acompanhada === value,
     render: (acompanhada: boolean) => (
       <StatusDot 
         label={acompanhada ? 'Acompanhada' : 'Não acompanhada'} 
@@ -394,92 +371,147 @@ const QualidadeTableContent: React.FC<{
 const VinculoTableContent: React.FC<{
   expandedRowKeys: string[];
   onExpand: (expanded: boolean, record: PessoaVinculoData) => void;
-}> = ({ expandedRowKeys, onExpand }) => (
-  <div className="rounded-lg bg-card p-4 shadow-sm">
-    <div className="flex items-center justify-between mb-4">
-      <span className="text-sm text-muted-foreground">
-        Total de registros: <strong className="text-foreground">{vinculoData.length}</strong>
-      </span>
-      <Button icon={<Download className="h-4 w-4" />}>
-        Exportar
-      </Button>
-    </div>
+}> = ({ expandedRowKeys, onExpand }) => {
+  const [helpModalOpen, setHelpModalOpen] = useState(false);
 
-    <Table
-      columns={vinculoColumns}
-      dataSource={vinculoData}
-      expandable={{
-        expandedRowKeys,
-        onExpand,
-        expandedRowRender: (record: PessoaVinculoData) => (
-          <div className="p-4 bg-muted/20 rounded-md">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {/* Left: Cadastro */}
-              <div className="space-y-4">
-                <p className="text-sm text-muted-foreground">Microárea do cidadão: <span className="text-foreground font-medium">{record.microarea}</span></p>
-                
+  // Override the Acompanhamento column title with help icon
+  const columnsWithHelp = vinculoColumns.map(col => {
+    if (col.title === 'ACOMPANHAMENTO_WITH_HELP') {
+      return {
+        ...col,
+        title: (
+          <div className="flex items-center gap-1.5">
+            <span>Acompanhamento</span>
+            <button onClick={(e) => { e.stopPropagation(); setHelpModalOpen(true); }} className="text-primary hover:text-primary/80">
+              <HelpCircle className="h-3.5 w-3.5" />
+            </button>
+          </div>
+        ),
+      };
+    }
+    return col;
+  });
+
+  return (
+    <div className="rounded-lg bg-card p-4 shadow-sm">
+      <div className="flex items-center justify-between mb-4">
+        <span className="text-sm text-muted-foreground">
+          Total de registros: <strong className="text-foreground">{vinculoData.length}</strong>
+        </span>
+        <Button icon={<Download className="h-4 w-4" />}>
+          Exportar
+        </Button>
+      </div>
+
+      <Modal
+        open={helpModalOpen}
+        onCancel={() => setHelpModalOpen(false)}
+        footer={
+          <div className="flex justify-end">
+            <Button onClick={() => setHelpModalOpen(false)}>Fechar</Button>
+          </div>
+        }
+        centered
+        width={600}
+      >
+        <div className="flex flex-col items-center pt-4 pb-2">
+          <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+            <HelpCircle className="h-8 w-8 text-primary" />
+          </div>
+          <h3 className="text-lg font-semibold text-foreground mb-4">Acompanhamento</h3>
+        </div>
+        <div className="space-y-4 text-sm text-foreground">
+          <p>
+            São consideradas pessoas que tenham mais de um contato assistencial no período de 12 meses anteriores à data de término do quadrimestre e que possuam cadastro vinculado a uma equipe no quadrimestre anterior.
+          </p>
+          <p>
+            Para que o contato assistencial seja válido, é necessário que pelo menos um deles seja <strong>um atendimento, que pode ser individual, coletivo e/ou domiciliar.</strong> Ou seja, dois procedimentos ou vacinas não serão contabilizados se não houver um atendimento.
+          </p>
+          <p>
+            É utilizada como fonte a{' '}
+            <a href="#" className="text-primary underline font-medium">Portaria SAPS/MS Nº 161, de 10 de Dezembro de 2024</a>
+            {' '}e a{' '}
+            <a href="#" className="text-primary underline font-medium">nota metodológica.</a>
+          </p>
+        </div>
+      </Modal>
+
+      <Table
+        columns={columnsWithHelp}
+        dataSource={vinculoData}
+        expandable={{
+          expandedRowKeys,
+          onExpand,
+          expandedRowRender: (record: PessoaVinculoData) => (
+            <div className="p-4 bg-muted/20 rounded-md">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* Left: Cadastro */}
+                <div className="space-y-4">
+                  <p className="text-sm text-muted-foreground">Microárea do cidadão: <span className="text-foreground font-medium">{record.microarea}</span></p>
+                  
+                  <div className="space-y-3">
+                    <p className="text-sm font-bold text-foreground">Cadastro:</p>
+                    
+                    <div>
+                      <p className="text-sm font-medium text-foreground/80 italic">Data do último Cadastro Individual:</p>
+                      <p className="text-sm text-foreground ml-3">
+                        {record.dataUltimoCadastroIndividual || 'Sem cadastro individual.'}
+                      </p>
+                    </div>
+
+                    <div>
+                      <p className="text-sm font-medium text-foreground/80 italic">Data do último Cadastro Domiciliar:</p>
+                      <p className="text-sm text-foreground ml-3">
+                        {record.dataUltimoCadastroDomiciliar || record.cadastroDomiciliarObs || 'Sem cadastro domiciliar.'}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right: Acompanhamento */}
                 <div className="space-y-3">
-                  <p className="text-sm font-bold text-foreground">Cadastro:</p>
+                  <p className="text-sm font-bold text-foreground">Acompanhamento (Prática de cuidado + qualquer contato assistencial):</p>
                   
                   <div>
-                    <p className="text-sm font-medium text-foreground/80 italic">Data do último Cadastro Individual:</p>
+                    <p className="text-sm font-medium text-foreground/80 italic">Data do última prática de cuidado:</p>
                     <p className="text-sm text-foreground ml-3">
-                      {record.dataUltimoCadastroIndividual || 'Sem cadastro individual.'}
+                      {record.dataUltimaPraticaCuidado || 'Sem último atendimento.'}
                     </p>
                   </div>
 
                   <div>
-                    <p className="text-sm font-medium text-foreground/80 italic">Data do último Cadastro Domiciliar:</p>
+                    <p className="text-sm font-medium text-foreground/80 italic">Último contato assistencial:</p>
                     <p className="text-sm text-foreground ml-3">
-                      {record.dataUltimoCadastroDomiciliar || record.cadastroDomiciliarObs || 'Sem cadastro domiciliar.'}
+                      {record.ultimoContatoAssistencial || 'Sem último contato assistencial.'}
                     </p>
                   </div>
-                </div>
-              </div>
-
-              {/* Right: Acompanhamento */}
-              <div className="space-y-3">
-                <p className="text-sm font-bold text-foreground">Acompanhamento (Prática de cuidado + qualquer contato assistencial):</p>
-                
-                <div>
-                  <p className="text-sm font-medium text-foreground/80 italic">Data do última prática de cuidado:</p>
-                  <p className="text-sm text-foreground ml-3">
-                    {record.dataUltimaPraticaCuidado || 'Sem último atendimento.'}
-                  </p>
-                </div>
-
-                <div>
-                  <p className="text-sm font-medium text-foreground/80 italic">Último contato assistencial:</p>
-                  <p className="text-sm text-foreground ml-3">
-                    {record.ultimoContatoAssistencial || 'Sem último contato assistencial.'}
-                  </p>
                 </div>
               </div>
             </div>
-          </div>
-        ),
-        expandIcon: ({ expanded, onExpand, record }) => (
-          <button
-            onClick={(e) => onExpand(record, e)}
-            className="p-1 hover:bg-muted rounded transition-colors"
-          >
-            {expanded ? (
-              <ChevronDown className="h-4 w-4 text-muted-foreground" />
-            ) : (
-              <ChevronRight className="h-4 w-4 text-muted-foreground" />
-            )}
-          </button>
-        ),
-      }}
-      pagination={{
-        pageSize: 10,
-        showSizeChanger: true,
-        showTotal: (total, range) => `${range[0]}-${range[1]} de ${total} registros`,
-      }}
-      size="middle"
-    />
-  </div>
-);
+          ),
+          expandIcon: ({ expanded, onExpand, record }) => (
+            <button
+              onClick={(e) => onExpand(record, e)}
+              className="p-1 hover:bg-muted rounded transition-colors"
+            >
+              {expanded ? (
+                <ChevronDown className="h-4 w-4 text-muted-foreground" />
+              ) : (
+                <ChevronRight className="h-4 w-4 text-muted-foreground" />
+              )}
+            </button>
+          ),
+        }}
+        pagination={{
+          pageSize: 10,
+          showSizeChanger: true,
+          showTotal: (total, range) => `${range[0]}-${range[1]} de ${total} registros`,
+        }}
+        size="middle"
+      />
+    </div>
+  );
+};
 
 const QualidadeIndividualizado: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
