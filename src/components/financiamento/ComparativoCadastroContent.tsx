@@ -48,84 +48,76 @@ type ViewMode = 'absoluto' | 'porcentagem';
 const BarChart: React.FC<{ team: TeamData; viewMode: ViewMode }> = ({ team, viewMode }) => {
   const total = team.cadastroCompleto + team.cadastroIndividual + team.semCadastro;
   const faltam = team.parametro - total;
-
-  if (viewMode === 'porcentagem') {
-    const pCompleto = (team.cadastroCompleto / team.limiteMaximo) * 100;
-    const pIndividual = (team.cadastroIndividual / team.limiteMaximo) * 100;
-    const pSem = (team.semCadastro / team.limiteMaximo) * 100;
-    const pParametro = (team.parametro / team.limiteMaximo) * 100;
-
-    return (
-      <div className="space-y-1">
-        <p className="text-sm font-medium text-foreground">{team.nome} – {team.ine}</p>
-        <div className="relative h-8 w-full bg-muted/30 rounded overflow-visible">
-          {/* Bars */}
-          <div className="absolute inset-y-0 left-0 flex h-full" style={{ width: `${pCompleto + pIndividual + pSem}%` }}>
-            <div className="h-full bg-[hsl(210,80%,45%)] flex items-center justify-center" style={{ width: `${(team.cadastroCompleto / total) * 100}%` }}>
-              <span className="text-xs font-semibold text-white">{((team.cadastroCompleto / team.limiteMaximo) * 100).toFixed(1)}%</span>
-            </div>
-            <div className="h-full bg-[hsl(145,65%,45%)] flex items-center justify-center" style={{ width: `${(team.cadastroIndividual / total) * 100}%` }}>
-              <span className="text-xs font-semibold text-white">{((team.cadastroIndividual / team.limiteMaximo) * 100).toFixed(1)}%</span>
-            </div>
-            <div className="h-full bg-[hsl(0,70%,55%)] flex items-center justify-center" style={{ width: `${(team.semCadastro / total) * 100}%` }}>
-              <span className="text-xs font-semibold text-white">{((team.semCadastro / team.limiteMaximo) * 100).toFixed(1)}%</span>
-            </div>
-          </div>
-          {/* Parâmetro marker */}
-          <div className="absolute top-0 bottom-0 border-r-2 border-foreground/40" style={{ left: `${pParametro}%` }}>
-            <span className="absolute -top-0.5 left-2 text-xs text-muted-foreground font-medium">{((team.parametro / team.limiteMaximo) * 100).toFixed(0)}%</span>
-          </div>
-          {/* Limite máximo label */}
-          <span className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-[calc(100%+8px)] text-xs text-muted-foreground font-medium whitespace-nowrap">100%</span>
-        </div>
-        {faltam > 0 && (
-          <div className="flex items-center gap-1.5">
-            <p className="text-xs text-blue-600 italic">
-              Faltam {faltam.toLocaleString('pt-BR')} pessoas vinculadas à equipe.
-            </p>
-            <Tooltip>
-              <TooltipTrigger>
-                <span className="text-muted-foreground underline text-xs cursor-help">O que pode acontecer se passar o limite?</span>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p className="max-w-xs text-xs">Se a equipe ultrapassar o limite máximo de pessoas vinculadas, poderá haver impacto no cálculo do financiamento.</p>
-              </TooltipContent>
-            </Tooltip>
-          </div>
-        )}
-      </div>
-    );
-  }
-
-  // Valor absoluto view
   const maxValue = team.limiteMaximo;
-  const wCompleto = (team.cadastroCompleto / maxValue) * 100;
-  const wIndividual = (team.cadastroIndividual / maxValue) * 100;
-  const wSem = (team.semCadastro / maxValue) * 100;
+
+  const pCompleto = (team.cadastroCompleto / maxValue) * 100;
+  const pIndividual = (team.cadastroIndividual / maxValue) * 100;
+  const pSem = (team.semCadastro / maxValue) * 100;
   const paramPos = (team.parametro / maxValue) * 100;
+
+  const formatValue = (val: number) => {
+    if (viewMode === 'porcentagem') return `${((val / maxValue) * 100).toFixed(1)}%`;
+    return val.toLocaleString('pt-BR');
+  };
+
+  const paramLabel = viewMode === 'porcentagem' 
+    ? `${((team.parametro / maxValue) * 100).toFixed(0)}%` 
+    : team.parametro.toLocaleString('pt-BR');
+  
+  const limiteLabel = viewMode === 'porcentagem' ? '100%' : team.limiteMaximo.toLocaleString('pt-BR');
 
   return (
     <div className="space-y-1">
-      <p className="text-sm font-medium text-foreground">{team.nome} – {team.ine}</p>
-      <div className="relative h-8 w-full bg-muted/30 rounded overflow-visible">
-        {/* Stacked bars */}
-        <div className="absolute inset-y-0 left-0 flex h-full" style={{ width: `${wCompleto + wIndividual + wSem}%` }}>
-          <div className="h-full bg-[hsl(210,80%,45%)] flex items-center justify-center" style={{ width: `${(team.cadastroCompleto / total) * 100}%` }}>
-            <span className="text-xs font-semibold text-white">{team.cadastroCompleto.toLocaleString('pt-BR')}</span>
+      <p className="text-sm text-foreground">{team.nome} – {team.ine}</p>
+      <div className="flex items-center gap-0">
+        {/* Bar area with labels inline */}
+        <div className="relative flex-1 h-5 mr-2">
+          {/* Gray background bar (full width = limite máximo) */}
+          <div className="absolute inset-0 bg-muted/40 rounded-full" />
+          
+          {/* Stacked colored bars */}
+          <div 
+            className="absolute inset-y-0 left-0 flex h-full rounded-full overflow-hidden" 
+            style={{ width: `${pCompleto + pIndividual + pSem}%` }}
+          >
+            <div 
+              className="h-full bg-[hsl(210,80%,45%)] flex items-center justify-center min-w-0" 
+              style={{ width: `${(team.cadastroCompleto / total) * 100}%` }}
+            >
+              <span className="text-[10px] font-semibold text-white leading-none">{formatValue(team.cadastroCompleto)}</span>
+            </div>
+            <div 
+              className="h-full bg-[hsl(145,65%,45%)] flex items-center justify-center min-w-0" 
+              style={{ width: `${(team.cadastroIndividual / total) * 100}%` }}
+            >
+              <span className="text-[10px] font-semibold text-white leading-none">{formatValue(team.cadastroIndividual)}</span>
+            </div>
+            <div 
+              className="h-full bg-[hsl(0,70%,55%)] flex items-center justify-center min-w-0" 
+              style={{ width: `${(team.semCadastro / total) * 100}%` }}
+            >
+              <span className="text-[10px] font-semibold text-white leading-none">{formatValue(team.semCadastro)}</span>
+            </div>
           </div>
-          <div className="h-full bg-[hsl(145,65%,45%)] flex items-center justify-center" style={{ width: `${(team.cadastroIndividual / total) * 100}%` }}>
-            <span className="text-xs font-semibold text-white">{team.cadastroIndividual.toLocaleString('pt-BR')}</span>
+
+          {/* Parâmetro vertical line */}
+          <div className="absolute top-0 bottom-0" style={{ left: `${paramPos}%` }}>
+            <div className="w-[1.5px] h-full bg-foreground/50" />
           </div>
-          <div className="h-full bg-[hsl(0,70%,55%)] flex items-center justify-center" style={{ width: `${(team.semCadastro / total) * 100}%` }}>
-            <span className="text-xs font-semibold text-white">{team.semCadastro.toLocaleString('pt-BR')}</span>
-          </div>
+
+          {/* Parâmetro label - positioned at the line */}
+          <span 
+            className="absolute top-1/2 -translate-y-1/2 text-xs text-muted-foreground font-medium whitespace-nowrap"
+            style={{ left: `calc(${paramPos}% + 6px)` }}
+          >
+            {paramLabel}
+          </span>
+
+          {/* Limite máximo label - at far right */}
+          <span className="absolute top-1/2 -translate-y-1/2 -right-0 translate-x-[calc(100%+8px)] text-xs text-muted-foreground font-medium whitespace-nowrap">
+            {limiteLabel}
+          </span>
         </div>
-        {/* Parâmetro marker */}
-        <div className="absolute top-0 bottom-0 border-r-2 border-foreground/40" style={{ left: `${paramPos}%` }}>
-          <span className="absolute -top-0.5 left-2 text-xs text-muted-foreground font-medium">{team.parametro.toLocaleString('pt-BR')}</span>
-        </div>
-        {/* Limite máximo label */}
-        <span className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-[calc(100%+8px)] text-xs text-muted-foreground font-medium whitespace-nowrap">{team.limiteMaximo.toLocaleString('pt-BR')}</span>
       </div>
       {faltam > 0 && (
         <div className="flex items-center gap-1.5">
@@ -187,7 +179,7 @@ const ComparativoCadastroContent: React.FC = () => {
         {sampleData.map((unidade) => (
           <div key={unidade.nome} className="space-y-4">
             <h4 className="text-sm font-bold text-foreground">{unidade.nome}</h4>
-            <div className="space-y-5 pr-14">
+            <div className="space-y-5 pr-16">
               {unidade.equipes.map((equipe) => (
                 <BarChart key={equipe.ine} team={equipe} viewMode={viewMode} />
               ))}
