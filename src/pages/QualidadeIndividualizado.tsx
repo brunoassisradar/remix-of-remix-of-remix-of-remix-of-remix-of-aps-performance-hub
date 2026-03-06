@@ -28,6 +28,13 @@ interface PessoaVinculoData {
   cadastroDomiciliar: boolean;
   cadastroIndividual: boolean;
   acompanhada: boolean;
+  microarea: string;
+  dataUltimoCadastroIndividual: string | null;
+  cadastroIndividualObs: string | null;
+  dataUltimoCadastroDomiciliar: string | null;
+  cadastroDomiciliarObs: string | null;
+  dataUltimaPraticaCuidado: string | null;
+  ultimoContatoAssistencial: string | null;
 }
 
 // Sample data for Qualidade tab
@@ -101,111 +108,80 @@ const qualidadeData: PessoaQualidadeData[] = [
 // Sample data for Vínculo tab
 const vinculoData: PessoaVinculoData[] = [
   {
-    key: '1',
-    nome: 'Maria da Silva Santos',
-    cpfCns: '123.456.789-00',
-    equipe: 'Equipe 001 - ESF',
-    unidade: 'UBS Centro',
-    criterio: 'idoso',
-    cadastroDomiciliar: true,
-    cadastroIndividual: true,
-    acompanhada: true,
+    key: '1', nome: 'Maria da Silva Santos', cpfCns: '123.456.789-00', equipe: 'Equipe 001 - ESF', unidade: 'UBS Centro',
+    criterio: 'idoso', cadastroDomiciliar: true, cadastroIndividual: true, acompanhada: true,
+    microarea: '04', dataUltimoCadastroIndividual: '15/08/2025 por CARAVELAS', cadastroIndividualObs: null,
+    dataUltimoCadastroDomiciliar: '20/07/2025 por CARAVELAS', cadastroDomiciliarObs: null,
+    dataUltimaPraticaCuidado: '12/01/2026 por Dr. Silva', ultimoContatoAssistencial: '05/02/2026 por Enf. Santos',
   },
   {
-    key: '2',
-    nome: 'João Pedro Oliveira',
-    cpfCns: '987.654.321-00',
-    equipe: 'Equipe 002 - ESF',
-    unidade: 'UBS Norte',
-    criterio: 'sem_criterio',
-    cadastroDomiciliar: true,
-    cadastroIndividual: false,
-    acompanhada: false,
+    key: '2', nome: 'João Pedro Oliveira', cpfCns: '987.654.321-00', equipe: 'Equipe 002 - ESF', unidade: 'UBS Norte',
+    criterio: 'sem_criterio', cadastroDomiciliar: true, cadastroIndividual: false, acompanhada: false,
+    microarea: '02', dataUltimoCadastroIndividual: '10/03/2023 (fora do período) por CARAVELAS', cadastroIndividualObs: null,
+    dataUltimoCadastroDomiciliar: null, cadastroDomiciliarObs: 'Sem cadastro domiciliar.',
+    dataUltimaPraticaCuidado: null, ultimoContatoAssistencial: null,
   },
   {
-    key: '3',
-    nome: 'Ana Carolina Ferreira',
-    cpfCns: '456.789.123-00',
-    equipe: 'Equipe 001 - ESF',
-    unidade: 'UBS Centro',
-    criterio: 'idoso',
-    cadastroDomiciliar: true,
-    cadastroIndividual: true,
-    acompanhada: true,
+    key: '3', nome: 'Ana Carolina Ferreira', cpfCns: '456.789.123-00', equipe: 'Equipe 001 - ESF', unidade: 'UBS Centro',
+    criterio: 'idoso', cadastroDomiciliar: true, cadastroIndividual: true, acompanhada: true,
+    microarea: '01', dataUltimoCadastroIndividual: '22/09/2025 por CARAVELAS', cadastroIndividualObs: null,
+    dataUltimoCadastroDomiciliar: '22/09/2025 por CARAVELAS', cadastroDomiciliarObs: null,
+    dataUltimaPraticaCuidado: '10/11/2025 por Dr. Lima', ultimoContatoAssistencial: '15/12/2025 por Enf. Costa',
   },
   {
-    key: '4',
-    nome: 'Carlos Eduardo Lima',
-    cpfCns: '789.123.456-00',
-    equipe: 'Equipe 003 - eAP',
-    unidade: 'UBS Sul',
-    criterio: 'sem_criterio',
-    cadastroDomiciliar: false,
-    cadastroIndividual: true,
-    acompanhada: false,
+    key: '4', nome: 'Carlos Eduardo Lima', cpfCns: '789.123.456-00', equipe: 'Equipe 003 - eAP', unidade: 'UBS Sul',
+    criterio: 'sem_criterio', cadastroDomiciliar: false, cadastroIndividual: true, acompanhada: false,
+    microarea: '03', dataUltimoCadastroIndividual: '05/06/2025 por SOCORRO', cadastroIndividualObs: null,
+    dataUltimoCadastroDomiciliar: null, cadastroDomiciliarObs: 'Sem cadastro domiciliar.',
+    dataUltimaPraticaCuidado: null, ultimoContatoAssistencial: null,
   },
   {
-    key: '5',
-    nome: 'Fernanda Costa Ribeiro',
-    cpfCns: '321.654.987-00',
-    equipe: 'Equipe 002 - ESF',
-    unidade: 'UBS Norte',
-    criterio: 'idoso',
-    cadastroDomiciliar: true,
-    cadastroIndividual: true,
-    acompanhada: true,
+    key: '5', nome: 'Fernanda Costa Ribeiro', cpfCns: '321.654.987-00', equipe: 'Equipe 002 - ESF', unidade: 'UBS Norte',
+    criterio: 'idoso', cadastroDomiciliar: true, cadastroIndividual: true, acompanhada: true,
+    microarea: '04', dataUltimoCadastroIndividual: '18/07/2025 por PINDORAMA', cadastroIndividualObs: null,
+    dataUltimoCadastroDomiciliar: '18/07/2025 por PINDORAMA', cadastroDomiciliarObs: null,
+    dataUltimaPraticaCuidado: '20/01/2026 por Dr. Alves', ultimoContatoAssistencial: '28/01/2026 por Enf. Ribeiro',
   },
   {
-    key: '6',
-    nome: 'Roberto Alves Mendes',
-    cpfCns: '654.987.321-00',
-    equipe: 'Equipe 001 - ESF',
-    unidade: 'UBS Centro',
-    criterio: 'sem_criterio',
-    cadastroDomiciliar: true,
-    cadastroIndividual: true,
-    acompanhada: false,
+    key: '6', nome: 'Roberto Alves Mendes', cpfCns: '654.987.321-00', equipe: 'Equipe 001 - ESF', unidade: 'UBS Centro',
+    criterio: 'sem_criterio', cadastroDomiciliar: true, cadastroIndividual: true, acompanhada: false,
+    microarea: '02', dataUltimoCadastroIndividual: '30/04/2025 por VERSALHES', cadastroIndividualObs: null,
+    dataUltimoCadastroDomiciliar: '30/04/2025 por VERSALHES', cadastroDomiciliarObs: null,
+    dataUltimaPraticaCuidado: null, ultimoContatoAssistencial: null,
   },
   {
-    key: '7',
-    nome: 'Patrícia Souza Gomes',
-    cpfCns: '147.258.369-00',
-    equipe: 'Equipe 003 - eAP',
-    unidade: 'UBS Sul',
-    criterio: 'idoso',
-    cadastroDomiciliar: false,
-    cadastroIndividual: false,
-    acompanhada: false,
+    key: '7', nome: 'Patrícia Souza Gomes', cpfCns: '147.258.369-00', equipe: 'Equipe 003 - eAP', unidade: 'UBS Sul',
+    criterio: 'idoso', cadastroDomiciliar: false, cadastroIndividual: false, acompanhada: false,
+    microarea: '01', dataUltimoCadastroIndividual: '12/02/2023 (fora do período) por HUMAITA', cadastroIndividualObs: null,
+    dataUltimoCadastroDomiciliar: null, cadastroDomiciliarObs: 'Sem cadastro domiciliar.',
+    dataUltimaPraticaCuidado: null, ultimoContatoAssistencial: null,
   },
   {
-    key: '8',
-    nome: 'Marcos Vinícius Pereira',
-    cpfCns: '258.369.147-00',
-    equipe: 'Equipe 002 - ESF',
-    unidade: 'UBS Norte',
-    criterio: 'sem_criterio',
-    cadastroDomiciliar: true,
-    cadastroIndividual: true,
-    acompanhada: true,
+    key: '8', nome: 'Marcos Vinícius Pereira', cpfCns: '258.369.147-00', equipe: 'Equipe 002 - ESF', unidade: 'UBS Norte',
+    criterio: 'sem_criterio', cadastroDomiciliar: true, cadastroIndividual: true, acompanhada: true,
+    microarea: '03', dataUltimoCadastroIndividual: '14/10/2025 por SOCORRO', cadastroIndividualObs: null,
+    dataUltimoCadastroDomiciliar: '14/10/2025 por SOCORRO', cadastroDomiciliarObs: null,
+    dataUltimaPraticaCuidado: '22/12/2025 por Dr. Pereira', ultimoContatoAssistencial: '10/01/2026 por Enf. Gomes',
   },
 ];
 
-// Status tag component
-const StatusTag: React.FC<{ 
+// Status dot+label component (matching the pattern used elsewhere)
+const StatusDot: React.FC<{ 
   label: string; 
   variant: 'success' | 'error' | 'default' | 'info';
 }> = ({ label, variant }) => {
-  const variantClasses = {
-    success: 'bg-[#00A65A]/10 text-[#00A65A] border-[#00A65A]/20',
-    error: 'bg-[#DD4B39]/10 text-[#DD4B39] border-[#DD4B39]/20',
-    default: 'bg-muted text-muted-foreground border-border',
-    info: 'bg-[#3C8DBC]/10 text-[#3C8DBC] border-[#3C8DBC]/20',
+  const dotColors = {
+    success: 'bg-[hsl(145,63%,42%)]',
+    error: 'bg-[hsl(0,65%,51%)]',
+    default: 'bg-muted-foreground',
+    info: 'bg-[hsl(200,60%,50%)]',
   };
 
   return (
-    <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium border ${variantClasses[variant]}`}>
-      {label}
-    </span>
+    <div className="flex items-center gap-1.5">
+      <span className={`w-2 h-2 rounded-full shrink-0 ${dotColors[variant]}`} />
+      <span className="text-sm">{label}</span>
+    </div>
   );
 };
 
@@ -321,14 +297,13 @@ const vinculoColumns: ColumnsType<PessoaVinculoData> = [
     dataIndex: 'criterio',
     key: 'criterio',
     width: '12%',
-    align: 'center',
     filters: [
       { text: 'Idoso', value: 'idoso' },
       { text: 'Sem critério', value: 'sem_criterio' },
     ],
     onFilter: (value, record) => record.criterio === value,
     render: (criterio: 'idoso' | 'sem_criterio') => (
-      <StatusTag 
+      <StatusDot 
         label={criterio === 'idoso' ? 'Idoso' : 'Sem critério'} 
         variant={criterio === 'idoso' ? 'info' : 'default'} 
       />
@@ -338,17 +313,10 @@ const vinculoColumns: ColumnsType<PessoaVinculoData> = [
     title: 'Cadastro',
     key: 'cadastro',
     width: '14%',
-    align: 'center',
     render: (_, record) => (
-      <div className="flex flex-wrap gap-1 justify-center">
-        <StatusTag 
-          label="Domiciliar" 
-          variant={record.cadastroDomiciliar ? 'success' : 'error'} 
-        />
-        <StatusTag 
-          label="Individual" 
-          variant={record.cadastroIndividual ? 'success' : 'error'} 
-        />
+      <div className="space-y-1">
+        <StatusDot label="Domiciliar" variant={record.cadastroDomiciliar ? 'success' : 'error'} />
+        <StatusDot label="Individual" variant={record.cadastroIndividual ? 'success' : 'error'} />
       </div>
     ),
   },
@@ -357,14 +325,13 @@ const vinculoColumns: ColumnsType<PessoaVinculoData> = [
     dataIndex: 'acompanhada',
     key: 'acompanhada',
     width: '10%',
-    align: 'center',
     filters: [
       { text: 'Acompanhada', value: true },
       { text: 'Não acompanhada', value: false },
     ],
     onFilter: (value, record) => record.acompanhada === value,
     render: (acompanhada: boolean) => (
-      <StatusTag 
+      <StatusDot 
         label={acompanhada ? 'Acompanhada' : 'Não acompanhada'} 
         variant={acompanhada ? 'success' : 'error'} 
       />
@@ -444,11 +411,51 @@ const VinculoTableContent: React.FC<{
       expandable={{
         expandedRowKeys,
         onExpand,
-        expandedRowRender: () => (
-          <div className="p-4 bg-muted/30 rounded-md">
-            <span className="text-sm text-muted-foreground italic">
-              Detalhes do cadastro individual (em desenvolvimento)
-            </span>
+        expandedRowRender: (record: PessoaVinculoData) => (
+          <div className="p-4 bg-muted/20 rounded-md">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Left: Cadastro */}
+              <div className="space-y-4">
+                <p className="text-sm text-muted-foreground">Microárea do cidadão: <span className="text-foreground font-medium">{record.microarea}</span></p>
+                
+                <div className="space-y-3">
+                  <p className="text-sm font-bold text-foreground">Cadastro:</p>
+                  
+                  <div>
+                    <p className="text-sm font-medium text-primary italic">Data do último Cadastro Individual:</p>
+                    <p className="text-sm text-foreground ml-3">
+                      {record.dataUltimoCadastroIndividual || 'Sem cadastro individual.'}
+                    </p>
+                  </div>
+
+                  <div>
+                    <p className="text-sm font-medium text-primary italic">Data do último Cadastro Domiciliar:</p>
+                    <p className="text-sm text-foreground ml-3">
+                      {record.dataUltimoCadastroDomiciliar || record.cadastroDomiciliarObs || 'Sem cadastro domiciliar.'}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right: Acompanhamento */}
+              <div className="space-y-3">
+                <p className="text-sm font-bold text-foreground">Acompanhamento (Prática de cuidado + qualquer contato assistencial):</p>
+                
+                <div>
+                  <p className="text-sm font-medium text-primary italic">Data do última prática de cuidado:</p>
+                  <p className="text-sm text-foreground ml-3">
+                    {record.dataUltimaPraticaCuidado || 'Sem último atendimento.'}
+                  </p>
+                </div>
+
+                <div>
+                  <p className="text-sm font-medium text-primary italic">Último contato assistencial:</p>
+                  <p className="text-sm text-foreground ml-3">
+                    {record.ultimoContatoAssistencial || 'Sem último contato assistencial.'}
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         ),
         expandIcon: ({ expanded, onExpand, record }) => (
