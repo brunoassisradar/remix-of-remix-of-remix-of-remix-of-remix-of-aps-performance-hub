@@ -9,6 +9,7 @@ import { VinculoAcompanhamentoTable } from '@/components/financiamento/VinculoAc
 import { ResultadoMunicipio } from '@/components/financiamento/ResultadoMunicipio';
 import { ComparativoCadastro } from '@/components/financiamento/ComparativoCadastro';
 import { CriteriosVinculacao } from '@/components/financiamento/CriteriosVinculacao';
+import { EvolucaoCadastrosChart } from '@/components/financiamento/EvolucaoCadastrosChart';
 import { Button } from '@/components/ui/button';
 
 const validTabs = ['vinculo', 'qualidade', 'qualidade-esb'];
@@ -70,6 +71,7 @@ const QualidadeVisaoGeral: React.FC = () => {
             notaFinal={6.5}
             classificacao="suficiente"
           />
+          <EvolucaoCadastrosChart />
           <ComparativoCadastro
             municipio="Lorem ipsum"
             pessoasCadastradas={2339333}
