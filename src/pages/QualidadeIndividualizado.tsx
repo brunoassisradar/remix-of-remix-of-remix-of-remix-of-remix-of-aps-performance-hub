@@ -5,6 +5,7 @@ import { Download, ChevronDown, ChevronRight } from 'lucide-react';
 import { useSearchParams } from 'react-router-dom';
 import { PageHeader } from '@/components/layout/PageHeader';
 import { FilterBar } from '@/components/financiamento/FilterBar';
+import { VinculoIndividualizadoFilterBar } from '@/components/financiamento/VinculoIndividualizadoFilterBar';
 
 // Interface for Qualidade tab
 interface PessoaQualidadeData {
@@ -525,7 +526,7 @@ const QualidadeIndividualizado: React.FC = () => {
 
   const renderVinculoContent = () => (
     <div className="space-y-6">
-      <FilterBar />
+      <VinculoIndividualizadoFilterBar />
       <VinculoTableContent 
         expandedRowKeys={expandedVinculoKeys} 
         onExpand={handleVinculoExpand} 
