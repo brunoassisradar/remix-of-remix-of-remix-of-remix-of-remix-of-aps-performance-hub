@@ -143,12 +143,27 @@ const columns: ColumnsType<VinculoData> = [
     title: 'Nota Final',
     dataIndex: 'notaFinal',
     key: 'notaFinal',
-    width: '18%',
+    width: '14%',
     filters: statusFilters,
     onFilter: (value, record) => record.classificacaoFinal === value,
     sorter: (a, b) => a.notaFinal - b.notaFinal,
     render: (nota: number, record: VinculoData) => (
       <ResultadoCell nota={nota} classification={record.classificacaoFinal} />
+    ),
+  },
+  {
+    title: 'Ação',
+    key: 'acao',
+    width: '16%',
+    render: (_: unknown, record: VinculoData) => (
+      <div className="flex gap-2">
+        <Link to={`/financiamento-aps/qualidade-esf-eap/relatorio?tab=vinculo&equipe=${record.key}`}>
+          <Button type="default" size="small">Relatório</Button>
+        </Link>
+        <Link to={`/financiamento-aps/qualidade-esf-eap/individualizado?tab=vinculo&equipe=${record.key}`}>
+          <Button type="default" size="small">Individualizado</Button>
+        </Link>
+      </div>
     ),
   },
 ];
