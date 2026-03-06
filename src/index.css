@@ -206,3 +206,8 @@
   background: #EBF3FE !important;
   box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1) !important;
 }
+
+/* Ant Design Table pagination centered */
+.ant-table-pagination.ant-pagination {
+  justify-content: center !important;
+}
