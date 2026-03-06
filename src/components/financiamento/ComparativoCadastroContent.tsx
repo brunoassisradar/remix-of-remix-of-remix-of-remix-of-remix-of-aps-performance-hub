@@ -121,7 +121,7 @@ const BarChart: React.FC<{ team: TeamData; viewMode: ViewMode }> = ({ team, view
       </div>
       {faltam > 0 && (
         <div className="flex items-center gap-1.5">
-          <p className="text-xs text-blue-600 italic">
+          <p className="text-xs text-muted-foreground italic">
             Faltam {faltam.toLocaleString('pt-BR')} pessoas vinculadas à equipe.
           </p>
           <Tooltip>
