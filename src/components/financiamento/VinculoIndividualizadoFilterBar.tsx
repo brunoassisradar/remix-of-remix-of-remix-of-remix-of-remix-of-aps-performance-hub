@@ -13,12 +13,12 @@ export const VinculoIndividualizadoFilterBar: React.FC<VinculoIndividualizadoFil
 }) => {
   return (
     <div className="rounded-lg bg-card p-4 shadow-sm space-y-4">
-      <p className="text-sm font-medium text-primary">Filtros</p>
+      <p className="text-sm font-medium text-foreground">Filtros</p>
 
       {/* Row 1 */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <div className="flex flex-col gap-1.5">
-          <label className="text-sm font-medium text-primary">Buscar por nome, CPF ou CNS</label>
+          <label className="text-sm font-medium text-foreground">Buscar por nome, CPF ou CNS</label>
           <Input placeholder="Digite aqui" />
         </div>
         <div className="flex flex-col gap-1.5">
@@ -54,7 +54,7 @@ export const VinculoIndividualizadoFilterBar: React.FC<VinculoIndividualizadoFil
       {/* Row 2 */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <div className="flex flex-col gap-1.5">
-          <label className="text-sm font-medium text-primary">Microárea (registrada na FCI)</label>
+          <label className="text-sm font-medium text-foreground">Microárea (registrada na FCI)</label>
           <Select
             placeholder="Selecione uma microárea"
             style={{ width: '100%' }}
