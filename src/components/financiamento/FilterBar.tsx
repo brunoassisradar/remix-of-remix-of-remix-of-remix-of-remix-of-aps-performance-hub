@@ -1,6 +1,5 @@
 import React from 'react';
-import { Select, Button, Progress } from 'antd';
-import { Search, X } from 'lucide-react';
+import { Select, Button } from 'antd';
 
 interface FilterBarProps {
   onSearch?: () => void;
@@ -75,20 +74,8 @@ export const FilterBar: React.FC<FilterBarProps> = ({
         </div>
       </div>
 
-      {/* Linha 3: Alerta e Botões */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <Progress
-            percent={50}
-            steps={4}
-            size="small"
-            showInfo={false}
-            strokeColor="hsl(var(--primary))"
-            trailColor="hsl(var(--muted))"
-            className="[&_.ant-progress-steps-item]:!w-4 [&_.ant-progress-steps-item]:!h-1.5"
-          />
-          <span className="text-sm text-muted-foreground">Faltam 30 dias para o fim do quadrimestre</span>
-        </div>
+      {/* Linha 3: Botões */}
+      <div className="flex items-center justify-end">
 
         <div className="flex items-center gap-2">
           <Button onClick={onClear}>
