@@ -3,10 +3,31 @@ import { Table, Button } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { Download } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { StatusBadge } from './StatusBadge';
 
 type Classification = 'otimo' | 'bom' | 'suficiente' | 'regular';
 
+const statusColors: Record<Classification, string> = {
+  otimo: 'bg-[#3C8DBC]',
+  bom: 'bg-[#00A65A]',
+  suficiente: 'bg-[#F0AD4E]',
+  regular: 'bg-[#DD4B39]',
+};
+
+const statusLabels: Record<Classification, string> = {
+  otimo: 'Ótimo',
+  bom: 'Bom',
+  suficiente: 'Suficiente',
+  regular: 'Regular',
+};
+
+const ClassificationCell: React.FC<{ classification: Classification; nota?: number }> = ({ classification, nota }) => (
+  <div className="flex items-center gap-2">
+    <span className={`w-2 h-2 rounded-full ${statusColors[classification]}`} />
+    <span className="text-sm">
+      {nota !== undefined ? `${statusLabels[classification]} | ${nota}` : statusLabels[classification]}
+    </span>
+  </div>
+);
 interface VinculoData {
   key: string;
   equipeSaude: string;
@@ -44,6 +65,7 @@ const columns: ColumnsType<VinculoData> = [
     title: 'Equipe de Saúde',
     dataIndex: 'equipeSaude',
     key: 'equipeSaude',
+    width: '15%',
     render: (text: string) => <span className="font-medium">{text}</span>,
     sorter: (a, b) => a.equipeSaude.localeCompare(b.equipeSaude),
   },
@@ -51,54 +73,58 @@ const columns: ColumnsType<VinculoData> = [
     title: 'Unidade',
     dataIndex: 'unidade',
     key: 'unidade',
+    width: '15%',
     sorter: (a, b) => a.unidade.localeCompare(b.unidade),
   },
   {
     title: 'INE',
     dataIndex: 'ine',
     key: 'ine',
+    width: '10%',
     sorter: (a, b) => a.ine.localeCompare(b.ine),
   },
   {
     title: 'CNES',
     dataIndex: 'cnes',
     key: 'cnes',
+    width: '10%',
     sorter: (a, b) => a.cnes.localeCompare(b.cnes),
   },
   {
     title: 'Dimensão cadastro',
     dataIndex: 'dimensaoCadastro',
     key: 'dimensaoCadastro',
+    width: '13%',
     filters: statusFilters,
     onFilter: (value, record) => record.dimensaoCadastro === value,
     sorter: (a, b) => a.dimensaoCadastro.localeCompare(b.dimensaoCadastro),
-    render: (status: Classification) => <StatusBadge status={status} />,
+    render: (status: Classification) => <ClassificationCell classification={status} />,
   },
   {
     title: 'Dimensão acompanhamento',
     dataIndex: 'dimensaoAcompanhamento',
     key: 'dimensaoAcompanhamento',
+    width: '13%',
     filters: statusFilters,
     onFilter: (value, record) => record.dimensaoAcompanhamento === value,
     sorter: (a, b) => a.dimensaoAcompanhamento.localeCompare(b.dimensaoAcompanhamento),
-    render: (status: Classification) => <StatusBadge status={status} />,
+    render: (status: Classification) => <ClassificationCell classification={status} />,
   },
   {
     title: 'Resultado final',
     key: 'resultadoFinal',
+    width: '13%',
     filters: statusFilters,
     onFilter: (value, record) => record.resultadoFinal === value,
     sorter: (a, b) => a.resultadoFinalNota - b.resultadoFinalNota,
     render: (_: unknown, record: VinculoData) => (
-      <div className="flex items-center gap-2">
-        <span className="text-sm font-medium">{record.resultadoFinalNota}</span>
-        <StatusBadge status={record.resultadoFinal} />
-      </div>
+      <ClassificationCell classification={record.resultadoFinal} nota={record.resultadoFinalNota} />
     ),
   },
   {
     title: 'Ação',
     key: 'acao',
+    width: '11%',
     render: (_: unknown, record: VinculoData) => (
       <div className="flex gap-2">
         <Link to={`/financiamento-aps/qualidade-esf-eap/relatorio?tab=vinculo&equipe=${record.key}`}>
