@@ -268,7 +268,7 @@ const vinculoColumns: ColumnsType<PessoaVinculoData> = [
     width: '13%',
   },
   {
-    title: 'Equipe de saúde',
+    title: 'EQUIPE_WITH_HELP',
     dataIndex: 'equipe',
     key: 'equipe',
     width: '17%',
@@ -373,8 +373,9 @@ const VinculoTableContent: React.FC<{
   onExpand: (expanded: boolean, record: PessoaVinculoData) => void;
 }> = ({ expandedRowKeys, onExpand }) => {
   const [helpModalOpen, setHelpModalOpen] = useState(false);
+  const [vinculosModalOpen, setVinculosModalOpen] = useState(false);
 
-  // Override the Acompanhamento column title with help icon
+  // Override column titles with help icons
   const columnsWithHelp = vinculoColumns.map(col => {
     if (col.title === 'ACOMPANHAMENTO_WITH_HELP') {
       return {
@@ -383,6 +384,19 @@ const VinculoTableContent: React.FC<{
           <div className="flex items-center gap-1.5">
             <span>Acompanhamento</span>
             <button onClick={(e) => { e.stopPropagation(); setHelpModalOpen(true); }} className="text-primary hover:text-primary/80">
+              <HelpCircle className="h-3.5 w-3.5" />
+            </button>
+          </div>
+        ),
+      };
+    }
+    if (col.title === 'EQUIPE_WITH_HELP') {
+      return {
+        ...col,
+        title: (
+          <div className="flex items-center gap-1.5">
+            <span>Equipe de saúde</span>
+            <button onClick={(e) => { e.stopPropagation(); setVinculosModalOpen(true); }} className="text-primary hover:text-primary/80">
               <HelpCircle className="h-3.5 w-3.5" />
             </button>
           </div>
@@ -432,6 +446,56 @@ const VinculoTableContent: React.FC<{
             <a href="#" className="text-primary underline font-medium">Portaria SAPS/MS Nº 161, de 10 de Dezembro de 2024</a>
             {' '}e a{' '}
             <a href="#" className="text-primary underline font-medium">nota metodológica.</a>
+          </p>
+        </div>
+      </Modal>
+
+      <Modal
+        open={vinculosModalOpen}
+        onCancel={() => setVinculosModalOpen(false)}
+        footer={
+          <div className="flex justify-end">
+            <Button onClick={() => setVinculosModalOpen(false)}>Fechar</Button>
+          </div>
+        }
+        centered
+        width={650}
+      >
+        <div className="flex flex-col items-center pt-4 pb-2">
+          <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+            <HelpCircle className="h-8 w-8 text-primary" />
+          </div>
+          <h3 className="text-lg font-semibold text-foreground mb-4">Vínculos</h3>
+        </div>
+        <div className="space-y-4 text-sm text-foreground">
+          <p>
+            O vínculo foi atualizado e será com base na equipe que realizar o cadastro do cidadão e os critérios para desempate são:
+          </p>
+          <table className="w-full border-collapse">
+            <thead>
+              <tr>
+                <th className="text-left py-2 px-4 text-sm font-semibold text-foreground w-32">Prioridade</th>
+                <th className="text-left py-2 px-4 text-sm font-semibold text-foreground">Situação</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="bg-muted/30">
+                <td className="py-3 px-4 text-center text-sm font-medium text-primary">1</td>
+                <td className="py-3 px-4 text-sm border-l border-border">Equipe em que o usuário apresentar o maior número de atendimentos no período de um ano;</td>
+              </tr>
+              <tr className="bg-muted/30 mt-1">
+                <td className="py-3 px-4 text-center text-sm font-medium text-primary">2</td>
+                <td className="py-3 px-4 text-sm border-l border-border">Equipe responsável pelo atendimento mais recente do usuário;</td>
+              </tr>
+              <tr className="bg-muted/30 mt-1">
+                <td className="py-3 px-4 text-center text-sm font-medium text-primary">3</td>
+                <td className="py-3 px-4 text-sm border-l border-border">Equipe em que usuário possuir o cadastro mais atualizado, considerando as últimas informações registradas no sistema.</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            É utilizada como fonte a{' '}
+            <a href="#" className="text-primary underline font-medium">Portaria SAPS/MS Nº 161, de 10 de Dezembro de 2024.</a>
           </p>
         </div>
       </Modal>
