@@ -422,14 +422,14 @@ const VinculoTableContent: React.FC<{
                   <p className="text-sm font-bold text-foreground">Cadastro:</p>
                   
                   <div>
-                    <p className="text-sm font-medium text-primary italic">Data do último Cadastro Individual:</p>
+                    <p className="text-sm font-medium text-amber-800 dark:text-amber-600 italic">Data do último Cadastro Individual:</p>
                     <p className="text-sm text-foreground ml-3">
                       {record.dataUltimoCadastroIndividual || 'Sem cadastro individual.'}
                     </p>
                   </div>
 
                   <div>
-                    <p className="text-sm font-medium text-primary italic">Data do último Cadastro Domiciliar:</p>
+                    <p className="text-sm font-medium text-amber-800 dark:text-amber-600 italic">Data do último Cadastro Domiciliar:</p>
                     <p className="text-sm text-foreground ml-3">
                       {record.dataUltimoCadastroDomiciliar || record.cadastroDomiciliarObs || 'Sem cadastro domiciliar.'}
                     </p>
@@ -442,14 +442,14 @@ const VinculoTableContent: React.FC<{
                 <p className="text-sm font-bold text-foreground">Acompanhamento (Prática de cuidado + qualquer contato assistencial):</p>
                 
                 <div>
-                  <p className="text-sm font-medium text-primary italic">Data do última prática de cuidado:</p>
+                  <p className="text-sm font-medium text-amber-800 dark:text-amber-600 italic">Data do última prática de cuidado:</p>
                   <p className="text-sm text-foreground ml-3">
                     {record.dataUltimaPraticaCuidado || 'Sem último atendimento.'}
                   </p>
                 </div>
 
                 <div>
-                  <p className="text-sm font-medium text-primary italic">Último contato assistencial:</p>
+                  <p className="text-sm font-medium text-amber-800 dark:text-amber-600 italic">Último contato assistencial:</p>
                   <p className="text-sm text-foreground ml-3">
                     {record.ultimoContatoAssistencial || 'Sem último contato assistencial.'}
                   </p>
