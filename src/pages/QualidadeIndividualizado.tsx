@@ -670,13 +670,17 @@ const QualidadeIndividualizado: React.FC = () => {
         ]}
       />
 
-      <Tabs
+      {/* Tabs temporariamente ocultas - serão reativadas no futuro */}
+      {/* <Tabs
         activeKey={activeTab}
         onChange={handleTabChange}
         items={tabItems}
         size="large"
         className="financiamento-tabs"
-      />
+      /> */}
+      
+      {/* Conteúdo da aba Vínculo (padrão) */}
+      <div className="pt-4">{renderVinculoContent()}</div>
     </div>
   );
 };
