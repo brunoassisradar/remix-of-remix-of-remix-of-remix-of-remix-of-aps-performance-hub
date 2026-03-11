@@ -13,7 +13,7 @@ import { Users, Baby, Heart, Activity, Stethoscope, UserCheck, Flower2, Clipboar
 import { Button } from '@/components/ui/button';
 import { EsbIndicadorContent } from '@/components/financiamento/EsbIndicadorContent';
 
-const periods = ['Consolidado', 'Janeiro', 'Fevereiro', 'Março', 'Abril'];
+const periods = ['Janeiro', 'Fevereiro', 'Março', 'Abril'];
 
 const validTabs = ['vinculo', 'qualidade', 'qualidade-esb'];
 
