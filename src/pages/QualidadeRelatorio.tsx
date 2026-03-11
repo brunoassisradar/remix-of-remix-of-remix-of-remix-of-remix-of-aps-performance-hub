@@ -13,7 +13,7 @@ import { Users, Baby, Heart, Activity, Stethoscope, UserCheck, Flower2, Clipboar
 import { Button } from '@/components/ui/button';
 import { EsbIndicadorContent } from '@/components/financiamento/EsbIndicadorContent';
 
-const periods = ['Consolidado', 'Janeiro', 'Fevereiro', 'Março', 'Abril'];
+const periods = ['Janeiro', 'Fevereiro', 'Março', 'Abril'];
 
 const validTabs = ['vinculo', 'qualidade', 'qualidade-esb'];
 
@@ -437,7 +437,8 @@ const QualidadeRelatorio: React.FC = () => {
         actions={headerActions}
       />
 
-      <Tabs
+      {/* Tabs temporariamente ocultas - serão reativadas no futuro */}
+      {/* <Tabs
         activeKey={activeTab}
         onChange={(key) => {
           setActiveTab(key);
@@ -448,7 +449,10 @@ const QualidadeRelatorio: React.FC = () => {
         items={tabItems}
         size="large"
         className="financiamento-tabs"
-      />
+      /> */}
+      
+      {/* Conteúdo da aba Vínculo (padrão) */}
+      <div className="pt-4">{renderVinculoContent()}</div>
     </div>
   );
 };

@@ -138,13 +138,38 @@ const QualidadeVisaoGeral: React.FC = () => {
         actions={headerActions}
       />
 
-      <Tabs
+      {/* Tabs temporariamente ocultas - serão reativadas no futuro */}
+      {/* <Tabs
         activeKey={activeTab}
         onChange={handleTabChange}
         items={tabItems}
         size="large"
         className="financiamento-tabs"
-      />
+      /> */}
+      
+      {/* Conteúdo da aba Vínculo (padrão) */}
+      <div className="pt-4">
+        <div className="space-y-6 pt-4">
+          <FilterBar />
+          <ResultadoMunicipio
+            escoreCadastro={3}
+            escoreAcompanhamento={3.5}
+            notaFinal={6.5}
+            classificacao="suficiente"
+          />
+          <EvolucaoCadastrosChart />
+          <ComparativoCadastro
+            municipio="Lorem ipsum"
+            pessoasCadastradas={2339333}
+            pessoasCadastroAtualizado={1500703}
+            pessoasAcompanhadas={825242}
+            populacaoIBGE={2800000}
+            populacaoLimite={3200000}
+          />
+          <VinculoAcompanhamentoTable />
+          <CriteriosVinculacao />
+        </div>
+      </div>
     </div>
   );
 };
