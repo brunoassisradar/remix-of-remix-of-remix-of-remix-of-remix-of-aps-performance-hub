@@ -293,7 +293,7 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
                               </button>
                               {expandedSecondary.includes(child.label) && (
                                 <ul className="ml-4 mt-1 space-y-1 border-l border-border pl-3">
-                                  {child.children.map((tertiary) => (
+                                  {child.children.filter((tertiary) => tertiary.label !== 'Visão geral').map((tertiary) => (
                                                     <li key={tertiary.label}>
                                                       <NavLink
                                                         to={tertiary.path}
