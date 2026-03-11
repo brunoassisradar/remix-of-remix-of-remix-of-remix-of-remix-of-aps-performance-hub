@@ -139,36 +139,10 @@ const QualidadeVisaoGeral: React.FC = () => {
       />
 
       {/* Tabs temporariamente ocultas - serão reativadas no futuro */}
-      {/* <Tabs
-        activeKey={activeTab}
-        onChange={handleTabChange}
-        items={tabItems}
-        size="large"
-        className="financiamento-tabs"
-      /> */}
       
-      {/* Conteúdo da aba Vínculo (padrão) */}
+      {/* Conteúdo renderizado com base na tab ativa da URL */}
       <div className="pt-4">
-        <div className="space-y-6 pt-4">
-          <FilterBar />
-          <ResultadoMunicipio
-            escoreCadastro={3}
-            escoreAcompanhamento={3.5}
-            notaFinal={6.5}
-            classificacao="suficiente"
-          />
-          <EvolucaoCadastrosChart />
-          <ComparativoCadastro
-            municipio="Lorem ipsum"
-            pessoasCadastradas={2339333}
-            pessoasCadastroAtualizado={1500703}
-            pessoasAcompanhadas={825242}
-            populacaoIBGE={2800000}
-            populacaoLimite={3200000}
-          />
-          <VinculoAcompanhamentoTable />
-          <CriteriosVinculacao />
-        </div>
+        {tabItems.find(item => item.key === activeTab)?.children || tabItems[0].children}
       </div>
     </div>
   );
