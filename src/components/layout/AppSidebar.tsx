@@ -155,14 +155,16 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
   };
 
   const toggleSecondaryExpanded = (label: string, child?: SecondaryMenuItem) => {
-    const isExpanding = !expandedSecondary.includes(label);
-    setExpandedSecondary((prev) =>
-      prev.includes(label)
-        ? prev.filter((item) => item !== label)
-        : [...prev, label]
-    );
-    // When expanding a secondary item that has tertiary children, navigate to its first child (Visão geral)
-    if (isExpanding && child?.children && child.children.length > 0) {
+    setExpandedSecondary((prev) => {
+      // If clicking a different item, close others and open this one
+      if (!prev.includes(label)) {
+        return [...prev, label];
+      }
+      // If clicking the already-expanded item, collapse it
+      return prev.filter((item) => item !== label);
+    });
+    // Always navigate to the first child (Visão geral) when clicking
+    if (child?.children && child.children.length > 0) {
       navigate(child.children[0].path);
     }
   };
