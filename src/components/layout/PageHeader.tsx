@@ -16,9 +16,9 @@ export const PageHeader: React.FC<PageHeaderProps> = ({ title, breadcrumbs, acti
   return (
     <div className="mb-6">
       <Breadcrumb items={breadcrumbs} />
-      <div className="mt-2 flex items-center gap-2">
+      <div className="mt-2 flex items-center justify-between">
         <h1 className="text-2xl font-semibold text-foreground">{title}</h1>
-        {actions && <div className="flex items-center">{actions}</div>}
+        {actions && <div className="flex items-center gap-2">{actions}</div>}
       </div>
     </div>
   );

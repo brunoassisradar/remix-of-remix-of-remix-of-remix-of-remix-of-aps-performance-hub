@@ -75,10 +75,10 @@ const menuItems: MenuItem[] = [
       },
     ],
   },
-  { label: 'Geocalização', icon: MapPin, path: '#' },
-  { label: 'Configuração', icon: Settings, path: '#' },
   { label: 'Planejamento ass...', icon: Compass, path: '#' },
   { label: 'Análise de produção', icon: FileText, path: '#' },
+  { label: 'Geocalização', icon: MapPin, path: '#' },
+  { label: 'Configuração', icon: Settings, path: '#' },
 ];
 
 export const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
