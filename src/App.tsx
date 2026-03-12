@@ -21,6 +21,9 @@ import QualidadeIndividualizado from "./pages/QualidadeIndividualizado";
 import Financeiro from "./pages/Financeiro";
 import FinanceiroVisaoGeral from "./pages/financeiro/FinanceiroVisaoGeral";
 import FinanceiroRelatorio from "./pages/financeiro/FinanceiroRelatorio";
+import Comunicacao from "./pages/Comunicacao";
+import MinhasComunicacoes from "./pages/comunicacao/MinhasComunicacoes";
+import CampanhaDetalhe from "./pages/comunicacao/CampanhaDetalhe";
 import NotFound from "./pages/NotFound";
 import SalaDeSituacao from "./pages/SalaDeSituacao";
 
