@@ -42,50 +42,6 @@ interface MenuItem {
 
 const menuItems: MenuItem[] = [
   { label: 'Sala de situação', icon: Home, path: '/sala-de-situacao' },
-  { label: 'Dashboard', icon: LayoutDashboard, path: '#' },
-  { label: 'Previne Brasil', icon: Users, path: '#' },
-  {
-    label: 'Financiamento APS',
-    icon: Wallet,
-    path: '/financiamento-aps',
-    children: [
-      { label: 'Resumo', path: '#', hasActiveState: false },
-      { 
-        label: 'Vínculo e Acompanhamento', 
-        path: '/financiamento-aps/qualidade-esf-eap?tab=vinculo',
-        hasActiveState: true,
-        tabKey: 'vinculo',
-        children: [
-          { label: 'Visão geral', path: '/financiamento-aps/qualidade-esf-eap?tab=vinculo' },
-          { label: 'Relatório', path: '/financiamento-aps/qualidade-esf-eap/relatorio?tab=vinculo' },
-          { label: 'Individualizado', path: '/financiamento-aps/qualidade-esf-eap/individualizado?tab=vinculo' },
-        ]
-      },
-      { 
-        label: 'Qualidade eSF/eAP', 
-        path: '/financiamento-aps/qualidade-esf-eap?tab=qualidade',
-        hasActiveState: true,
-        tabKey: 'qualidade',
-        children: [
-          { label: 'Visão geral', path: '/financiamento-aps/qualidade-esf-eap?tab=qualidade' },
-          { label: 'Relatório', path: '/financiamento-aps/qualidade-esf-eap/relatorio?tab=qualidade' },
-          { label: 'Individualizado', path: '/financiamento-aps/qualidade-esf-eap/individualizado?tab=qualidade' },
-        ]
-      },
-      { 
-        label: 'Qualidade eSB', 
-        path: '/financiamento-aps/qualidade-esf-eap?tab=qualidade-esb',
-        hasActiveState: true,
-        tabKey: 'qualidade-esb',
-        children: [
-          { label: 'Visão geral', path: '/financiamento-aps/qualidade-esf-eap?tab=qualidade-esb' },
-          { label: 'Relatório', path: '/financiamento-aps/qualidade-esf-eap/relatorio?tab=qualidade-esb' },
-          { label: 'Individualizado', path: '/financiamento-aps/qualidade-esf-eap/individualizado?tab=qualidade-esb' },
-        ]
-      },
-      { label: 'Qualidade eMulti', path: '#', hasActiveState: true },
-    ],
-  },
   {
     label: 'Linhas de cuidado',
     icon: Heart,
@@ -93,8 +49,8 @@ const menuItems: MenuItem[] = [
     children: [
       { label: 'Hipertensão', path: '#', hasActiveState: false },
       { label: 'Diabetes', path: '#', hasActiveState: false },
-      { 
-        label: 'Gestantes e Puérperas', 
+      {
+        label: 'Gestantes e Puérperas',
         path: '/linhas-de-cuidado/gestantes',
         hasActiveState: true,
         children: [
@@ -119,37 +75,10 @@ const menuItems: MenuItem[] = [
       },
     ],
   },
-  {
-    label: 'Financeiro',
-    icon: Wallet,
-    path: '/financeiro',
-    children: [
-      { 
-        label: 'Consolidado', 
-        path: '/financeiro/visao-geral?tab=consolidado',
-        hasActiveState: true,
-        tabKey: 'consolidado',
-        children: [
-          { label: 'Visão geral', path: '/financeiro/visao-geral?tab=consolidado' },
-          { label: 'Relatório', path: '/financeiro/relatorio' },
-        ]
-      },
-      { 
-        label: 'Evolução', 
-        path: '/financeiro/visao-geral?tab=evolucao',
-        hasActiveState: true,
-        tabKey: 'evolucao',
-        children: [
-          { label: 'Visão geral', path: '/financeiro/visao-geral?tab=evolucao' },
-          { label: 'Relatório', path: '/financeiro/relatorio' },
-        ]
-      },
-    ],
-  },
-  { label: 'Planejamento ass...', icon: ClipboardList, path: '#' },
-  { label: 'Situação cadastral', icon: FileText, path: '#' },
-  { label: 'Inconsistências', icon: AlertCircle, path: '#' },
-  { label: 'Gestão de ações', icon: CheckSquare, path: '#' },
+  { label: 'Geocalização', icon: MapPin, path: '#' },
+  { label: 'Configuração', icon: Settings, path: '#' },
+  { label: 'Planejamento ass...', icon: Compass, path: '#' },
+  { label: 'Análise de produção', icon: FileText, path: '#' },
 ];
 
 export const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
