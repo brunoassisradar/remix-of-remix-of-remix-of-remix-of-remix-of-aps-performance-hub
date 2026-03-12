@@ -2,17 +2,16 @@ import React, { useState } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import {
   Home,
-  LayoutDashboard,
-  Users,
-  FileText,
   Heart,
-  Wallet,
-  ClipboardList,
+  FileText,
   AlertCircle,
   CheckSquare,
   MessageSquare,
   ChevronDown,
   ChevronRight,
+  Compass,
+  MapPin,
+  Settings,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
