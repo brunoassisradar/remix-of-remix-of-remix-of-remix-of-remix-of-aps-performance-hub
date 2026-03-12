@@ -10,6 +10,7 @@ import {
   ClipboardList,
   AlertCircle,
   CheckSquare,
+  MessageSquare,
   ChevronDown,
   ChevronRight,
 } from 'lucide-react';
