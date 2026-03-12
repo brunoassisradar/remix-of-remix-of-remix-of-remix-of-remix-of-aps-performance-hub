@@ -109,6 +109,18 @@ const menuItems: MenuItem[] = [
     ],
   },
   {
+    label: 'Comunicação',
+    icon: MessageSquare,
+    path: '/comunicacao',
+    children: [
+      {
+        label: 'Minhas Comunicações',
+        path: '/comunicacao/minhas-comunicacoes',
+        hasActiveState: true,
+      },
+    ],
+  },
+  {
     label: 'Financeiro',
     icon: Wallet,
     path: '/financeiro',
