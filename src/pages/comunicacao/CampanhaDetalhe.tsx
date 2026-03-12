@@ -167,13 +167,13 @@ const CampanhaDetalhe: React.FC = () => {
               <p className="font-medium">{campaignData.criadoEm}</p>
             </div>
           </div>
-          <div className="flex items-center gap-2">
-            <Clock className="h-4 w-4 text-muted-foreground" />
-            <div>
-              <span className="text-muted-foreground text-xs">Agendado para</span>
-              <p className="font-medium">{campaignData.agendadoPara}</p>
-            </div>
-          </div>
+          
+
+
+
+
+
+          
         </div>
       </Card>
 
