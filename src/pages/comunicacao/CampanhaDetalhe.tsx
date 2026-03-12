@@ -5,7 +5,7 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Table, Tag, Input, Select } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
-import { ArrowLeft, RefreshCw, Download, MessageSquare, User, Send as SendIcon, Calendar, Clock } from 'lucide-react';
+import { ArrowLeft, RefreshCw, Download, User, Send as SendIcon, Calendar, Clock } from 'lucide-react';
 
 interface DispatchData {
   key: string;
