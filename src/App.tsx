@@ -21,6 +21,9 @@ import QualidadeIndividualizado from "./pages/QualidadeIndividualizado";
 import Financeiro from "./pages/Financeiro";
 import FinanceiroVisaoGeral from "./pages/financeiro/FinanceiroVisaoGeral";
 import FinanceiroRelatorio from "./pages/financeiro/FinanceiroRelatorio";
+import Comunicacao from "./pages/Comunicacao";
+import MinhasComunicacoes from "./pages/comunicacao/MinhasComunicacoes";
+import CampanhaDetalhe from "./pages/comunicacao/CampanhaDetalhe";
 import NotFound from "./pages/NotFound";
 import SalaDeSituacao from "./pages/SalaDeSituacao";
 
@@ -60,6 +63,9 @@ const App = () => (
                 <Route path="/financeiro" element={<Financeiro />} />
                 <Route path="/financeiro/visao-geral" element={<FinanceiroVisaoGeral />} />
                 <Route path="/financeiro/relatorio" element={<FinanceiroRelatorio />} />
+                <Route path="/comunicacao" element={<Comunicacao />} />
+                <Route path="/comunicacao/minhas-comunicacoes" element={<MinhasComunicacoes />} />
+                <Route path="/comunicacao/campanha/:id" element={<CampanhaDetalhe />} />
               </Route>
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />

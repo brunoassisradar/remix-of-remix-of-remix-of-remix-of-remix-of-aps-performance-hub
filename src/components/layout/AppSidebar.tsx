@@ -10,6 +10,7 @@ import {
   ClipboardList,
   AlertCircle,
   CheckSquare,
+  MessageSquare,
   ChevronDown,
   ChevronRight,
 } from 'lucide-react';
@@ -105,6 +106,18 @@ const menuItems: MenuItem[] = [
       },
       { label: 'Idosos', path: '#', hasActiveState: false },
       { label: 'Saúde mental', path: '#', hasActiveState: false },
+    ],
+  },
+  {
+    label: 'Comunicação',
+    icon: MessageSquare,
+    path: '/comunicacao',
+    children: [
+      {
+        label: 'Minhas Comunicações',
+        path: '/comunicacao/minhas-comunicacoes',
+        hasActiveState: true,
+      },
     ],
   },
   {
@@ -219,12 +232,14 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
 
   const isInFinanciamentoSection = location.pathname.startsWith('/financiamento-aps');
   const isInLinhasDeCuidadoSection = location.pathname.startsWith('/linhas-de-cuidado');
+  const isInComunicacaoSection = location.pathname.startsWith('/comunicacao');
   const isInFinanceiroSection = location.pathname.startsWith('/financeiro');
 
   const isParentActive = (item: MenuItem) => {
     if (!item.children) return false;
     if (item.label === 'Financiamento APS' && isInFinanciamentoSection) return true;
     if (item.label === 'Linhas de cuidado' && isInLinhasDeCuidadoSection) return true;
+    if (item.label === 'Comunicação' && isInComunicacaoSection) return true;
     if (item.label === 'Financeiro' && isInFinanceiroSection) return true;
     return item.children.some((child) => isSecondaryActive(child));
   };
