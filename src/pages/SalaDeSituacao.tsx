@@ -124,24 +124,18 @@ const SalaDeSituacao: React.FC = () => {
               </div>
 
               {/* Classification table - header row with colors, value row below */}
-              <div className="rounded-md overflow-hidden border border-border">
-                <div className="grid grid-cols-5 text-center text-sm">
-                  {/* Header row */}
-                  <div className="row-span-2 p-4 text-left text-[13px] font-medium text-muted-foreground border-r border-border flex items-center bg-card">
-                    Classificação das equipes nesse componente
-                  </div>
-                  <div className="p-2.5 bg-[hsl(var(--status-otimo))] text-white text-xs font-bold tracking-wide">ÓTIMO</div>
-                  <div className="p-2.5 bg-[hsl(var(--status-bom))] text-white text-xs font-bold tracking-wide">BOM</div>
-                  <div className="p-2.5 bg-[hsl(var(--status-suficiente))] text-white text-xs font-bold tracking-wide">SUFICIENTE</div>
-                  <div className="p-2.5 bg-[hsl(var(--status-regular))] text-white text-xs font-bold tracking-wide">REGULAR</div>
+              <div className="rounded-md overflow-hidden border border-border grid grid-cols-5 text-center text-sm">
+                <div className="row-span-2 p-4 text-left text-[13px] font-medium text-muted-foreground border-r border-border flex items-center bg-card">
+                  Classificação das equipes nesse componente
                 </div>
-                <div className="grid grid-cols-5 text-center text-sm">
-                  <div className="border-r border-border" />
-                  <div className="p-3 bg-[hsl(var(--status-otimo-bg))] text-[hsl(var(--status-otimo))] font-bold text-lg">{financeiro.vinculo.otimo}</div>
-                  <div className="p-3 bg-[hsl(var(--status-bom-bg))] text-[hsl(var(--status-bom))] font-bold text-lg">{financeiro.vinculo.bom}</div>
-                  <div className="p-3 bg-[hsl(var(--status-suficiente-bg))] text-[hsl(var(--status-suficiente))] font-bold text-lg">{financeiro.vinculo.suficiente}</div>
-                  <div className="p-3 bg-[hsl(var(--status-regular-bg))] text-[hsl(var(--status-regular))] font-bold text-lg">{financeiro.vinculo.regular}</div>
-                </div>
+                <div className="py-2 bg-[hsl(var(--status-otimo))] text-white text-xs font-bold tracking-wide">ÓTIMO</div>
+                <div className="py-2 bg-[hsl(var(--status-bom))] text-white text-xs font-bold tracking-wide">BOM</div>
+                <div className="py-2 bg-[hsl(var(--status-suficiente))] text-white text-xs font-bold tracking-wide">SUFICIENTE</div>
+                <div className="py-2 bg-[hsl(var(--status-regular))] text-white text-xs font-bold tracking-wide">REGULAR</div>
+                <div className="py-2 bg-[hsl(var(--status-otimo-bg))] text-[hsl(var(--status-otimo))] font-bold text-lg">{financeiro.vinculo.otimo}</div>
+                <div className="py-2 bg-[hsl(var(--status-bom-bg))] text-[hsl(var(--status-bom))] font-bold text-lg">{financeiro.vinculo.bom}</div>
+                <div className="py-2 bg-[hsl(var(--status-suficiente-bg))] text-[hsl(var(--status-suficiente))] font-bold text-lg">{financeiro.vinculo.suficiente}</div>
+                <div className="py-2 bg-[hsl(var(--status-regular-bg))] text-[hsl(var(--status-regular))] font-bold text-lg">{financeiro.vinculo.regular}</div>
               </div>
             </CardContent>
           </Card>
