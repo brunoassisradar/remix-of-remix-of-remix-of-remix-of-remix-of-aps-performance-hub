@@ -65,6 +65,18 @@ const menuItems: MenuItem[] = [
     ],
   },
   {
+    label: 'Financiamento APS',
+    icon: Wallet,
+    path: '/financiamento-aps',
+    children: [
+      {
+        label: 'Qualidade eSF/eAP',
+        path: '/financiamento-aps/qualidade-esf-eap',
+        hasActiveState: true,
+      },
+    ],
+  },
+  {
     label: 'Financeiro',
     icon: DollarSign,
     path: '/financeiro',
