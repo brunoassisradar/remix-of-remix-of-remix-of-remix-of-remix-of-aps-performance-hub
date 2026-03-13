@@ -191,10 +191,10 @@ const SalaDeSituacao: React.FC = () => {
 
         <Segmented
           options={[
-            { label: '🤰 Gestantes e puérperas', value: 'Gestantes e puérperas' },
-            { label: '❤️ Hipertensos', value: 'Hipertensos' },
-            { label: '⭕ Diabéticos', value: 'Diabéticos' },
-            { label: '🧒 Crianças', value: 'Crianças' },
+            { label: <span className="inline-flex items-center gap-1.5"><img src={gestantePerfilIcon} alt="Gestante" className="w-4 h-4" /> Gestantes e puérperas</span>, value: 'Gestantes e puérperas' },
+            { label: <span className="inline-flex items-center gap-1.5"><HeartPulse className="w-4 h-4" /> Hipertensos</span>, value: 'Hipertensos' },
+            { label: <span className="inline-flex items-center gap-1.5"><AlertTriangle className="w-4 h-4" /> Diabéticos</span>, value: 'Diabéticos' },
+            { label: <span className="inline-flex items-center gap-1.5"><Baby className="w-4 h-4" /> Crianças</span>, value: 'Crianças' },
           ]}
           value={perfilTab}
           onChange={(val) => setPerfilTab(val as string)}
