@@ -7,6 +7,7 @@ import {
   AlertCircle,
   CheckSquare,
   DollarSign,
+  Wallet,
   ChevronDown,
   ChevronRight,
   Compass,
@@ -61,6 +62,18 @@ const menuItems: MenuItem[] = [
       },
       { label: 'Idosos', path: '#', hasActiveState: false },
       { label: 'Saúde mental', path: '#', hasActiveState: false },
+    ],
+  },
+  {
+    label: 'Financiamento APS',
+    icon: Wallet,
+    path: '/financiamento-aps',
+    children: [
+      {
+        label: 'Qualidade eSF/eAP',
+        path: '/financiamento-aps/qualidade-esf-eap',
+        hasActiveState: true,
+      },
     ],
   },
   {
@@ -165,11 +178,13 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
 
   const isInLinhasDeCuidadoSection = location.pathname.startsWith('/linhas-de-cuidado');
   const isInFinanceiroSection = location.pathname.startsWith('/financeiro');
+  const isInFinanciamentoAPSSection = location.pathname.startsWith('/financiamento-aps');
 
   const isParentActive = (item: MenuItem) => {
     if (!item.children) return false;
     if (item.label === 'Linhas de cuidado' && isInLinhasDeCuidadoSection) return true;
     if (item.label === 'Financeiro' && isInFinanceiroSection) return true;
+    if (item.label === 'Financiamento APS' && isInFinanciamentoAPSSection) return true;
     return item.children.some((child) => isSecondaryActive(child));
   };
 
