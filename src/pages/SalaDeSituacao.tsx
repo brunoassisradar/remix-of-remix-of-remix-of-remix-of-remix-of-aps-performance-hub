@@ -83,7 +83,7 @@ const SalaDeSituacao: React.FC = () => {
   return (
     <div className="p-6 space-y-8">
       {/* Title */}
-      <h1 className="text-2xl font-bold text-foreground">Bem-vindo (a), nome do usuário</h1>
+      <h1 className="text-[26px] font-medium text-foreground">Bem-vindo (a), nome do usuário</h1>
 
       {/* ═══════════ FINANCEIRO APS ═══════════ */}
       <section className="space-y-4">
