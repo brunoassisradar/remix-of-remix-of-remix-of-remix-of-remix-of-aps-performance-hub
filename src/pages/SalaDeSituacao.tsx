@@ -90,6 +90,23 @@ const diabeticos = {
   totalDiabetes: 235535,
 };
 
+const vacinacaoCriancas = {
+  'Menores de 1 ano': [
+    { vacina: 'BCG', imunizadas: 14852, percImunizadas: 48.3, naoImunizadas: 15856, percNaoImunizadas: 51.7 },
+    { vacina: 'Hepatite B', imunizadas: 1200, percImunizadas: 10.5, naoImunizadas: 10212, percNaoImunizadas: 89.5 },
+    { vacina: 'Penta (3ª dose)', imunizadas: 1200, percImunizadas: 10.3, naoImunizadas: 11210, percNaoImunizadas: 89.7 },
+    { vacina: 'Pneumocócica 10 (2ª dose)', imunizadas: 1200, percImunizadas: 46.8, naoImunizadas: 1359, percNaoImunizadas: 53.2 },
+    { vacina: 'Vacina Inativada Poliomielite VIP (3ª dose)', imunizadas: 1200, percImunizadas: 16.9, naoImunizadas: 5874, percNaoImunizadas: 83.1 },
+    { vacina: 'Vacina Rotavírus Humano (VRH) (2ª dose)', imunizadas: 1200, percImunizadas: 17.7, naoImunizadas: 5552, percNaoImunizadas: 82.3 },
+    { vacina: 'Meningocócica C (2ª dose)', imunizadas: 800, percImunizadas: 15.8, naoImunizadas: 4255, percNaoImunizadas: 84.2 },
+    { vacina: 'Febre amarela', imunizadas: 0, percImunizadas: 0, naoImunizadas: 0, percNaoImunizadas: 0 },
+  ],
+  'Entre 1 e 2 anos': [
+    { vacina: 'BCG', imunizadas: 12000, percImunizadas: 55.0, naoImunizadas: 9818, percNaoImunizadas: 45.0 },
+    { vacina: 'Hepatite B', imunizadas: 2400, percImunizadas: 22.1, naoImunizadas: 8460, percNaoImunizadas: 77.9 },
+  ],
+};
+
 // ── Component ──
 const SalaDeSituacao: React.FC = () => {
   const navigate = useNavigate();
