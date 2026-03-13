@@ -71,17 +71,24 @@ const menuItems: MenuItem[] = [
     children: [
       {
         label: 'Vínculo e acompanhamento',
-        path: '/financiamento-aps',
+        path: '/financiamento-aps/qualidade-esf-eap?tab=vinculo',
         hasActiveState: true,
+        tabKey: 'vinculo',
+        children: [
+          { label: 'Visão geral', path: '/financiamento-aps/qualidade-esf-eap?tab=vinculo' },
+          { label: 'Relatório', path: '/financiamento-aps/qualidade-esf-eap/relatorio?tab=vinculo' },
+          { label: 'Individualizado', path: '/financiamento-aps/qualidade-esf-eap/individualizado?tab=vinculo' },
+        ],
       },
       {
         label: 'Qualidade eSF/eAP',
-        path: '/financiamento-aps/qualidade-esf-eap',
+        path: '/financiamento-aps/qualidade-esf-eap?tab=qualidade',
         hasActiveState: true,
+        tabKey: 'qualidade',
         children: [
-          { label: 'Visão geral', path: '/financiamento-aps/qualidade-esf-eap' },
-          { label: 'Relatório', path: '/financiamento-aps/qualidade-esf-eap/relatorio' },
-          { label: 'Individualizado', path: '/financiamento-aps/qualidade-esf-eap/individualizado' },
+          { label: 'Visão geral', path: '/financiamento-aps/qualidade-esf-eap?tab=qualidade' },
+          { label: 'Relatório', path: '/financiamento-aps/qualidade-esf-eap/relatorio?tab=qualidade' },
+          { label: 'Individualizado', path: '/financiamento-aps/qualidade-esf-eap/individualizado?tab=qualidade' },
         ],
       },
     ],
