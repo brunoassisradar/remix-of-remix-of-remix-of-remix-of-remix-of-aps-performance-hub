@@ -178,11 +178,13 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
 
   const isInLinhasDeCuidadoSection = location.pathname.startsWith('/linhas-de-cuidado');
   const isInFinanceiroSection = location.pathname.startsWith('/financeiro');
+  const isInFinanciamentoAPSSection = location.pathname.startsWith('/financiamento-aps');
 
   const isParentActive = (item: MenuItem) => {
     if (!item.children) return false;
     if (item.label === 'Linhas de cuidado' && isInLinhasDeCuidadoSection) return true;
     if (item.label === 'Financeiro' && isInFinanceiroSection) return true;
+    if (item.label === 'Financiamento APS' && isInFinanciamentoAPSSection) return true;
     return item.children.some((child) => isSecondaryActive(child));
   };
 
