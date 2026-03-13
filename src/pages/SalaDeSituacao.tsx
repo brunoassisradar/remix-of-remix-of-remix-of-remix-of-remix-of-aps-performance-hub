@@ -8,6 +8,7 @@ import { ClassificationCard } from '@/components/financiamento/ClassificationCar
 import { Segmented } from 'antd';
 import {
   DollarSign,
+  CircleDollarSign,
   Users,
   Baby,
   AlertTriangle,
