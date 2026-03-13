@@ -64,13 +64,18 @@ const menuItems: MenuItem[] = [
     ],
   },
   {
-    label: 'Comunicação',
-    icon: MessageSquare,
-    path: '/comunicacao',
+    label: 'Financeiro',
+    icon: DollarSign,
+    path: '/financeiro',
     children: [
       {
-        label: 'Minhas Comunicações',
-        path: '/comunicacao/minhas-comunicacoes',
+        label: 'Visão geral',
+        path: '/financeiro/visao-geral',
+        hasActiveState: true,
+      },
+      {
+        label: 'Relatório',
+        path: '/financeiro/relatorio',
         hasActiveState: true,
       },
     ],
