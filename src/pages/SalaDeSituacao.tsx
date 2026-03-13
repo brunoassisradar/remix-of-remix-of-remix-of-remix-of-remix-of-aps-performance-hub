@@ -96,58 +96,55 @@ const SalaDeSituacao: React.FC = () => {
 
         <Segmented
           options={[
-            { label: '⬜ Financiamento', value: 'Financiamento' },
-            { label: '💲 Fundo Nacional de Saúde', value: 'Fundo Nacional de Saúde' },
+            { label: '◻ Financiamento', value: 'Financiamento' },
+            { label: '◉ Fundo Nacional de Saúde', value: 'Fundo Nacional de Saúde' },
           ]}
           value={financeiroTab}
           onChange={(val) => setFinanceiroTab(val as string)}
         />
 
         {financeiroTab === 'Financiamento' && (
-          <div className="space-y-4">
-            {/* Sub-tabs */}
-            <div className="flex gap-4 border-b border-border">
-              {['Vínculo e acompanhamento', 'Qualidade eSF/eAP'].map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => setFinanceiroSubTab(tab)}
-                  className={`pb-2 text-sm font-medium transition-colors border-b-2 ${
-                    financeiroSubTab === tab
-                      ? 'border-primary text-primary'
-                      : 'border-transparent text-muted-foreground hover:text-foreground'
-                  }`}
-                >
-                  {tab}
-                </button>
-              ))}
-            </div>
+          <Card>
+            <CardContent className="p-5 space-y-4">
+              {/* Sub-tabs */}
+              <div className="flex gap-6 border-b border-border">
+                {['Vínculo e acompanhamento', 'Qualidade eSF/eAP'].map((tab) => (
+                  <button
+                    key={tab}
+                    onClick={() => setFinanceiroSubTab(tab)}
+                    className={`pb-2.5 text-sm font-medium transition-colors border-b-2 ${
+                      financeiroSubTab === tab
+                        ? 'border-primary text-primary'
+                        : 'border-transparent text-muted-foreground hover:text-foreground'
+                    }`}
+                  >
+                    {tab}
+                  </button>
+                ))}
+              </div>
 
-            {/* Classification table */}
-            <Card>
-              <CardContent className="p-0">
+              {/* Classification table - header row with colors, value row below */}
+              <div className="rounded-md overflow-hidden border border-border">
                 <div className="grid grid-cols-5 text-center text-sm">
-                  <div className="p-4 text-left font-medium text-muted-foreground border-r border-border flex items-center">
+                  {/* Header row */}
+                  <div className="row-span-2 p-4 text-left text-[13px] font-medium text-muted-foreground border-r border-border flex items-center bg-card">
                     Classificação das equipes nesse componente
                   </div>
-                  <div className="p-3 bg-[hsl(var(--status-otimo))] text-white font-bold">
-                    <div className="text-xs font-semibold mb-1">ÓTIMO</div>
-                    <div className="text-lg">{financeiro.vinculo.otimo}</div>
-                  </div>
-                  <div className="p-3 bg-[hsl(var(--status-bom))] text-white font-bold">
-                    <div className="text-xs font-semibold mb-1">BOM</div>
-                    <div className="text-lg">{financeiro.vinculo.bom}</div>
-                  </div>
-                  <div className="p-3 bg-[hsl(var(--status-suficiente))] text-white font-bold">
-                    <div className="text-xs font-semibold mb-1">SUFICIENTE</div>
-                    <div className="text-lg">{financeiro.vinculo.suficiente}</div>
-                  </div>
-                  <div className="p-3 bg-[hsl(var(--status-regular))] text-white font-bold">
-                    <div className="text-xs font-semibold mb-1">REGULAR</div>
-                    <div className="text-lg">{financeiro.vinculo.regular}</div>
-                  </div>
+                  <div className="p-2.5 bg-[hsl(var(--status-otimo))] text-white text-xs font-bold tracking-wide">ÓTIMO</div>
+                  <div className="p-2.5 bg-[hsl(var(--status-bom))] text-white text-xs font-bold tracking-wide">BOM</div>
+                  <div className="p-2.5 bg-[hsl(var(--status-suficiente))] text-white text-xs font-bold tracking-wide">SUFICIENTE</div>
+                  <div className="p-2.5 bg-[hsl(var(--status-regular))] text-white text-xs font-bold tracking-wide">REGULAR</div>
                 </div>
-              </CardContent>
-            </Card>
+                <div className="grid grid-cols-5 text-center text-sm">
+                  <div className="border-r border-border" />
+                  <div className="p-3 bg-[hsl(var(--status-otimo-bg))] text-[hsl(var(--status-otimo))] font-bold text-lg">{financeiro.vinculo.otimo}</div>
+                  <div className="p-3 bg-[hsl(var(--status-bom-bg))] text-[hsl(var(--status-bom))] font-bold text-lg">{financeiro.vinculo.bom}</div>
+                  <div className="p-3 bg-[hsl(var(--status-suficiente-bg))] text-[hsl(var(--status-suficiente))] font-bold text-lg">{financeiro.vinculo.suficiente}</div>
+                  <div className="p-3 bg-[hsl(var(--status-regular-bg))] text-[hsl(var(--status-regular))] font-bold text-lg">{financeiro.vinculo.regular}</div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
           </div>
         )}
 
