@@ -70,6 +70,11 @@ const menuItems: MenuItem[] = [
     path: '/financiamento-aps',
     children: [
       {
+        label: 'Vínculo e acompanhamento',
+        path: '/financiamento-aps',
+        hasActiveState: true,
+      },
+      {
         label: 'Qualidade eSF/eAP',
         path: '/financiamento-aps/qualidade-esf-eap',
         hasActiveState: true,
