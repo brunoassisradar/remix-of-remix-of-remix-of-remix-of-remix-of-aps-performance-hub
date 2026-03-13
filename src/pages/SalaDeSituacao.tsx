@@ -401,9 +401,63 @@ const SalaDeSituacao: React.FC = () => {
         {/* Crianças */}
         {perfilTab === 'Crianças' && (
           <Card>
-            <CardContent className="flex items-center justify-center py-12">
-              <p className="text-muted-foreground">Módulo em construção</p>
+            <CardHeader className="pb-2">
+              <div className="flex items-center gap-2">
+                <img src={iconeCriancaActive} alt="Crianças" className="w-4 h-4" />
+                <CardTitle className="text-base font-medium">Cobertura vacinal em crianças</CardTitle>
+                <HelpCircle className="w-3.5 h-3.5 text-muted-foreground" />
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {/* Faixa etária tabs */}
+              <div className="flex gap-6 border-b border-border">
+                {['Menores de 1 ano', 'Entre 1 e 2 anos'].map((tab) => (
+                  <button
+                    key={tab}
+                    onClick={() => setCriancaFaixaTab(tab)}
+                    className={`pb-2.5 text-sm font-medium transition-colors border-b-2 ${
+                      criancaFaixaTab === tab
+                        ? 'border-primary text-primary'
+                        : 'border-transparent text-muted-foreground hover:text-foreground'
+                    }`}
+                  >
+                    {tab}
+                  </button>
+                ))}
+              </div>
+
+              {/* Vaccination table */}
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-border">
+                      <th className="text-left py-3 pr-4 font-normal text-muted-foreground"></th>
+                      <th className="text-right py-3 px-4 font-semibold text-foreground text-[13px]">Crianças imunizadas</th>
+                      <th className="text-right py-3 pl-4 font-semibold text-foreground text-[13px]">Crianças não imunizadas</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {(vacinacaoCriancas[criancaFaixaTab as keyof typeof vacinacaoCriancas] || []).map((row, i) => (
+                      <tr key={i} className="border-b border-border last:border-b-0">
+                        <td className="py-3 pr-4 text-foreground">{row.vacina}</td>
+                        <td className="py-3 px-4 text-right text-muted-foreground">
+                          {row.imunizadas.toLocaleString('pt-BR')} ({row.percImunizadas}%)
+                        </td>
+                        <td className="py-3 pl-4 text-right text-muted-foreground">
+                          {row.naoImunizadas.toLocaleString('pt-BR')} ({row.percNaoImunizadas}%)
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </CardContent>
+            <div className="px-5 py-3 bg-[hsl(45,100%,95%)] border-t border-[hsl(45,80%,80%)] flex items-center gap-2">
+              <Info className="w-3.5 h-3.5 text-[hsl(45,80%,40%)] shrink-0" />
+              <p className="text-xs text-[hsl(45,50%,30%)]">
+                Os dados apresentados são exclusivamente registrados na APS e na RNDS.
+              </p>
+            </div>
           </Card>
         )}
       </section>
