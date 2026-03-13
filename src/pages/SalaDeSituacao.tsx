@@ -36,6 +36,15 @@ import {
 const financeiro = {
   vinculo: { otimo: 0, bom: 20, suficiente: 20, regular: 5 },
   qualidade: { otimo: 0, bom: 20, suficiente: 20, regular: 5 },
+  qualidadeIndicadores: [
+    { label: 'C1 – Mais acesso', otimo: 3, bom: 7, suficiente: 0, regular: 2 },
+    { label: 'C2 – Cuidado infantil', otimo: 3, bom: 7, suficiente: 0, regular: 2 },
+    { label: 'C3 – Gestante e Puérpera', otimo: 3, bom: 7, suficiente: 0, regular: 2 },
+    { label: 'C4 – Pessoa com Diabetes', otimo: 3, bom: 7, suficiente: 0, regular: 2 },
+    { label: 'C5 – Pessoa com Hipertensão', otimo: 3, bom: 7, suficiente: 0, regular: 2 },
+    { label: 'C6 – Pessoa idosa', otimo: 3, bom: 7, suficiente: 0, regular: 2 },
+    { label: 'C7 – Cuidado da mulher', otimo: 3, bom: 7, suficiente: 0, regular: 2 },
+  ],
   fns: [
     { mes: 'Fev/2025', valor: 1510000 },
     { mes: 'Mar/2025', valor: 1821000 },
