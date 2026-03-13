@@ -145,7 +145,6 @@ const SalaDeSituacao: React.FC = () => {
               </div>
             </CardContent>
           </Card>
-          </div>
         )}
 
         {financeiroTab === 'Fundo Nacional de Saúde' && (
