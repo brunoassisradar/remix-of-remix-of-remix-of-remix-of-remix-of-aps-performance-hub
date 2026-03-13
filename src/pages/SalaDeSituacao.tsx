@@ -18,6 +18,7 @@ import {
   Hospital,
   HelpCircle,
   Monitor,
+  Wallet,
   Landmark,
   TrendingUp,
 } from 'lucide-react';
