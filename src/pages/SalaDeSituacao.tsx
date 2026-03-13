@@ -8,6 +8,7 @@ import { ClassificationCard } from '@/components/financiamento/ClassificationCar
 import { Segmented } from 'antd';
 import {
   DollarSign,
+  CircleDollarSign,
   Users,
   Baby,
   AlertTriangle,
@@ -96,8 +97,8 @@ const SalaDeSituacao: React.FC = () => {
 
         <Segmented
           options={[
-            { label: '◻ Financiamento', value: 'Financiamento' },
-            { label: '◉ Fundo Nacional de Saúde', value: 'Fundo Nacional de Saúde' },
+            { label: <span className="inline-flex items-center gap-1.5"><Monitor className="w-4 h-4" /> Financiamento</span>, value: 'Financiamento' },
+            { label: <span className="inline-flex items-center gap-1.5"><CircleDollarSign className="w-4 h-4" /> Fundo Nacional de Saúde</span>, value: 'Fundo Nacional de Saúde' },
           ]}
           value={financeiroTab}
           onChange={(val) => setFinanceiroTab(val as string)}
