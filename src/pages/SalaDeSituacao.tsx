@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import gestantePerfilIcon from '@/assets/gestante-perfil-icon.png';
-import iconeGestante from '@/assets/icone-gestante.svg';
-import iconeDiabetes from '@/assets/icone-diabetes.svg';
-import iconeCrianca from '@/assets/icone-crianca.svg';
+import iconeGestanteDefault from '@/assets/icone-gestante-default.svg';
+import iconeGestanteActive from '@/assets/icone-gestante-active.svg';
+import iconeDiabetesDefault from '@/assets/icone-diabetes-default.svg';
+import iconeDiabetesActive from '@/assets/icone-diabetes-active.svg';
+import iconeCriancaDefault from '@/assets/icone-crianca-default.svg';
+import iconeCriancaActive from '@/assets/icone-crianca-active.svg';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { GaugeChart } from '@/components/gestantes/GaugeChart';
 import { SectionHeader } from '@/components/gestantes/SectionHeader';
@@ -194,10 +197,10 @@ const SalaDeSituacao: React.FC = () => {
 
         <Segmented
           options={[
-            { label: <span className="inline-flex items-center gap-1.5"><img src={iconeGestante} alt="Gestante" className="w-4 h-4" /> Gestantes e puérperas</span>, value: 'Gestantes e puérperas' },
+            { label: <span className="inline-flex items-center gap-1.5"><img src={perfilTab === 'Gestantes e puérperas' ? iconeGestanteActive : iconeGestanteDefault} alt="Gestante" className="w-4 h-4" /> Gestantes e puérperas</span>, value: 'Gestantes e puérperas' },
             { label: <span className="inline-flex items-center gap-1.5"><HeartPulse className="w-4 h-4" /> Hipertensos</span>, value: 'Hipertensos' },
-            { label: <span className="inline-flex items-center gap-1.5"><img src={iconeDiabetes} alt="Diabéticos" className="w-4 h-4" /> Diabéticos</span>, value: 'Diabéticos' },
-            { label: <span className="inline-flex items-center gap-1.5"><img src={iconeCrianca} alt="Crianças" className="w-4 h-4" /> Crianças</span>, value: 'Crianças' },
+            { label: <span className="inline-flex items-center gap-1.5"><img src={perfilTab === 'Diabéticos' ? iconeDiabetesActive : iconeDiabetesDefault} alt="Diabéticos" className="w-4 h-4" /> Diabéticos</span>, value: 'Diabéticos' },
+            { label: <span className="inline-flex items-center gap-1.5"><img src={perfilTab === 'Crianças' ? iconeCriancaActive : iconeCriancaDefault} alt="Crianças" className="w-4 h-4" /> Crianças</span>, value: 'Crianças' },
           ]}
           value={perfilTab}
           onChange={(val) => setPerfilTab(val as string)}
@@ -212,7 +215,7 @@ const SalaDeSituacao: React.FC = () => {
                 <div className="px-6 py-5 bg-gradient-to-r from-primary/5 via-transparent to-transparent">
                   <div className="flex items-start gap-4">
                     <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 shrink-0">
-                      <img src={iconeGestante} alt="Gestante" className="w-7 h-7" />
+                      <img src={iconeGestanteActive} alt="Gestante" className="w-7 h-7" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <h4 className="text-base font-semibold text-foreground">Quantidade de gestações</h4>
@@ -323,7 +326,7 @@ const SalaDeSituacao: React.FC = () => {
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="text-base font-medium flex items-center gap-2">
-                <img src={iconeDiabetes} alt="Diabetes" className="w-4 h-4" />
+                <img src={iconeDiabetesActive} alt="Diabetes" className="w-4 h-4" />
                 Pessoas com diabetes tipo II sem consulta
               </CardTitle>
             </CardHeader>
