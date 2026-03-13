@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import gestantePerfilIcon from '@/assets/gestante-perfil-icon.png';
+import iconeGestante from '@/assets/icone-gestante.svg';
+import iconeDiabetes from '@/assets/icone-diabetes.svg';
+import iconeCrianca from '@/assets/icone-crianca.svg';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { GaugeChart } from '@/components/gestantes/GaugeChart';
 import { SectionHeader } from '@/components/gestantes/SectionHeader';
