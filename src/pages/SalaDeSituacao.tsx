@@ -36,6 +36,15 @@ import {
 const financeiro = {
   vinculo: { otimo: 0, bom: 20, suficiente: 20, regular: 5 },
   qualidade: { otimo: 0, bom: 20, suficiente: 20, regular: 5 },
+  qualidadeIndicadores: [
+    { label: 'C1 – Mais acesso', otimo: 3, bom: 7, suficiente: 0, regular: 2 },
+    { label: 'C2 – Cuidado infantil', otimo: 3, bom: 7, suficiente: 0, regular: 2 },
+    { label: 'C3 – Gestante e Puérpera', otimo: 3, bom: 7, suficiente: 0, regular: 2 },
+    { label: 'C4 – Pessoa com Diabetes', otimo: 3, bom: 7, suficiente: 0, regular: 2 },
+    { label: 'C5 – Pessoa com Hipertensão', otimo: 3, bom: 7, suficiente: 0, regular: 2 },
+    { label: 'C6 – Pessoa idosa', otimo: 3, bom: 7, suficiente: 0, regular: 2 },
+    { label: 'C7 – Cuidado da mulher', otimo: 3, bom: 7, suficiente: 0, regular: 2 },
+  ],
   fns: [
     { mes: 'Fev/2025', valor: 1510000 },
     { mes: 'Mar/2025', valor: 1821000 },
@@ -81,12 +90,30 @@ const diabeticos = {
   totalDiabetes: 235535,
 };
 
+const vacinacaoCriancas = {
+  'Menores de 1 ano': [
+    { vacina: 'BCG', imunizadas: 14852, percImunizadas: 48.3, naoImunizadas: 15856, percNaoImunizadas: 51.7 },
+    { vacina: 'Hepatite B', imunizadas: 1200, percImunizadas: 10.5, naoImunizadas: 10212, percNaoImunizadas: 89.5 },
+    { vacina: 'Penta (3ª dose)', imunizadas: 1200, percImunizadas: 10.3, naoImunizadas: 11210, percNaoImunizadas: 89.7 },
+    { vacina: 'Pneumocócica 10 (2ª dose)', imunizadas: 1200, percImunizadas: 46.8, naoImunizadas: 1359, percNaoImunizadas: 53.2 },
+    { vacina: 'Vacina Inativada Poliomielite VIP (3ª dose)', imunizadas: 1200, percImunizadas: 16.9, naoImunizadas: 5874, percNaoImunizadas: 83.1 },
+    { vacina: 'Vacina Rotavírus Humano (VRH) (2ª dose)', imunizadas: 1200, percImunizadas: 17.7, naoImunizadas: 5552, percNaoImunizadas: 82.3 },
+    { vacina: 'Meningocócica C (2ª dose)', imunizadas: 800, percImunizadas: 15.8, naoImunizadas: 4255, percNaoImunizadas: 84.2 },
+    { vacina: 'Febre amarela', imunizadas: 0, percImunizadas: 0, naoImunizadas: 0, percNaoImunizadas: 0 },
+  ],
+  'Entre 1 e 2 anos': [
+    { vacina: 'BCG', imunizadas: 12000, percImunizadas: 55.0, naoImunizadas: 9818, percNaoImunizadas: 45.0 },
+    { vacina: 'Hepatite B', imunizadas: 2400, percImunizadas: 22.1, naoImunizadas: 8460, percNaoImunizadas: 77.9 },
+  ],
+};
+
 // ── Component ──
 const SalaDeSituacao: React.FC = () => {
   const navigate = useNavigate();
   const [financeiroTab, setFinanceiroTab] = useState<string>('Financiamento');
   const [financeiroSubTab, setFinanceiroSubTab] = useState<string>('Vínculo e acompanhamento');
   const [perfilTab, setPerfilTab] = useState<string>('Gestantes e puérperas');
+  const [criancaFaixaTab, setCriancaFaixaTab] = useState<string>('Menores de 1 ano');
 
   return (
     <div className="space-y-8">
@@ -131,20 +158,46 @@ const SalaDeSituacao: React.FC = () => {
                 ))}
               </div>
 
-              {/* Classification table - header row with colors, value row below */}
-              <div className="rounded-md overflow-hidden border border-border grid grid-cols-5 text-center text-sm">
-                <div className="row-span-2 p-4 text-left text-[13px] font-medium text-muted-foreground border-r border-border flex items-center bg-card">
-                  Classificação das equipes nesse componente
+              {financeiroSubTab === 'Vínculo e acompanhamento' && (
+                <div className="rounded-md overflow-hidden border border-border grid grid-cols-5 text-center text-sm">
+                  <div className="row-span-2 p-4 text-left text-[13px] font-medium text-muted-foreground border-r border-border flex items-center bg-card">
+                    Classificação das equipes nesse componente
+                  </div>
+                  <div className="py-2 bg-[hsl(var(--status-otimo))] text-white text-xs font-bold tracking-wide">ÓTIMO</div>
+                  <div className="py-2 bg-[hsl(var(--status-bom))] text-white text-xs font-bold tracking-wide">BOM</div>
+                  <div className="py-2 bg-[hsl(var(--status-suficiente))] text-white text-xs font-bold tracking-wide">SUFICIENTE</div>
+                  <div className="py-2 bg-[hsl(var(--status-regular))] text-white text-xs font-bold tracking-wide">REGULAR</div>
+                  <div className="py-2 bg-[hsl(var(--status-otimo-bg))] text-[hsl(var(--status-otimo))] font-bold text-lg">{financeiro.vinculo.otimo}</div>
+                  <div className="py-2 bg-[hsl(var(--status-bom-bg))] text-[hsl(var(--status-bom))] font-bold text-lg">{financeiro.vinculo.bom}</div>
+                  <div className="py-2 bg-[hsl(var(--status-suficiente-bg))] text-[hsl(var(--status-suficiente))] font-bold text-lg">{financeiro.vinculo.suficiente}</div>
+                  <div className="py-2 bg-[hsl(var(--status-regular-bg))] text-[hsl(var(--status-regular))] font-bold text-lg">{financeiro.vinculo.regular}</div>
                 </div>
-                <div className="py-2 bg-[hsl(var(--status-otimo))] text-white text-xs font-bold tracking-wide">ÓTIMO</div>
-                <div className="py-2 bg-[hsl(var(--status-bom))] text-white text-xs font-bold tracking-wide">BOM</div>
-                <div className="py-2 bg-[hsl(var(--status-suficiente))] text-white text-xs font-bold tracking-wide">SUFICIENTE</div>
-                <div className="py-2 bg-[hsl(var(--status-regular))] text-white text-xs font-bold tracking-wide">REGULAR</div>
-                <div className="py-2 bg-[hsl(var(--status-otimo-bg))] text-[hsl(var(--status-otimo))] font-bold text-lg">{financeiro.vinculo.otimo}</div>
-                <div className="py-2 bg-[hsl(var(--status-bom-bg))] text-[hsl(var(--status-bom))] font-bold text-lg">{financeiro.vinculo.bom}</div>
-                <div className="py-2 bg-[hsl(var(--status-suficiente-bg))] text-[hsl(var(--status-suficiente))] font-bold text-lg">{financeiro.vinculo.suficiente}</div>
-                <div className="py-2 bg-[hsl(var(--status-regular-bg))] text-[hsl(var(--status-regular))] font-bold text-lg">{financeiro.vinculo.regular}</div>
-              </div>
+              )}
+
+              {financeiroSubTab === 'Qualidade eSF/eAP' && (
+                <div className="rounded-md overflow-hidden border border-border text-sm">
+                  {/* Header */}
+                  <div className="grid grid-cols-5 text-center">
+                    <div className="p-3 text-left text-[13px] font-medium text-muted-foreground border-r border-border bg-card">
+                      Classificação das equipes nos indicadores
+                    </div>
+                    <div className="py-2 bg-[hsl(var(--status-otimo))] text-white text-xs font-bold tracking-wide flex items-center justify-center">ÓTIMO</div>
+                    <div className="py-2 bg-[hsl(var(--status-bom))] text-white text-xs font-bold tracking-wide flex items-center justify-center">BOM</div>
+                    <div className="py-2 bg-[hsl(var(--status-suficiente))] text-white text-xs font-bold tracking-wide flex items-center justify-center">SUFICIENTE</div>
+                    <div className="py-2 bg-[hsl(var(--status-regular))] text-white text-xs font-bold tracking-wide flex items-center justify-center">REGULAR</div>
+                  </div>
+                  {/* Rows */}
+                  {financeiro.qualidadeIndicadores.map((row, i) => (
+                    <div key={i} className="grid grid-cols-5 text-center border-t border-border">
+                      <div className="p-3 text-left text-[13px] text-foreground border-r border-border">{row.label}</div>
+                      <div className="py-2.5 bg-[hsl(var(--status-otimo-bg))] text-[hsl(var(--status-otimo))] font-semibold">{row.otimo}</div>
+                      <div className="py-2.5 bg-[hsl(var(--status-bom-bg))] text-[hsl(var(--status-bom))] font-semibold">{row.bom}</div>
+                      <div className="py-2.5 bg-[hsl(var(--status-suficiente-bg))] text-[hsl(var(--status-suficiente))] font-semibold">{row.suficiente}</div>
+                      <div className="py-2.5 bg-[hsl(var(--status-regular-bg))] text-[hsl(var(--status-regular))] font-semibold">{row.regular}</div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </CardContent>
           </Card>
         )}
@@ -348,9 +401,63 @@ const SalaDeSituacao: React.FC = () => {
         {/* Crianças */}
         {perfilTab === 'Crianças' && (
           <Card>
-            <CardContent className="flex items-center justify-center py-12">
-              <p className="text-muted-foreground">Módulo em construção</p>
+            <CardHeader className="pb-2">
+              <div className="flex items-center gap-2">
+                <img src={iconeCriancaActive} alt="Crianças" className="w-4 h-4" />
+                <CardTitle className="text-base font-medium">Cobertura vacinal em crianças</CardTitle>
+                <HelpCircle className="w-3.5 h-3.5 text-muted-foreground" />
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {/* Faixa etária tabs */}
+              <div className="flex gap-6 border-b border-border">
+                {['Menores de 1 ano', 'Entre 1 e 2 anos'].map((tab) => (
+                  <button
+                    key={tab}
+                    onClick={() => setCriancaFaixaTab(tab)}
+                    className={`pb-2.5 text-sm font-medium transition-colors border-b-2 ${
+                      criancaFaixaTab === tab
+                        ? 'border-primary text-primary'
+                        : 'border-transparent text-muted-foreground hover:text-foreground'
+                    }`}
+                  >
+                    {tab}
+                  </button>
+                ))}
+              </div>
+
+              {/* Vaccination table */}
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-border">
+                      <th className="text-left py-3 pr-4 font-normal text-muted-foreground"></th>
+                      <th className="text-right py-3 px-4 font-semibold text-foreground text-[13px]">Crianças imunizadas</th>
+                      <th className="text-right py-3 pl-4 font-semibold text-foreground text-[13px]">Crianças não imunizadas</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {(vacinacaoCriancas[criancaFaixaTab as keyof typeof vacinacaoCriancas] || []).map((row, i) => (
+                      <tr key={i} className="border-b border-border last:border-b-0">
+                        <td className="py-3 pr-4 text-foreground">{row.vacina}</td>
+                        <td className="py-3 px-4 text-right text-muted-foreground">
+                          {row.imunizadas.toLocaleString('pt-BR')} ({row.percImunizadas}%)
+                        </td>
+                        <td className="py-3 pl-4 text-right text-muted-foreground">
+                          {row.naoImunizadas.toLocaleString('pt-BR')} ({row.percNaoImunizadas}%)
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </CardContent>
+            <div className="px-5 py-3 bg-[hsl(45,100%,95%)] border-t border-[hsl(45,80%,80%)] flex items-center gap-2">
+              <Info className="w-3.5 h-3.5 text-[hsl(45,80%,40%)] shrink-0" />
+              <p className="text-xs text-[hsl(45,50%,30%)]">
+                Os dados apresentados são exclusivamente registrados na APS e na RNDS.
+              </p>
+            </div>
           </Card>
         )}
       </section>
