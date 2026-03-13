@@ -113,6 +113,7 @@ const SalaDeSituacao: React.FC = () => {
   const [financeiroTab, setFinanceiroTab] = useState<string>('Financiamento');
   const [financeiroSubTab, setFinanceiroSubTab] = useState<string>('Vínculo e acompanhamento');
   const [perfilTab, setPerfilTab] = useState<string>('Gestantes e puérperas');
+  const [criancaFaixaTab, setCriancaFaixaTab] = useState<string>('Menores de 1 ano');
 
   return (
     <div className="space-y-8">
