@@ -78,6 +78,11 @@ const menuItems: MenuItem[] = [
         label: 'Qualidade eSF/eAP',
         path: '/financiamento-aps/qualidade-esf-eap',
         hasActiveState: true,
+        children: [
+          { label: 'Visão geral', path: '/financiamento-aps/qualidade-esf-eap' },
+          { label: 'Relatório', path: '/financiamento-aps/qualidade-esf-eap/relatorio' },
+          { label: 'Individualizado', path: '/financiamento-aps/qualidade-esf-eap/individualizado' },
+        ],
       },
     ],
   },
