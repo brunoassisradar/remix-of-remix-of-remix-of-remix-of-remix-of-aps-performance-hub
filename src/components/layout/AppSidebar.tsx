@@ -6,7 +6,7 @@ import {
   FileText,
   AlertCircle,
   CheckSquare,
-  MessageSquare,
+  DollarSign,
   ChevronDown,
   ChevronRight,
   Compass,
@@ -64,13 +64,18 @@ const menuItems: MenuItem[] = [
     ],
   },
   {
-    label: 'Comunicação',
-    icon: MessageSquare,
-    path: '/comunicacao',
+    label: 'Financeiro',
+    icon: DollarSign,
+    path: '/financeiro',
     children: [
       {
-        label: 'Minhas Comunicações',
-        path: '/comunicacao/minhas-comunicacoes',
+        label: 'Visão geral',
+        path: '/financeiro/visao-geral',
+        hasActiveState: true,
+      },
+      {
+        label: 'Relatório',
+        path: '/financeiro/relatorio',
         hasActiveState: true,
       },
     ],
@@ -159,12 +164,12 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
   };
 
   const isInLinhasDeCuidadoSection = location.pathname.startsWith('/linhas-de-cuidado');
-  const isInComunicacaoSection = location.pathname.startsWith('/comunicacao');
+  const isInFinanceiroSection = location.pathname.startsWith('/financeiro');
 
   const isParentActive = (item: MenuItem) => {
     if (!item.children) return false;
     if (item.label === 'Linhas de cuidado' && isInLinhasDeCuidadoSection) return true;
-    if (item.label === 'Comunicação' && isInComunicacaoSection) return true;
+    if (item.label === 'Financeiro' && isInFinanceiroSection) return true;
     return item.children.some((child) => isSecondaryActive(child));
   };
 
