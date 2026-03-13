@@ -81,7 +81,7 @@ const SalaDeSituacao: React.FC = () => {
   const [perfilTab, setPerfilTab] = useState<string>('Gestantes e puérperas');
 
   return (
-    <div className="p-6 space-y-8">
+    <div className="space-y-8">
       {/* Title */}
       <h1 className="text-[26px] font-medium text-foreground">Bem-vindo (a), nome do usuário</h1>
 
