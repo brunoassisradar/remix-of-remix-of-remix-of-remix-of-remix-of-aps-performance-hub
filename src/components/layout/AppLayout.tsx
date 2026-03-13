@@ -11,7 +11,7 @@ export const AppLayout: React.FC = () => {
       <AppHeader onToggleSidebar={() => setSidebarCollapsed(!sidebarCollapsed)} />
       <div className="flex flex-1 overflow-hidden">
         <AppSidebar collapsed={sidebarCollapsed} onCollapse={setSidebarCollapsed} />
-        <main className="flex-1 overflow-auto p-6">
+        <main className="flex-1 overflow-auto p-7">
           <Outlet />
         </main>
       </div>
