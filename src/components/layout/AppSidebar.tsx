@@ -7,6 +7,7 @@ import {
   AlertCircle,
   CheckSquare,
   DollarSign,
+  Wallet,
   ChevronDown,
   ChevronRight,
   Compass,
