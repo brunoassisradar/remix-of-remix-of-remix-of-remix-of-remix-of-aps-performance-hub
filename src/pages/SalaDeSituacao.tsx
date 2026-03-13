@@ -326,7 +326,7 @@ const SalaDeSituacao: React.FC = () => {
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="text-base font-medium flex items-center gap-2">
-                <img src={iconeDiabetes} alt="Diabetes" className="w-4 h-4" />
+                <img src={iconeDiabetesActive} alt="Diabetes" className="w-4 h-4" />
                 Pessoas com diabetes tipo II sem consulta
               </CardTitle>
             </CardHeader>
