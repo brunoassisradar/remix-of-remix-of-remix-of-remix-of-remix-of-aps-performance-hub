@@ -6,7 +6,7 @@ import {
   FileText,
   AlertCircle,
   CheckSquare,
-  MessageSquare,
+  DollarSign,
   ChevronDown,
   ChevronRight,
   Compass,
