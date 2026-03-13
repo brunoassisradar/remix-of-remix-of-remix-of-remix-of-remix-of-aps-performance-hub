@@ -259,7 +259,7 @@ const SalaDeSituacao: React.FC = () => {
           onChange={(val) => setPerfilTab(val as string)}
         />
 
-        {/* Gestantes e puérperas */}
+        {/* Gestantes */}
         {perfilTab === 'Gestantes e puérperas' && (
           <div className="space-y-4">
             {/* Quantidade de gestações card */}
