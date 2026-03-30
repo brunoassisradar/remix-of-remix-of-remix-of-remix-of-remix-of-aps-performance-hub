@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import gestantePerfilIcon from '@/assets/gestante-perfil-icon.png';
+import { FloatingVersionToggle } from '@/components/sala-situacao/FloatingVersionToggle';
+import SalaDeSituacaoEstrategico from '@/components/sala-situacao/SalaDeSituacaoEstrategico';
 import iconeGestanteDefault from '@/assets/icone-gestante-default.svg';
 import iconeGestanteActive from '@/assets/icone-gestante-active.svg';
 import iconeDiabetesDefault from '@/assets/icone-diabetes-default.svg';
