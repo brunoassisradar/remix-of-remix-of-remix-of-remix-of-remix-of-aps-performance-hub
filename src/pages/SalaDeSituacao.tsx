@@ -112,13 +112,24 @@ const vacinacaoCriancas = {
 // ── Component ──
 const SalaDeSituacao: React.FC = () => {
   const navigate = useNavigate();
+  const [version, setVersion] = useState<'tatico' | 'estrategico'>('tatico');
   const [financeiroTab, setFinanceiroTab] = useState<string>('Financiamento');
   const [financeiroSubTab, setFinanceiroSubTab] = useState<string>('Vínculo e acompanhamento');
   const [perfilTab, setPerfilTab] = useState<string>('Gestantes e puérperas');
   const [criancaFaixaTab, setCriancaFaixaTab] = useState<string>('Menores de 1 ano');
 
+  if (version === 'estrategico') {
+    return (
+      <>
+        <SalaDeSituacaoEstrategico />
+        <FloatingVersionToggle version={version} onVersionChange={setVersion} />
+      </>
+    );
+  }
+
   return (
     <div className="space-y-8">
+      <FloatingVersionToggle version={version} onVersionChange={setVersion} />
       {/* Title */}
       <h1 className="text-[26px] font-medium text-foreground">Bem-vindo (a), nome do usuário</h1>
 
