@@ -1,5 +1,4 @@
 import React, { useState, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
 import {
   DollarSign, Users, TrendingUp, TrendingDown, AlertTriangle,
   HeartPulse, Baby, Eye, Hospital, HelpCircle, ChevronRight,
@@ -9,11 +8,9 @@ import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   Area, AreaChart, Legend,
 } from 'recharts';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { GaugeChart } from '@/components/gestantes/GaugeChart';
-import { SectionHeader } from '@/components/gestantes/SectionHeader';
 import { DraggableCard } from './DraggableCard';
 import { OverflowTabs } from './OverflowTabs';
+import { SectionHeader } from '@/components/gestantes/SectionHeader';
 import iconeGestanteActive from '@/assets/icone-gestante-active.svg';
 import iconeGestanteDefault from '@/assets/icone-gestante-default.svg';
 import iconeDiabetesActive from '@/assets/icone-diabetes-active.svg';
@@ -92,13 +89,14 @@ const classificacaoColors: Record<string, string> = {
 
 // ── Component ──
 const SalaDeSituacaoEstrategico: React.FC = () => {
-  const navigate = useNavigate();
   const [financeiroLeftTab, setFinanceiroLeftTab] = useState('Entradas');
   const [financeiroRightTab, setFinanceiroRightTab] = useState('Vínculo e Acompanhamento');
   const [perfilTab, setPerfilTab] = useState('Gestantes e puérperas');
+  const [metricasTab, setMetricasTab] = useState('IEGM');
 
-  // Drag & drop state for cards order
-  const [cardOrder, setCardOrder] = useState(['financeiro', 'populacao', 'metricas']);
+  const [cardOrder, setCardOrder] = useState([
+    'fin-entradas', 'fin-vinculo', 'populacao', 'metricas',
+  ]);
   const [draggedId, setDraggedId] = useState<string | null>(null);
 
   const handleDragStart = useCallback((_e: React.DragEvent, id: string) => {
@@ -118,237 +116,180 @@ const SalaDeSituacaoEstrategico: React.FC = () => {
     setDraggedId(null);
   }, [draggedId]);
 
-  const renderFinanceiroCard = () => (
-    <DraggableCard id="financeiro" key="financeiro" onDragStart={handleDragStart} onDrop={handleDrop}>
-      <div className="p-1">
-        <div className="px-4 pt-4 pb-2">
-          <SectionHeader
-            title="Financeiro APS"
-            icon={<DollarSign className="w-4 h-4 text-primary" />}
-            linkTo="/financeiro/visao-geral"
-            linkLabel="Visão geral Financeira"
-          />
-        </div>
+  const dragProps = {
+    onDragStart: handleDragStart,
+    onDrop: handleDrop,
+  };
 
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-0 lg:gap-4 px-4 pb-4">
-          {/* Left panel - 3 cols */}
-          <div className="lg:col-span-3 border border-border rounded-lg overflow-hidden">
-            <OverflowTabs
-              tabs={['Entradas', 'Perdas Clínicas', 'Perdas administrativa', 'Histórico de perdas']}
-              activeTab={financeiroLeftTab}
-              onTabChange={setFinanceiroLeftTab}
-            />
-            <div className="p-5 min-h-[320px]">
-              {financeiroLeftTab === 'Entradas' && <EntradasContent />}
-              {financeiroLeftTab === 'Perdas Clínicas' && <PerdasClinicasContent />}
-              {financeiroLeftTab === 'Perdas administrativa' && <PerdasAdminContent />}
-              {financeiroLeftTab === 'Histórico de perdas' && <HistoricoPerdasContent />}
-            </div>
-          </div>
-
-          {/* Right panel - 2 cols */}
-          <div className="lg:col-span-2 border border-border rounded-lg overflow-hidden">
-            <OverflowTabs
-              tabs={['Vínculo e Acompanhamento', 'Qualidade']}
-              activeTab={financeiroRightTab}
-              onTabChange={setFinanceiroRightTab}
-            />
-            <div className="p-5 min-h-[320px] flex flex-col items-center justify-center">
-              <VinculoGaugeContent />
-            </div>
-          </div>
-        </div>
+  const renderFinEntradas = () => (
+    <DraggableCard id="fin-entradas" key="fin-entradas" {...dragProps}>
+      <OverflowTabs
+        tabs={['Entradas', 'Perdas Clínicas', 'Perdas administrativa', 'Histórico de perdas']}
+        activeTab={financeiroLeftTab}
+        onTabChange={setFinanceiroLeftTab}
+        variant="card"
+      />
+      <div className="p-5 min-h-[300px]">
+        {financeiroLeftTab === 'Entradas' && <EntradasContent />}
+        {financeiroLeftTab === 'Perdas Clínicas' && <PerdasClinicasContent />}
+        {financeiroLeftTab === 'Perdas administrativa' && <PerdasAdminContent />}
+        {financeiroLeftTab === 'Histórico de perdas' && <HistoricoPerdasContent />}
       </div>
     </DraggableCard>
   );
 
-  const renderPopulacaoCard = () => (
-    <DraggableCard id="populacao" key="populacao" onDragStart={handleDragStart} onDrop={handleDrop}>
-      <div className="p-1">
-        <div className="px-4 pt-4 pb-2 flex items-center justify-between">
-          <SectionHeader
-            title="População"
-            icon={<Users className="w-4 h-4 text-primary" />}
-            linkTo="/linhas-de-cuidado"
-            linkLabel="Linha de cuidado"
-          />
-        </div>
+  const renderFinVinculo = () => (
+    <DraggableCard id="fin-vinculo" key="fin-vinculo" {...dragProps}>
+      <OverflowTabs
+        tabs={['Vínculo e Acompanhamento', 'Qualidade']}
+        activeTab={financeiroRightTab}
+        onTabChange={setFinanceiroRightTab}
+        variant="card"
+      />
+      <div className="p-5 min-h-[300px] flex flex-col items-center justify-center">
+        <VinculoGaugeContent />
+      </div>
+    </DraggableCard>
+  );
 
-        <div className="px-4 pb-2">
-          <div className="flex items-center gap-1 border-b border-border">
-            {[
-              { label: 'Hipertensos', icon: <HeartPulse className="w-3.5 h-3.5" />, value: 'Hipertensos' },
-              { label: 'Diabéticos', iconSrc: perfilTab === 'Diabéticos' ? iconeDiabetesActive : iconeDiabetesDefault, value: 'Diabéticos' },
-              { label: 'Gestantes e puérperas', iconSrc: perfilTab === 'Gestantes e puérperas' ? iconeGestanteActive : iconeGestanteDefault, value: 'Gestantes e puérperas' },
-              { label: 'Crianças', iconSrc: perfilTab === 'Crianças' ? iconeCriancaActive : iconeCriancaDefault, value: 'Crianças' },
-            ].map((item) => (
-              <button
-                key={item.value}
-                onClick={() => setPerfilTab(item.value)}
-                className={`flex items-center gap-1.5 px-3 py-2.5 text-sm font-medium whitespace-nowrap transition-colors border-b-2 -mb-px ${
-                  perfilTab === item.value
-                    ? 'border-primary text-primary'
-                    : 'border-transparent text-muted-foreground hover:text-foreground'
-                }`}
-              >
-                {item.icon ? item.icon : <img src={item.iconSrc} alt="" className="w-3.5 h-3.5" />}
-                {item.label}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {perfilTab === 'Gestantes e puérperas' && (
-          <div className="px-4 pb-4">
-            <div className="rounded-lg border border-border overflow-hidden">
-              <div className="px-5 py-4 bg-gradient-to-r from-primary/5 via-transparent to-transparent">
-                <div className="flex items-start gap-3">
-                  <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-primary/10 shrink-0">
-                    <img src={iconeGestanteActive} alt="" className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <p className="text-base font-semibold text-foreground">{resumo.totalGestantes} gestações ativas</p>
-                    <p className="text-sm text-muted-foreground mt-0.5">
-                      Sendo que <span className="font-semibold text-primary">{resumo.parirProx30Dias}</span> têm probabilidade de parir nos próximos 30 dias.
-                    </p>
-                    <div className="flex items-center gap-3 mt-2">
-                      <span className="text-[13px] text-muted-foreground">
-                        <span className="font-semibold text-foreground">{resumo.percentMenores18}%</span> com menos de 18 anos
-                      </span>
-                      <span className="text-[13px] text-muted-foreground">
-                        <span className="font-semibold text-foreground">{resumo.percentMaiores40}%</span> com mais de 40 anos
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="grid grid-cols-4 divide-x divide-border border-t border-border">
-                <div className="px-4 py-3 text-center">
-                  <div className="flex items-center justify-center gap-1.5 mb-1">
-                    <Users className="w-3.5 h-3.5 text-muted-foreground" />
-                    <p className="text-xs text-muted-foreground">Total gestantes</p>
-                  </div>
-                  <p className="text-xl font-bold text-foreground">{resumo.totalGestantes}</p>
-                </div>
-                <div className="px-4 py-3 text-center">
-                  <div className="flex items-center justify-center gap-1.5 mb-1">
-                    <Baby className="w-3.5 h-3.5 text-muted-foreground" />
-                    <p className="text-xs text-muted-foreground">Parir em 30 dias</p>
-                  </div>
-                  <p className="text-xl font-bold text-primary">{resumo.parirProx30Dias}</p>
-                </div>
-                <div className="px-4 py-3 text-center bg-[hsl(var(--status-regular-bg))]">
-                  <div className="flex items-center justify-center gap-1.5 mb-1">
-                    <AlertTriangle className="w-3.5 h-3.5 text-[hsl(var(--status-regular))]" />
-                    <p className="text-xs text-muted-foreground">Risco alto</p>
-                  </div>
-                  <p className="text-xl font-bold text-[hsl(var(--status-regular))]">{resumo.riscoAlto}</p>
-                </div>
-                <div className="px-4 py-3 text-center bg-[hsl(var(--status-suficiente-bg))]">
-                  <div className="flex items-center justify-center gap-1.5 mb-1">
-                    <HeartPulse className="w-3.5 h-3.5 text-[hsl(var(--status-suficiente))]" />
-                    <p className="text-xs text-muted-foreground">Risco intermediário</p>
-                  </div>
-                  <p className="text-xl font-bold text-[hsl(var(--status-suficiente))]">{resumo.riscoIntermediario}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
+  const renderPopulacao = () => (
+    <DraggableCard id="populacao" key="populacao" {...dragProps}>
+      <OverflowTabs
+        tabs={['Gestantes e puérperas', 'Hipertensos', 'Diabéticos', 'Crianças']}
+        activeTab={perfilTab}
+        onTabChange={setPerfilTab}
+        variant="card"
+        renderTabLabel={(tab, isActive) => {
+          const iconMap: Record<string, { active: string; default: string }> = {
+            'Gestantes e puérperas': { active: iconeGestanteActive, default: iconeGestanteDefault },
+            'Diabéticos': { active: iconeDiabetesActive, default: iconeDiabetesDefault },
+            'Crianças': { active: iconeCriancaActive, default: iconeCriancaDefault },
+          };
+          const icons = iconMap[tab];
+          return (
+            <span className="inline-flex items-center gap-1.5">
+              {icons ? (
+                <img src={isActive ? icons.active : icons.default} alt="" className="w-4 h-4" />
+              ) : (
+                <HeartPulse className={`w-4 h-4 ${isActive ? 'text-primary' : 'text-muted-foreground'}`} />
+              )}
+              {tab}
+            </span>
+          );
+        }}
+      />
+      <div className="p-5">
+        {perfilTab === 'Gestantes e puérperas' && <GestantesContent />}
         {(perfilTab === 'Hipertensos' || perfilTab === 'Diabéticos' || perfilTab === 'Crianças') && (
-          <div className="px-4 pb-4">
-            <div className="rounded-lg border border-border p-6 text-center text-sm text-muted-foreground">
-              Conteúdo de {perfilTab} — mesma estrutura da versão tática.
-            </div>
+          <div className="rounded-lg border border-border p-6 text-center text-sm text-muted-foreground">
+            Conteúdo de {perfilTab} — mesma estrutura da versão tática.
           </div>
         )}
       </div>
     </DraggableCard>
   );
 
-  const renderMetricasCard = () => (
-    <DraggableCard id="metricas" key="metricas" onDragStart={handleDragStart} onDrop={handleDrop}>
-      <div className="p-1">
-        <div className="px-4 pt-4 pb-2">
-          <SectionHeader
-            title="Métricas APS"
-            icon={<Users className="w-4 h-4 text-primary" />}
-            linkTo="/linhas-de-cuidado"
-            linkLabel="Linha de cuidado"
-          />
-        </div>
-
-        <div className="px-4 pb-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-          {/* IEGM */}
-          <div className="border border-border rounded-lg overflow-hidden">
-            <div className="p-4 flex items-center gap-2">
-              <Eye className="w-4 h-4 text-muted-foreground" />
-              <span className="text-sm font-medium text-foreground">Nota IEGM</span>
-              <HelpCircle className="w-3.5 h-3.5 text-muted-foreground" />
-            </div>
-            <div className="flex flex-col items-center py-6 gap-1">
-              <span className="text-4xl font-bold text-primary">{metricas.iegm.nota}</span>
-              <p className="text-sm text-primary font-medium">nota no I-Saúde</p>
-              <div className="mt-3 text-center text-sm text-muted-foreground space-y-0.5">
-                <p>IEGM {metricas.iegm.geral}</p>
-                <p>nota do IEGM geral</p>
-              </div>
-              <p className="text-xs text-muted-foreground mt-3">Notas referentes ao ano de {metricas.iegm.ano}.</p>
-            </div>
-            <div className="px-4 py-2.5 border-t border-border">
-              <p className="text-xs text-muted-foreground">Fonte: TCE-SC.</p>
-            </div>
-          </div>
-
-          {/* ICSAPS */}
-          <div className="border border-border rounded-lg overflow-hidden">
-            <div className="p-4 flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <Hospital className="w-4 h-4 text-muted-foreground" />
-                <span className="text-sm font-medium text-foreground">Internações por Condições Sensíveis à Atenção Primária (ICSAPS)</span>
-              </div>
-              <HelpCircle className="w-3.5 h-3.5 text-muted-foreground" />
-            </div>
-            <div className="px-4 pb-4 space-y-3">
-              <div className="flex items-start gap-3 p-3 rounded-lg bg-accent/50">
-                <span className="text-xl font-bold text-primary shrink-0">{metricas.icsaps.municipio}%</span>
-                <p className="text-sm text-muted-foreground">
-                  das internações no município foram por Condições Sensíveis à Atenção Primária em {metricas.icsaps.ano}.
-                </p>
-              </div>
-              <div className="flex items-start gap-3 p-3 rounded-lg bg-accent/50">
-                <span className="text-xl font-bold text-primary shrink-0">{metricas.icsaps.residentes}%</span>
-                <p className="text-sm text-muted-foreground">
-                  das internações de residentes do município foram por Condições Sensíveis à Atenção Primária em {metricas.icsaps.ano}.
-                </p>
-              </div>
-            </div>
-            <div className="px-4 py-2.5 border-t border-border">
-              <p className="text-xs text-muted-foreground">Fonte: SIH.</p>
-            </div>
-          </div>
-        </div>
+  const renderMetricas = () => (
+    <DraggableCard id="metricas" key="metricas" {...dragProps}>
+      <OverflowTabs
+        tabs={['IEGM', 'ICSAPS']}
+        activeTab={metricasTab}
+        onTabChange={setMetricasTab}
+        variant="card"
+      />
+      <div className="p-5">
+        {metricasTab === 'IEGM' && <IEGMContent />}
+        {metricasTab === 'ICSAPS' && <ICSAPSContent />}
       </div>
     </DraggableCard>
   );
 
   const cardRenderers: Record<string, () => React.ReactNode> = {
-    financeiro: renderFinanceiroCard,
-    populacao: renderPopulacaoCard,
-    metricas: renderMetricasCard,
+    'fin-entradas': renderFinEntradas,
+    'fin-vinculo': renderFinVinculo,
+    populacao: renderPopulacao,
+    metricas: renderMetricas,
   };
 
   return (
     <div className="space-y-6">
       <h1 className="text-[26px] font-medium text-foreground">Bem-vindo (a), nome do usuário</h1>
 
-      {cardOrder.map((id) => cardRenderers[id]?.())}
+      {/* Financeiro row: side by side */}
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
+        <div className="lg:col-span-3">
+          {cardRenderers['fin-entradas']?.()}
+        </div>
+        <div className="lg:col-span-2">
+          {cardRenderers['fin-vinculo']?.()}
+        </div>
+      </div>
+
+      {/* Remaining cards stacked, but draggable to reorder */}
+      {cardOrder
+        .filter((id) => id !== 'fin-entradas' && id !== 'fin-vinculo')
+        .map((id) => cardRenderers[id]?.())}
     </div>
   );
 };
 
 // ── Sub-components ──
+
+const GestantesContent: React.FC = () => (
+  <div className="rounded-lg border border-border overflow-hidden">
+    <div className="px-5 py-4 bg-gradient-to-r from-primary/5 via-transparent to-transparent">
+      <div className="flex items-start gap-3">
+        <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-primary/10 shrink-0">
+          <img src={iconeGestanteActive} alt="" className="w-6 h-6" />
+        </div>
+        <div>
+          <p className="text-base font-semibold text-foreground">{resumo.totalGestantes} gestações ativas</p>
+          <p className="text-sm text-muted-foreground mt-0.5">
+            Sendo que <span className="font-semibold text-primary">{resumo.parirProx30Dias}</span> têm probabilidade de parir nos próximos 30 dias.
+          </p>
+          <div className="flex items-center gap-3 mt-2">
+            <span className="text-[13px] text-muted-foreground">
+              <span className="font-semibold text-foreground">{resumo.percentMenores18}%</span> com menos de 18 anos
+            </span>
+            <span className="text-[13px] text-muted-foreground">
+              <span className="font-semibold text-foreground">{resumo.percentMaiores40}%</span> com mais de 40 anos
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div className="grid grid-cols-4 divide-x divide-border border-t border-border">
+      <div className="px-4 py-3 text-center">
+        <div className="flex items-center justify-center gap-1.5 mb-1">
+          <Users className="w-3.5 h-3.5 text-muted-foreground" />
+          <p className="text-xs text-muted-foreground">Total gestantes</p>
+        </div>
+        <p className="text-xl font-bold text-foreground">{resumo.totalGestantes}</p>
+      </div>
+      <div className="px-4 py-3 text-center">
+        <div className="flex items-center justify-center gap-1.5 mb-1">
+          <Baby className="w-3.5 h-3.5 text-muted-foreground" />
+          <p className="text-xs text-muted-foreground">Parir em 30 dias</p>
+        </div>
+        <p className="text-xl font-bold text-primary">{resumo.parirProx30Dias}</p>
+      </div>
+      <div className="px-4 py-3 text-center bg-[hsl(var(--status-regular-bg))]">
+        <div className="flex items-center justify-center gap-1.5 mb-1">
+          <AlertTriangle className="w-3.5 h-3.5 text-[hsl(var(--status-regular))]" />
+          <p className="text-xs text-muted-foreground">Risco alto</p>
+        </div>
+        <p className="text-xl font-bold text-[hsl(var(--status-regular))]">{resumo.riscoAlto}</p>
+      </div>
+      <div className="px-4 py-3 text-center bg-[hsl(var(--status-suficiente-bg))]">
+        <div className="flex items-center justify-center gap-1.5 mb-1">
+          <HeartPulse className="w-3.5 h-3.5 text-[hsl(var(--status-suficiente))]" />
+          <p className="text-xs text-muted-foreground">Risco intermediário</p>
+        </div>
+        <p className="text-xl font-bold text-[hsl(var(--status-suficiente))]">{resumo.riscoIntermediario}</p>
+      </div>
+    </div>
+  </div>
+);
 
 const EntradasContent: React.FC = () => {
   const d = entradasData;
@@ -537,12 +478,10 @@ const VinculoGaugeContent: React.FC = () => {
     'hsl(var(--status-bom))',
     'hsl(var(--status-otimo))',
   ];
-  // Position of indicator: nota 3 = Regular (index 0)
   const indicatorPosition = ((d.nota - 1) / 10) * 100;
 
   return (
     <div className="flex flex-col items-center gap-4 w-full">
-      {/* Gauge-like circle */}
       <div className="relative w-36 h-36">
         <svg viewBox="0 0 36 36" className="w-full h-full">
           <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
@@ -551,7 +490,6 @@ const VinculoGaugeContent: React.FC = () => {
             fill="none" stroke={classificacaoColors[d.classificacao]} strokeWidth="3"
             strokeDasharray="30, 100" />
         </svg>
-        {/* Red dot at top */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1 w-3 h-3 rounded-full bg-[hsl(var(--status-regular))] border-2 border-card" />
         <div className="absolute inset-0 flex flex-col items-center justify-center">
           <span className="text-3xl font-bold text-foreground">{d.nota}</span>
@@ -561,10 +499,8 @@ const VinculoGaugeContent: React.FC = () => {
 
       <p className="text-sm text-muted-foreground">Válidos para o financiamento</p>
 
-      {/* Color bar */}
       <div className="w-full max-w-xs">
         <div className="flex h-3 rounded-full overflow-hidden relative">
-          {/* Indicator marker */}
           <div className="absolute top-0 -translate-y-1 z-10" style={{ left: `${indicatorPosition}%` }}>
             <div className="w-3 h-5 bg-foreground rounded-sm" />
           </div>
@@ -581,5 +517,52 @@ const VinculoGaugeContent: React.FC = () => {
     </div>
   );
 };
+
+const IEGMContent: React.FC = () => (
+  <div className="flex flex-col items-center py-6 gap-1">
+    <div className="flex items-center gap-2 mb-2">
+      <Eye className="w-4 h-4 text-muted-foreground" />
+      <span className="text-sm font-medium text-foreground">Nota IEGM</span>
+      <HelpCircle className="w-3.5 h-3.5 text-muted-foreground" />
+    </div>
+    <span className="text-4xl font-bold text-primary">{metricas.iegm.nota}</span>
+    <p className="text-sm text-primary font-medium">nota no I-Saúde</p>
+    <div className="mt-3 text-center text-sm text-muted-foreground space-y-0.5">
+      <p>IEGM {metricas.iegm.geral}</p>
+      <p>nota do IEGM geral</p>
+    </div>
+    <p className="text-xs text-muted-foreground mt-3">Notas referentes ao ano de {metricas.iegm.ano}.</p>
+    <div className="mt-2 pt-2 border-t border-border w-full text-center">
+      <p className="text-xs text-muted-foreground">Fonte: TCE-SC.</p>
+    </div>
+  </div>
+);
+
+const ICSAPSContent: React.FC = () => (
+  <div>
+    <div className="flex items-center gap-2 mb-4">
+      <Hospital className="w-4 h-4 text-muted-foreground" />
+      <span className="text-sm font-medium text-foreground">Internações por Condições Sensíveis à Atenção Primária (ICSAPS)</span>
+      <HelpCircle className="w-3.5 h-3.5 text-muted-foreground" />
+    </div>
+    <div className="space-y-3">
+      <div className="flex items-start gap-3 p-3 rounded-lg bg-accent/50">
+        <span className="text-xl font-bold text-primary shrink-0">{metricas.icsaps.municipio}%</span>
+        <p className="text-sm text-muted-foreground">
+          das internações no município foram por Condições Sensíveis à Atenção Primária em {metricas.icsaps.ano}.
+        </p>
+      </div>
+      <div className="flex items-start gap-3 p-3 rounded-lg bg-accent/50">
+        <span className="text-xl font-bold text-primary shrink-0">{metricas.icsaps.residentes}%</span>
+        <p className="text-sm text-muted-foreground">
+          das internações de residentes do município foram por Condições Sensíveis à Atenção Primária em {metricas.icsaps.ano}.
+        </p>
+      </div>
+    </div>
+    <div className="mt-4 pt-2 border-t border-border">
+      <p className="text-xs text-muted-foreground">Fonte: SIH.</p>
+    </div>
+  </div>
+);
 
 export default SalaDeSituacaoEstrategico;
