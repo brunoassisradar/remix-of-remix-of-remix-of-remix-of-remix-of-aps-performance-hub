@@ -7,6 +7,8 @@ interface OverflowTabsProps {
   activeTab: string;
   onTabChange: (tab: string) => void;
   className?: string;
+  variant?: 'default' | 'card';
+  renderTabLabel?: (tab: string, isActive: boolean) => React.ReactNode;
 }
 
 export const OverflowTabs: React.FC<OverflowTabsProps> = ({
@@ -14,6 +16,8 @@ export const OverflowTabs: React.FC<OverflowTabsProps> = ({
   activeTab,
   onTabChange,
   className,
+  variant = 'default',
+  renderTabLabel,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [visibleCount, setVisibleCount] = useState(tabs.length);
@@ -23,13 +27,13 @@ export const OverflowTabs: React.FC<OverflowTabsProps> = ({
     const checkOverflow = () => {
       const container = containerRef.current;
       if (!container) return;
-      const containerWidth = container.offsetWidth - 40; // reserve space for >> button
+      const containerWidth = container.offsetWidth - 40;
       const children = container.querySelectorAll('[data-tab-item]');
       let totalWidth = 0;
       let count = 0;
       children.forEach((child) => {
         const el = child as HTMLElement;
-        totalWidth += el.offsetWidth + 4; // gap
+        totalWidth += el.offsetWidth + 4;
         if (totalWidth < containerWidth) count++;
       });
       if (count < tabs.length) {
@@ -48,24 +52,41 @@ export const OverflowTabs: React.FC<OverflowTabsProps> = ({
   const overflowTabs = tabs.slice(visibleCount);
   const hasOverflow = overflowTabs.length > 0;
 
+  const isCard = variant === 'card';
+
   return (
     <div className={cn('relative', className)}>
-      <div ref={containerRef} className="flex items-center gap-1 border-b border-border">
-        {visibleTabs.map((tab) => (
-          <button
-            key={tab}
-            data-tab-item
-            onClick={() => onTabChange(tab)}
-            className={cn(
-              'px-4 py-2.5 text-sm font-medium whitespace-nowrap transition-colors border-b-2 -mb-px',
-              activeTab === tab
-                ? 'border-primary text-primary'
-                : 'border-transparent text-muted-foreground hover:text-foreground'
-            )}
-          >
-            {tab}
-          </button>
-        ))}
+      <div
+        ref={containerRef}
+        className={cn(
+          'flex items-center gap-0',
+          isCard
+            ? 'bg-muted/40 border-b border-border'
+            : 'border-b border-border'
+        )}
+      >
+        {visibleTabs.map((tab) => {
+          const isActive = activeTab === tab;
+          return (
+            <button
+              key={tab}
+              data-tab-item
+              onClick={() => onTabChange(tab)}
+              className={cn(
+                'px-4 py-2.5 text-sm font-medium whitespace-nowrap transition-colors',
+                isCard
+                  ? isActive
+                    ? 'bg-card text-primary border-t-2 border-t-primary border-x border-x-border border-b border-b-card -mb-px rounded-t-lg'
+                    : 'text-muted-foreground hover:text-foreground border-b border-b-transparent -mb-px'
+                  : isActive
+                    ? 'border-b-2 border-primary text-primary -mb-px'
+                    : 'border-b-2 border-transparent text-muted-foreground hover:text-foreground -mb-px'
+              )}
+            >
+              {renderTabLabel ? renderTabLabel(tab, isActive) : tab}
+            </button>
+          );
+        })}
         {hasOverflow && (
           <div className="relative ml-auto">
             <button
@@ -91,7 +112,7 @@ export const OverflowTabs: React.FC<OverflowTabsProps> = ({
                         : 'text-muted-foreground hover:text-foreground hover:bg-muted'
                     )}
                   >
-                    {tab}
+                    {renderTabLabel ? renderTabLabel(tab, activeTab === tab) : tab}
                   </button>
                 ))}
               </div>
